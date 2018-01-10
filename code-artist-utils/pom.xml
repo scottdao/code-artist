@@ -1,0 +1,17 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>com.code.artist</groupId>
+        <artifactId>code-artist-parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../code-artist-parent</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>code-artist-utils</artifactId>
+    <version>${code-artist-utils.version}</version>
+    <packaging>jar</packaging>
+
+    <dependencies>
+
+    </dependencies>
+</project>

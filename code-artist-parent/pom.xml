@@ -7,9 +7,21 @@
     <version>1.0-SNAPSHOT</version>
     <name>code-artist-parent</name>
     <properties>
+        <!-- common projects -->
+        <code-artist-common.version>1.0-SNAPSHOT</code-artist-common.version>
+        <code-artist-utils.version>1.0-SNAPSHOT</code-artist-utils.version>
+        <!-- facade projects -->
         <code-artist-facade.version>1.0-SNAPSHOT</code-artist-facade.version>
+        <code-artist-facade-portal.version>1.0-SNAPSHOT</code-artist-facade-portal.version>
+        <!-- service projects -->
         <code-artist-service.version>1.0-SNAPSHOT</code-artist-service.version>
+        <code-artist-service-portal.version>1.0-SNAPSHOT</code-artist-service-portal.version>
+        <!-- rest projects-->
+        <code-artist-cms.version>1.0-SNAPSHOT</code-artist-cms.version>
+        <code-artist-portal.version>1.0-SNAPSHOT</code-artist-portal.version>
+        <!-- frameworks -->
     </properties>
+
     <dependencyManagement>
         <dependencies>
 

@@ -7,8 +7,8 @@
         <relativePath>../code-artist-parent</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>code-artist-service</artifactId>
-    <version>${code-artist-service.version}</version>
+    <artifactId>code-artist-service-portal</artifactId>
+    <version>${code-artist-service-portal.version}</version>
     <packaging>jar</packaging>
 
     <dependencies>
