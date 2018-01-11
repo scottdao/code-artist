@@ -35,7 +35,7 @@
     </bean>
 
     <!-- Spring拦截器-->
-    <mvc:interceptors>
+    <!--<mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <mvc:exclude-mapping path="/static/**"/>
@@ -45,5 +45,5 @@
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="20480000"/>
-    </bean>
+    </bean>-->
 </beans>
