@@ -15,7 +15,7 @@ create table t_user
   update_user varchar(50) comment '修改人',
   update_time datetime comment '修改时间',
   description text comment '描述'
-);
+) comment '用户表';
 
 
 
@@ -31,7 +31,7 @@ create table t_role
   update_user varchar(50) comment '修改人',
   update_time datetime comment '修改时间',
   description text comment '描述'
-);
+) comment '角色表';
 
 
 -- 菜单表
@@ -49,7 +49,7 @@ create table t_menu
   update_user varchar(50) comment '修改人',
   update_time datetime comment '修改时间',
   description text comment '描述'
-);
+) comment '菜单表';
 
 
 -- 用户角色表
@@ -58,7 +58,7 @@ create table t_user_role
   id bigint(20) primary key auto_increment comment '用户角色表id',
   user_id varchar(50) not null comment '用户id',
   role_id int(10) not null comment '用户id'
-);
+) comment '用户角色表';
 
 
 -- 用户菜单表
@@ -67,4 +67,4 @@ create table t_role_menu
   id bigint(20) primary key auto_increment comment '用户菜单表id',
   role_id int(10) not null comment '角色id',
   menu_id int(10) not null comment '菜单id'
-);
+) comment '用户菜单表';
