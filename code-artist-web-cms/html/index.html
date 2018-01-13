@@ -4,13 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/easyui/easyui.min.css">
+    <title>Code Artist</title>
     <script src="/easyui/jquery.min.js"></script>
     <script src="/easyui/jquery.easyui.min.js"></script>
+    <style>
+        body {
+            background-color: #512DA8;
+        }
+    </style>
 </head>
 
 <body>
-    <div style="margin:0 auto;width:700px;">
-        <div id="p" class="easyui-panel" title="登陆" style="height:200px;padding:10px;">
+    <div style="margin:200px auto;width:300px;">
+        <div id="p" class="easyui-panel" noheader="false" style="height:200px;padding:10px;border-radius: 10px;">
+            用户名：<input name="username" class="easyui-textbox"><br>
+            密　码：<input name="password" class="easyui-textbox"><br>
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">登陆</a>
         </div>
     </div>
 </body>

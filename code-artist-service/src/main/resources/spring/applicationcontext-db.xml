@@ -31,11 +31,10 @@
     </bean>
 
     <!-- 配置事物 -->
-    <bean name="transactionManager"
-          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"></property>
     </bean>
-    <tx:advice id="userTxAdvice" transaction-manager="transactionManager">
+    <tx:advice id="txAdvice" transaction-manager="txManage">
         <tx:attributes>
             <tx:method name="delete*" propagation="REQUIRED" read-only="false" rollback-for="Exception"/>
             <tx:method name="create*" propagation="REQUIRED" read-only="false" rollback-for="Exception"/>
@@ -45,8 +44,8 @@
         </tx:attributes>
     </tx:advice>
     <aop:config>
-        <aop:pointcut id="pc" expression="execution(* com.gofun.credit.core.service..*.*(..))"/>
-        <aop:advisor pointcut-ref="pc" advice-ref="userTxAdvice"/>
+        <aop:pointcut id="mypoint" expression="execution(* code.artist.core.service..*.*(..))"/>
+        <aop:advisor pointcut-ref="mypoint" advice-ref="txAdvice"/>
     </aop:config>
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 </beans>
