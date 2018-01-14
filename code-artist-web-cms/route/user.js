@@ -3,12 +3,14 @@ const session = require('express-session');
 const request = require('request');
 const app = express();
 
+const config = require('../config/global');
+
 /**
  * 登陆验证
  */
 app.post('/toLogin', function(req, res) {
     var user = req.body;
-    request.post({ url: 'http://localhost:8080/user/login', form: { username: user.username, password: user.password } }, function(err, resp, body) {
+    request.post({ url: config.API_BASE_URL + '/user/login', form: { username: user.username, password: user.password } }, function(err, resp, body) {
         if (!err && resp.statusCode == 200) {
             var respJson = JSON.parse(body);
             console.log(respJson);
