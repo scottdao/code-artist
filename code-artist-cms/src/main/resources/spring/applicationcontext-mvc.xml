@@ -11,7 +11,7 @@
        http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 
     <!-- 注解扫描包 -->
-    <context:component-scan base-package="com.gofun.credit.cms.controller"/>
+    <context:component-scan base-package="code.artist.cms.core.controller"/>
 
     <mvc:annotation-driven>
         <mvc:message-converters>
@@ -25,25 +25,4 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <mvc:resources location="/WEB-INF/static/" mapping="/static/**"/>
-    <mvc:default-servlet-handler/>
-
-    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/WEB-INF/jsp/"/>
-        <property name="suffix" value=".jsp"/>
-    </bean>
-
-    <!-- Spring拦截器-->
-    <!--<mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/static/**"/>
-            <bean class="com.gofun.credit.cms.base.interceptor.AuthorizeInterceptor"></bean>
-        </mvc:interceptor>
-    </mvc:interceptors>
-
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="20480000"/>
-    </bean>-->
 </beans>

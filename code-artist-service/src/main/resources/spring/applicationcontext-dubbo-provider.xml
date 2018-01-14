@@ -3,123 +3,27 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-            http://www.springframework.org/schema/beans/spring-beans.xsd
-            http://code.alibabatech.com/schema/dubbo
-            http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
     <!-- 提供方应用信息，用于计算依赖关系 -->
-    <dubbo:application name="gofun-credit-service-trade" />
+    <dubbo:application name="code-artist-service"/>
 
     <!-- 使用zookeeper注册中心暴露服务地址 -->
     <dubbo:registry protocol="zookeeper" address="${zookeeper.registry.address}"/>
 
     <!-- 用dubbo协议在20900端口暴露服务 -->
-    <dubbo:protocol name="dubbo" port="${zookeeper.protocol.port}" />
+    <dubbo:protocol name="dubbo" port="20813"/>
 
     <!-- 监控中心配置，protocol="registry"，表示从注册中心发现监控中心地址 -->
-    <dubbo:monitor protocol="registry" />
+    <dubbo:monitor protocol="registry"/>
 
     <!-- 当ProtocolConfig和ServiceConfig某属性没有配置时,采用此缺省值 -->
-    <dubbo:provider timeout="30000" threadpool="fixed" threads="500" accepts="1000" />
+    <dubbo:provider timeout="30000" threadpool="fixed" threads="500" accepts="1000"/>
 
     <!-- 声明需要暴露的服务接口 -->
     <!--系统服务-->
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.system.menu.IMenuService" ref="menuService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.system.org.IOrgService" ref="orgService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.system.role.IRoleService" ref="roleService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.user.IUserService" ref="userService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.user.collection.ICollectionService" ref="collectionService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.addressbook.IAddressBookService" ref="addressBookService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.apply.IAppApplyBillService" ref="appApplyBillService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.zhima.IZhimaCreditScoreService" ref="zhimaCreditScoreService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.zhima.IZhiMaLivingIdentificationService" ref="zhiMaLivingIdentificationService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.user.appuser.IAppVersionService" ref="appVersionService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.user.appuser.IAppVersionNewService" ref="appVersionNewService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.user.appuser.IBannerService" ref="bannerService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.user.IBannerInfoService" ref="bannerInfoService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.user.appuser.IFeedbackService" ref="feedbackService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.user.channel.IChannelService" ref="channelService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.user.collection.IBankRepaymentService" ref="bankRepaymentService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.user.collection.ICollectionReportService" ref="collectionReportService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.user.collection.IPaymentService" ref="paymentService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.user.collection.IPhoneApproveService" ref="phoneApproveService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.user.collection.IPhoneCollectionService" ref="phoneCollectionService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.user.collection.ISdOverDueService" ref="sdOverDueService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.user.collection.ISdReportService" ref="sdReportService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.user.collection.IRepaymentactionExtService" ref="repaymentactionExtService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.audit.IApplyBillCutterService" ref="applyBillCutterService"/>
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.audit.IChannelApplyBillCutterService"  ref="channelApplyBillCutterService"/>
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.audit.IXjbkChannelApplyBillCutterService"  ref="xjbkChannelApplyBillCutterService"/>
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.audit.IApplyRecordService" ref="applyRecordService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.audit.IAuditCompositeQueryService" ref="auditCompositeQueryService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.audit.IAuditDistributeService" ref="auditDistributeService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.dasheng.IDashengBlacklistService" ref="dashengBlacklistService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.audit.IDictionaryService" ref="dictionaryService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.audit.IHumanAuditService" ref="humanAuditService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.audit.IPhoneBookService" ref="phoneBookService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.audit.IXsdApplyService" ref="xsdApplyService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.brjf.IBaiRongService" ref="baiRongService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.brjf.IBrjfRuleService" ref="brjfRuleService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.brjf.IBrjfRuleSpecialService" ref="brjfRuleSpecialService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.finance.IFinanceBatchDetailService" ref="financeBatchDetailService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.finance.IFinanceBatchService" ref="financeBatchService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.finance.IFinanceOrderService" ref="financeOrderService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.finance.IFinancePaymentService" ref="financePaymentService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.finance.IRongBaoService" ref="rongBaoService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.fraud.IFraudService" ref="fraudService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliInterfaceinfoService" ref="juxinliInterfaceinfoService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.message.IAppPhoneCodeService" ref="appPhoneCodeService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.message.IMessageService" ref="messageService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.picture.IPictureViewService" ref="pictureViewService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.product.IProductService" ref="productService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.solidification.ISolidificationService" ref="solidificationService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.zhima.IZhimaFeedbackService" ref="zhimaFeedbackService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.apply.IJXLVerificationService" ref="jXLVerificationService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.apply.ILoanApplicationService" ref="loanApplicationService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.bankinfo.IBankInfoService" ref="bankInfoService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.image.IImgService" ref="imgService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.jiean.IJieanService" ref="jieanService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliApplicationCheckService" ref="juxinliApplicationCheckService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliBehaviorCheckService" ref="juxinliBehaviorCheckService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliBehaviorService" ref="juxinliBehaviorService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliCellBehaviorService" ref="juxinliCellBehaviorService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliCheckBlackInfoService" ref="juxinliCheckBlackInfoService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliCheckpointService" ref="juxinliCheckpointService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliCheckSearchInfoService" ref="juxinliCheckSearchInfoService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliCollectionContactService" ref="juxinliCollectionContactService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliContactDetailsService" ref="juxinliContactDetailsService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliContactInfoService" ref="juxinliContactInfoService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliContactRegionService" ref="juxinliContactRegionService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliCourtBlackListService" ref="juxinliCourtBlackListService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliDataSourceService" ref="juxinliDataSourceService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliDeliverAddressService" ref="juxinliDeliverAddressService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliEbusinessExpenseService" ref="juxinliEbusinessExpenseService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliFinancialBlackListService" ref="juxinliFinancialBlackListService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliMainServiceService" ref="juxinliMainServiceService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliMthDetailsService" ref="juxinliMthDetailsService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliPersonService" ref="juxinliPersonService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliReceiverService" ref="juxinliReceiverService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliReportService" ref="juxinliReportService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliServiceDetailService" ref="juxinliServiceDetailService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliServiceInfoService" ref="juxinliServiceInfoService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliTripInfoService" ref="juxinliTripInfoService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.juxinli.IJuxinliUserInfoCheckService" ref="juxinliUserInfoCheckService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.repayment.IRepaymentService" ref="repaymentService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.xiaoai.IXiaoaiRiskPlusFeedbackService" ref="xiaoaiRiskPlusFeedbackService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.zhima.IZhimaCreditWatchService" ref="zhimaCreditWatchService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.zhima.IZhiMaService" ref="zhiMaService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.zhima.IZhimaWatchDetailExtendService" ref="zhimaWatchDetailExtendService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.zhima.IZhimaWatchDetailService" ref="zhimaWatchDetailService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.zhima.IZhimaWatchService" ref="zhimaWatchService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.quxiang.IQuxiangService" ref="quxiangService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.business.blacklist.IBlackListService" ref="blackListService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.user.IUserExtensionService" ref="userExtensionService" />
+    <dubbo:service retries="0" interface="code.artist.core.facade.system.IUserService" ref="userService"/>
 
-    <!--用户服务-->
-    <!--业务服务-->
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.user.appuser.IContractService" ref="contractService" />
-    <dubbo:service retries="0"  interface="com.gofun.credit.core.facade.user.appuser.ICreditInvestService" ref="creditInvestService" />
-
-    <!-- 贷款展期-->
-    <dubbo:service  retries="0" interface="com.gofun.credit.core.facade.business.extension.ILoanExtensionService" ref="loanExtensionService"/>
 </beans>

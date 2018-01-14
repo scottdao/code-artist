@@ -21,17 +21,16 @@
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="configLocation" value="classpath:spring/mybatis-config.xml"/>
-        <property name="typeAliasesPackage" value="com.gofun.credit.core.model"/>
-        <property name="mapperLocations" value="classpath*:com/gofun/credit/core/dao/**/*Ex.xml"/>
+        <property name="configLocation" value="classpath:META-INF/spring/mybatis-config.xml"/>
+        <property name="typeAliasesPackage" value="code.artist.core.model"/>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.gofun.credit.core.dao"/>
+        <property name="basePackage" value="code.artist.core.dao"/>
     </bean>
 
     <!-- 配置事物 -->
-    <bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <bean name="txManage" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"></property>
     </bean>
     <tx:advice id="txAdvice" transaction-manager="txManage">
@@ -47,5 +46,5 @@
         <aop:pointcut id="mypoint" expression="execution(* code.artist.core.service..*.*(..))"/>
         <aop:advisor pointcut-ref="mypoint" advice-ref="txAdvice"/>
     </aop:config>
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+    <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>-->
 </beans>
