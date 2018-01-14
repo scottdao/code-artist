@@ -23,7 +23,7 @@ public class UserController {
         if (loginUser != null) {
             return new RestResponse<>(Constants.Http.SUCCESS, null, loginUser);
         } else {
-            return null;
+            return new RestResponse<>(Constants.Http.ERROR, null, null);
         }
     }
 
