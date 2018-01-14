@@ -17,5 +17,5 @@
 
     <!-- #################################CMS Project reference service###############################################-->
     <!-- 系统接口 -->
-    <!--<dubbo:reference interface="" id="" check="false"/>-->
+    <dubbo:reference interface="code.artist.core.facade.system.IUserService" id="userService" check="false"/>
 </beans>

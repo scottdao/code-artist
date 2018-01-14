@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="code.artist.core.dao.system.UserMapper">
+
+    <select id="selUserForLogin" parameterType="User" resultType="User">
+        SELECT id,username,password,realname,is_admin AS isAdmin FROM t_user WHERE username=#{username} AND password=#{password}
+    </select>
+
+    <!--<sql id="userList">
+        `id`,`username`,`password`,`realname`,`phone`,`address`,`is_admin`,`status`,`create_user`,`create_time`,`update_user`,`update_time`,`description`
+    </sql>
+
+    <insert id="insUser" parameterType="com.gofun.credit.core.riskchannel.model.tencent.User">
+        INSERT INTO t_user (<include refid="userList"></include>) VALUES (#{id},#{username},#{password},#{realname},#{phone},#{address},#{isAdmin},#{status},#{createUser},#{createTime},#{updateUser},#{updateTime},#{description})
+    </insert>
+
+    <select id="selUserList" resultMap="userMap">
+        SELECT <include refid="userList"></include> FROM t_user
+    </select>
+
+    <update id="updUserById" parameterType="com.gofun.credit.core.riskchannel.model.tencent.User">
+        UPDATE t_user
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="username != null and username !=''">
+                `username`=#{username},
+            </if>
+            <if test="password != null and password !=''">
+                `password`=#{password},
+            </if>
+            <if test="realname != null and realname !=''">
+                `realname`=#{realname},
+            </if>
+            <if test="phone != null and phone !=''">
+                `phone`=#{phone},
+            </if>
+            <if test="address != null and address !=''">
+                `address`=#{address},
+            </if>
+            <if test="isAdmin != null and isAdmin !=''">
+                `is_admin`=#{isAdmin},
+            </if>
+            <if test="status != null and status !=''">
+                `status`=#{status},
+            </if>
+            <if test="createUser != null and createUser !=''">
+                `create_user`=#{createUser},
+            </if>
+            <if test="createTime != null">
+                `createTime`=#{create_time},
+            </if>
+            <if test="updateUser != null and updateUser !=''">
+                `update_user`=#{updateUser},
+            </if>
+            <if test="updateTime != null">
+                `updateTime`=#{update_time},
+            </if>
+            <if test="description != null and description !=''">
+                `description`=#{description},
+            </if>
+        </trim>
+        WHERE `id`=#{id}
+    </update>-->
+
+</mapper>

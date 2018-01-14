@@ -15,6 +15,7 @@ app.use(session({
 
 // 创建 application/x-www-form-urlencoded 编码解析
 app.use(bodyParser.urlencoded({ extended: false }));
+// 添加静态资源
 app.use(express.static(path.join(__dirname, 'css')));
 app.use(express.static(path.join(__dirname, 'js')));
 app.use(express.static(path.join(__dirname, 'img')));
@@ -27,7 +28,7 @@ app.use(function(req, res, next) {
     }
     next();
 });
-
+// 在拦截器后添加静态资源
 app.use(express.static(path.join(__dirname, 'html')));
 
 app.use('/', user);
