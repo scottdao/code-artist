@@ -3,8 +3,11 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const path = require('path');
 const app = express();
-
+const favicon = require('serve-favicon');
 const user = require('./route/user');
+
+//加载网站图标favicon
+app.use(favicon(__dirname + '/favicon.ico'));
 
 app.use(session({
     secret: '123456',
