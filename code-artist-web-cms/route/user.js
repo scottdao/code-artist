@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const path = require('path');
+const request = require('request');
 const app = express();
 
 var token = {
@@ -14,14 +15,24 @@ var token = {
  */
 app.post('/toLogin', function(req, res) {
     var user = req.body;
-    if (user.username == token.username && user.password == token.password) {
-        req.session.user = user;
-        res.send("0");
-    } else {
-        req.session.destroy();
-        res.send("用户名或密码错误！");
-    }
-})
+    request.post({ url: 'http://localhost:8080/user/login', form: { username: user.username, password: user.password } }, function(err, resp, body) {
+        if (!err && resp.statusCode == 200) {
+            if (body != null && body != '') {
+                var respJson = JSON.parse(body);
+                if (respJson.code == 0) {
+                    req.session.user = respJson.data;
+                    res.send("0");
+                } else {
+                    req.session.destroy();
+                    res.send("用户名或密码错误！");
+                }
+            } else {
+                req.session.destroy();
+                res.send("用户名或密码错误！");
+            }
+        }
+    });
+});
 
 /**
  * 退出
