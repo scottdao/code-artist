@@ -6,7 +6,7 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
             classpath:spring/applicationcontext.xml
-            classpath:spring/applicationcontext-mvc.xml
+            classpath:spring/applicationcontext-dubbo-consumer.xml
         </param-value>
     </context-param>
     <filter>
@@ -40,9 +40,9 @@
         <servlet-name>springmvc</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-    <session-config>
-        <session-timeout>20</session-timeout>
-    </session-config>
+    <!--<session-config>-->
+        <!--<session-timeout>20</session-timeout>-->
+    <!--</session-config>-->
     <!--<welcome-file-list>
         <welcome-file>login/toLogin</welcome-file>
     </welcome-file-list>
