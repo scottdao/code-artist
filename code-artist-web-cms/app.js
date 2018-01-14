@@ -34,3 +34,5 @@ app.use(express.static(path.join(__dirname, 'html')));
 app.use('/', user);
 
 app.listen(80);
+
+console.log("successful! http://localhost");
