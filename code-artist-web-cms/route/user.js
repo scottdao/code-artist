@@ -24,6 +24,13 @@ app.post('/toLogin', function(req, res) {
 });
 
 /**
+ * 在主页面显示当前登陆管理员
+ */
+app.post('/showLogin', function(req, res) {
+    res.send(req.session.user.realname);
+});
+
+/**
  * 退出
  */
 app.get('/exit', function(req, res) {
