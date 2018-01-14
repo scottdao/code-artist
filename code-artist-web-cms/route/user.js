@@ -4,25 +4,24 @@ const session = require('express-session');
 const path = require('path');
 const app = express();
 
-/**
- * GET：登陆页面
- * POST：提交登陆
- */
-app.route('/login')
-    .get(function(req, res) {
-        res.redirect("/");
-    }).post(function(req, res) {
-        var user = req.body;
-        req.session.user = user;
-        res.redirect("/toMain");
-    });
+var token = {
+    "username": "123",
+    "password": "123"
+}
 
 /**
- * 主页面
+ * 登陆验证
  */
-app.get('/toMain', function(req, res) {
-    res.redirect("/main.html");
-});
+app.post('/toLogin', function(req, res) {
+    var user = req.body;
+    if (user.username == token.username && user.password == token.password) {
+        req.session.user = user;
+        res.send("0");
+    } else {
+        req.session.destroy();
+        res.send("用户名或密码错误！");
+    }
+})
 
 /**
  * 退出

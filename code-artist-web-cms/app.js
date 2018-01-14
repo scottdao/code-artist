@@ -6,11 +6,6 @@ const app = express();
 
 const user = require('./route/user');
 
-var token = {
-    "username": "123",
-    "password": "123"
-}
-
 app.use(session({
     secret: '123456',
     cookie: { maxAge: 60 * 1000 * 30 },
@@ -27,8 +22,8 @@ app.use(express.static(path.join(__dirname, 'img')));
 //登录拦截器
 app.use(function(req, res, next) {
     var url = req.originalUrl;
-    if (url != "/login" && url != "/" && !req.session.user) {
-        return res.redirect("/login");
+    if (url != "/toLogin" && url != "/" && !req.session.user) {
+        return res.redirect("/");
     }
     next();
 });
