@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/easyui/easyui.min.css">
+    <link rel="stylesheet" href="/main.css">
     <title>Code Artist</title>
     <script src="/easyui/jquery.min.js"></script>
     <script src="/easyui/jquery.easyui.min.js"></script>
+    <script src="/main.js"></script>
 </head>
 
 <body style="margin:0;">
@@ -15,7 +17,7 @@
             当前用户：<span id="admin"><script>$.post("/showLogin", function(data) {$('#admin').html(data);});</script></span>
             <a href="/exit" style="margin-left:50px;">[退出]</a>
         </div>
-        <div data-options="region:'west',title:'菜单'" style="width:15%;"></div>
+        <div id="menu" data-options="region:'west',title:'菜单'" style="width:15%;"></div>
         <div data-options="region:'center'" style="padding:5px;background:#eee;"></div>
         <div data-options="region:'south'" style="text-align:center;padding:5px;">版权所有 码匠工作组</div>
     </div>
