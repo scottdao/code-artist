@@ -34,9 +34,9 @@ public class UserController {
         logger.info("loginInfo: {}", JSON.toJSONString(user));
         User loginUser = userService.login(user.getUsername(), user.getPassword());
         if (loginUser != null) {
-            return new RestResponse<>(Constants.Http.SUCCESS, null, loginUser);
+            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, loginUser);
         } else {
-            return new RestResponse<>(Constants.Http.ERROR, null, null);
+            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE, null);
         }
     }
 
@@ -45,9 +45,9 @@ public class UserController {
         logger.info("userId: {}", userId);
         List<Menu> menuList = userService.showMenu(userId);
         if (menuList != null && menuList.size() != 0) {
-            return new RestResponse<>(Constants.Http.SUCCESS, null, menuList);
+            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, menuList);
         } else {
-            return new RestResponse<>(Constants.Http.ERROR, null, null);
+            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE, null);
         }
     }
 
