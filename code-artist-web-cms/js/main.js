@@ -18,4 +18,15 @@ $(function() {
             });
         }
     });
+
+    $('#edatagrid').edatagrid({});
+
+    // insert a row with default values
+    $('#edatagrid').edatagrid('addRow', {
+        index: 2,
+        row: {
+            name: 'name1',
+            addr: 'addr1'
+        }
+    });
 });

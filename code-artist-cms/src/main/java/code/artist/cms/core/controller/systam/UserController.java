@@ -29,6 +29,12 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+    /**
+     * 管理员登陆
+     *
+     * @param user 登陆用户用户名和密码
+     * @return 返回结果
+     */
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public RestResponse login(User user) {
         logger.info("loginInfo: {}", JSON.toJSONString(user));
@@ -40,6 +46,12 @@ public class UserController {
         }
     }
 
+    /**
+     * 显示菜单
+     *
+     * @param userId 当前登陆用户ID
+     * @return 返回结果
+     */
     @RequestMapping(value = "showMenu", method = RequestMethod.POST)
     public RestResponse showMenu(String userId) {
         logger.info("userId: {}", userId);
