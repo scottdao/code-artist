@@ -1,6 +1,15 @@
-$(function() {
-    $("#submitForm").click(function() {
-        $.post("/toLogin", $("#loginForm").serialize(), function(data) {
+$(function () {
+    $("#submitForm").click(function () {
+        var username = $("[name='username']").val();
+        var password = $("[name='password']").val();
+        if (username == '') {
+            $("#message").html("用户名不能为空");
+            return;
+        } else if (password == '') {
+            $("#message").html("密码不能为空");
+            return;
+        }
+        $.post("/toLogin", $("#loginForm").serialize(), function (data) {
             if (data == 0) {
                 location = "main.html";
             } else {

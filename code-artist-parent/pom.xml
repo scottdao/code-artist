@@ -35,6 +35,7 @@
         <zkClient.version>0.10</zkClient.version>
         <aspectjweaver.version>1.8.6</aspectjweaver.version>
         <log4j.version>1.2.17</log4j.version>
+        <fastjson.version>1.2.44</fastjson.version>
         <pagehelper.version>4.0.0</pagehelper.version>
         <jackson.version>2.9.3</jackson.version>
     </properties>
@@ -159,6 +160,11 @@
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjweaver</artifactId>
                 <version>${aspectjweaver.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
