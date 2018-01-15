@@ -3,6 +3,11 @@ package code.artist.core.model.system;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 用户实体类
+ *
+ * @author 艾江南
+ */
 public class User implements Serializable {
 
     private String id;// 主键
@@ -13,11 +18,6 @@ public class User implements Serializable {
     private String address;// 地址
     private Integer isAdmin;// 是否为超级管理员
     private Integer status;// 状态
-    private String createUser;// 创建人
-    private Date createTime;// 创建时间
-    private String updateUser;// 修改人
-    private Date updateTime;// 修改时间
-    private String description;// 描述
 
     public User() {
     }
@@ -59,26 +59,6 @@ public class User implements Serializable {
         return status;
     }
 
-    public String getCreateUser() {
-        return createUser;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public String getUpdateUser() {
-        return updateUser;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -109,26 +89,6 @@ public class User implements Serializable {
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public void setUpdateUser(String updateUser) {
-        this.updateUser = updateUser;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="code.artist.core.dao.system.UserMapper">
 
-    <select id="selUserForLogin" parameterType="User" resultType="User">
+    <select id="selUserByUser" parameterType="User" resultType="User">
         SELECT id,username,password,realname,is_admin AS isAdmin FROM t_user WHERE username=#{username} AND password=#{password}
     </select>
 
