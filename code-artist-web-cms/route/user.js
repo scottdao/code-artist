@@ -13,7 +13,6 @@ app.post('/toLogin', function(req, res) {
     request.post({ url: config.API_BASE_URL + '/user/login', form: { username: user.username, password: user.password } }, function(err, resp, body) {
         if (!err && resp.statusCode == 200) {
             var respJson = JSON.parse(body);
-            console.log(respJson);
             if (respJson.code == 0) {
                 req.session.user = respJson.data;
                 res.send(config.HTTP_SUCCESS);
@@ -39,7 +38,6 @@ app.post('/showMenu', function(req, res) {
     request.post({ url: config.API_BASE_URL + '/user/showMenu', form: { userId: req.session.user.id } }, function(err, resp, body) {
         if (!err && resp.statusCode == 200) {
             var respJson = JSON.parse(body);
-            console.log(respJson);
             if (respJson.code == 0) {
                 res.send(respJson.data);
             } else {
@@ -64,6 +62,20 @@ app.post('/showAdmins', function(req, res) {
     var userArr = new Array();
     userArr[0] = req.session.user;
     res.send(userArr);
+})
+
+/**
+ * user接口中间件
+ * 前端ajax的POST请求直接访问后端的接口
+ */
+app.post('/user/*', function(req, res) {
+    request.post({ url: config.API_BASE_URL + req.path, form: req.body }, function(err, resp, body) {
+        if (!err && resp.statusCode == 200) {
+            res.send(JSON.parse(body));
+        } else {
+            res.send(resp.statusCode);
+        }
+    });
 })
 
 module.exports = app;
