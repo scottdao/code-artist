@@ -6,7 +6,7 @@ $(function() {
                 result += '<li class="p-menu">' + menu[i].name + '</li>';
                 result += '<ul class="s-menu">';
                 for (var j = 0, m = menu[i].children.length; j < m; j++) {
-                    result += '<li>' + menu[i].children[j].name + '</li>';
+                    result += "<li onclick='addTab(\"" + menu[i].children[j].name + "\",\"" + menu[i].children[j].url + "\")'>" + menu[i].children[j].name + "</li>";
                 }
                 result += '</ul>';
             }
@@ -18,15 +18,19 @@ $(function() {
             });
         }
     });
-
-    $('#edatagrid').edatagrid({});
-
-    // insert a row with default values
-    $('#edatagrid').edatagrid('addRow', {
-        index: 2,
-        row: {
-            name: 'name1',
-            addr: 'addr1'
-        }
-    });
 });
+
+function addTab(title, url) {
+    if (url == '') {
+        return;
+    }
+    if ($("#tt").tabs('exists', title)) {
+        $("#tt").tabs('select', title);
+    } else {
+        $("#tt").tabs('add', {
+            title: title,
+            closable: true,
+            href: url
+        });
+    }
+}

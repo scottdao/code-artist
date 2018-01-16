@@ -57,4 +57,13 @@ app.get('/exit', function(req, res) {
     res.redirect("/");
 });
 
+/**
+ * 显示管理员用户
+ */
+app.post('/showAdmins', function(req, res) {
+    var userArr = new Array();
+    userArr[0] = req.session.user;
+    res.send(userArr);
+})
+
 module.exports = app;

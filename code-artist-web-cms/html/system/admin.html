@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <table id="adminDatagrid"></table>
+    <script>
+        $('#adminDatagrid').datagrid({
+            rownumbers: true,
+            url: '/showAdmins',
+            columns: [
+                [{
+                    field: 'username',
+                    title: '用户名',
+                    width: 100
+                }, {
+                    field: 'realname',
+                    title: '姓名',
+                    width: 100
+                }, {
+                    field: 'phone',
+                    title: '手机号码',
+                    width: 100
+                }, {
+                    field: 'address',
+                    title: '地址',
+                    width: 100
+                }, {
+                    field: 'isAdmin',
+                    title: '是否为管理员',
+                    width: 100,
+                    formatter: function(isAdmin) {
+                        return isAdmin == 1 ? '是' : '否';
+                    }
+                }, {
+                    field: '操作',
+                    title: '操作',
+                    width: 100
+                }]
+            ]
+        });
+    </script>
+</body>
+
+</html>
