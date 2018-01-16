@@ -45,7 +45,7 @@ app.post('/showMenu', function(req, res) {
             }
         }
     });
-})
+});
 
 /**
  * 退出
@@ -62,7 +62,7 @@ app.post('/showAdmins', function(req, res) {
     var userArr = new Array();
     userArr[0] = req.session.user;
     res.send(userArr);
-})
+});
 
 /**
  * user接口中间件
@@ -76,6 +76,6 @@ app.post('/user/*', function(req, res) {
             res.send(resp.statusCode);
         }
     });
-})
+});
 
 module.exports = app;
