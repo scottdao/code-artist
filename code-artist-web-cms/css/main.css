@@ -19,4 +19,5 @@
 .s-menu>li {
     text-align: center;
     border: 1px solid #D4D4D4;
+    cursor: pointer;
 }
