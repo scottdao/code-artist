@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +42,23 @@ public class UserController {
         User loginUser = userService.login(user.getUsername(), user.getPassword());
         if (loginUser != null) {
             return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, loginUser);
+        } else {
+            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE, null);
+        }
+    }
+
+    /**
+     * 查询所有用户（如果非超级管理员，只显示自己）
+     *
+     * @param user 用户筛选条件
+     * @return 用户列表
+     */
+    @RequestMapping(value = "showUserList", method = RequestMethod.POST)
+    public RestResponse showUserList(User user) {
+        logger.info("showUserList: {}", JSON.toJSONString(user));
+        List<User> userList = userService.selectUserByUser(user);
+        if (CollectionUtils.isEmpty(userList)) {
+            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, userList);
         } else {
             return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE, null);
         }

@@ -13,13 +13,16 @@ app.post('/toLogin', function(req, res) {
     request.post({ url: config.API_BASE_URL + '/user/login', form: { username: user.username, password: user.password } }, function(err, resp, body) {
         if (!err && resp.statusCode == 200) {
             var respJson = JSON.parse(body);
-            if (respJson.code == 0) {
+            if (respJson.code == config.HTTP_SUCCESS) {
                 req.session.user = respJson.data;
                 res.send(config.HTTP_SUCCESS);
             } else {
                 req.session.destroy();
                 res.send("用户名或密码错误！");
             }
+        } else {
+            console.error(resp.statusCode);
+            res.send(config.HTTP_ERROR);
         }
     });
 });
@@ -38,11 +41,14 @@ app.post('/showMenu', function(req, res) {
     request.post({ url: config.API_BASE_URL + '/user/showMenu', form: { userId: req.session.user.id } }, function(err, resp, body) {
         if (!err && resp.statusCode == 200) {
             var respJson = JSON.parse(body);
-            if (respJson.code == 0) {
+            if (respJson.code == config.HTTP_SUCCESS) {
                 res.send(respJson.data);
             } else {
                 res.send(config.HTTP_ERROR);
             }
+        } else {
+            console.error(resp.statusCode);
+            res.send(config.HTTP_ERROR);
         }
     });
 });
@@ -59,9 +65,19 @@ app.get('/exit', function(req, res) {
  * 显示管理员用户
  */
 app.post('/showAdmins', function(req, res) {
-    var userArr = new Array();
-    userArr[0] = req.session.user;
-    res.send(userArr);
+    request.post({ url: config.API_BASE_URL + "/user/showUserList", form: req.session.user }, function(err, resp, body) {
+        if (!err && resp.statusCode == 200) {
+            var respJson = JSON.parse(body);
+            if (respJson.code == config.HTTP_SUCCESS) {
+                res.send(respJson.data);
+            } else {
+                res.send(config.HTTP_ERROR);
+            }
+        } else {
+            console.error(resp.statusCode);
+            res.send(resp.HTTP_ERROR);
+        }
+    });
 });
 
 /**
@@ -71,9 +87,15 @@ app.post('/showAdmins', function(req, res) {
 app.post('/user/*', function(req, res) {
     request.post({ url: config.API_BASE_URL + req.path, form: req.body }, function(err, resp, body) {
         if (!err && resp.statusCode == 200) {
-            res.send(JSON.parse(body));
+            var respJson = JSON.parse(body);
+            if (respJson.code == config.HTTP_SUCCESS) {
+                res.send(respJson.data);
+            } else {
+                res.send(config.HTTP_ERROR);
+            }
         } else {
-            res.send(resp.statusCode);
+            console.error(resp.statusCode);
+            res.send(resp.HTTP_ERROR);
         }
     });
 });

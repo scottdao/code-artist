@@ -2,6 +2,8 @@ package code.artist.core.dao.system;
 
 import code.artist.core.model.system.User;
 
+import java.util.List;
+
 /**
  * 用户操作
  *
@@ -16,5 +18,13 @@ public interface UserMapper {
      * @return 查询的结果，不存在返回空
      */
     User selUserByUser(User user);
+
+    /**
+     * 通过User条件查询User
+     *
+     * @param user
+     * @return
+     */
+    List<User> selUserList(User user);
 
 }

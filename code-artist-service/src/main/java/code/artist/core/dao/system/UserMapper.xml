@@ -6,19 +6,38 @@
         SELECT id,username,password,realname,is_admin AS isAdmin FROM t_user WHERE username=#{username} AND password=#{password}
     </select>
 
-    <!--<sql id="userList">
+    <sql id="userList">
         `id`,`username`,`password`,`realname`,`phone`,`address`,`is_admin`,`status`,`create_user`,`create_time`,`update_user`,`update_time`,`description`
     </sql>
 
-    <insert id="insUser" parameterType="com.gofun.credit.core.riskchannel.model.tencent.User">
+    <resultMap id="userMap" type="User" >
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="realname" property="realname" />
+        <result column="phone" property="phone" />
+        <result column="address" property="address" />
+        <result column="is_admin" property="isAdmin" />
+        <result column="status" property="status" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="description" property="description" />
+    </resultMap>
+
+    <insert id="insUser" parameterType="User">
         INSERT INTO t_user (<include refid="userList"></include>) VALUES (#{id},#{username},#{password},#{realname},#{phone},#{address},#{isAdmin},#{status},#{createUser},#{createTime},#{updateUser},#{updateTime},#{description})
     </insert>
 
-    <select id="selUserList" resultMap="userMap">
-        SELECT <include refid="userList"></include> FROM t_user
+    <select id="selUserList" resultMap="userMap" parameterType="User">
+        SELECT <include refid="userList"></include> FROM t_user WHERE 1=1
+        <if test="isAdmin == 0">
+            AND id = #{id}
+        </if>
     </select>
 
-    <update id="updUserById" parameterType="com.gofun.credit.core.riskchannel.model.tencent.User">
+    <update id="updUserById" parameterType="User">
         UPDATE t_user
         <trim prefix="SET" suffixOverrides=",">
             <if test="username != null and username !=''">
@@ -36,10 +55,10 @@
             <if test="address != null and address !=''">
                 `address`=#{address},
             </if>
-            <if test="isAdmin != null and isAdmin !=''">
+            <if test="isAdmin != null">
                 `is_admin`=#{isAdmin},
             </if>
-            <if test="status != null and status !=''">
+            <if test="status != null">
                 `status`=#{status},
             </if>
             <if test="createUser != null and createUser !=''">
@@ -59,6 +78,6 @@
             </if>
         </trim>
         WHERE `id`=#{id}
-    </update>-->
+    </update>
 
 </mapper>
