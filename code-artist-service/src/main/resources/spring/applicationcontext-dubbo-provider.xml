@@ -22,6 +22,7 @@
     <!-- 当ProtocolConfig和ServiceConfig某属性没有配置时,采用此缺省值 -->
     <dubbo:provider timeout="30000" threadpool="fixed" threads="500" accepts="1000"/>
 
+
     <!-- 声明需要暴露的服务接口 -->
     <!--系统服务-->
     <dubbo:service retries="0" interface="code.artist.core.facade.system.IUserService" ref="userService"/>
