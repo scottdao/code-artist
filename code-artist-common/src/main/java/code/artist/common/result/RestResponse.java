@@ -9,9 +9,13 @@ public class RestResponse<T> {
     public RestResponse() {
     }
 
-    public RestResponse(int code, String message, T data) {
+    public RestResponse(int code, String message) {
         this.code = code;
         this.message = message;
+    }
+
+    public RestResponse(int code, String message, T data) {
+        this(code, message);
         this.data = data;
     }
 

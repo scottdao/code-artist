@@ -43,24 +43,27 @@ public class UserController {
         if (loginUser != null) {
             return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, loginUser);
         } else {
-            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE, null);
+            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
         }
     }
 
     /**
      * 查询所有用户（如果非超级管理员，只显示自己）
      *
-     * @param user 用户筛选条件
+     * @param id      ID
+     * @param isAdmin 是否为管理员
      * @return 用户列表
      */
     @RequestMapping(value = "showUserList", method = RequestMethod.POST)
-    public RestResponse showUserList(User user) {
-        logger.info("showUserList: {}", JSON.toJSONString(user));
+    public RestResponse showUserList(String id, Integer isAdmin) {
+        User user = new User();
+        user.setId(id);
+        user.setIsAdmin(isAdmin);
         List<User> userList = userService.selectUserByUser(user);
-        if (CollectionUtils.isEmpty(userList)) {
+        if (!CollectionUtils.isEmpty(userList)) {
             return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, userList);
         } else {
-            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE, null);
+            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
         }
     }
 
@@ -77,7 +80,7 @@ public class UserController {
         if (menuList != null && menuList.size() != 0) {
             return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, menuList);
         } else {
-            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE, null);
+            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
         }
     }
 
