@@ -1,5 +1,6 @@
 package code.artist.core.dao.system;
 
+import code.artist.common.base.BaseMapper;
 import code.artist.core.model.system.User;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @author 艾江南
  */
-public interface UserMapper {
+public interface UserMapper extends BaseMapper<User> {
 
     /**
      * 通过用户查询用户（返回字段缺省）
