@@ -2,10 +2,11 @@
 <html lang="en">
 
 <body>
-    <table id="adminDatagrid"></table>
+    <table id="adminDatagrid" style="height:100%;"></table>
     <script>
         $('#adminDatagrid').datagrid({
             rownumbers: true,
+            pagination: true,
             url: '/showAdmins',
             columns: [
                 [{
@@ -38,6 +39,7 @@
                 }]
             ]
         });
+        easyuiConfig.setPager("adminDatagrid");
     </script>
 </body>
 
