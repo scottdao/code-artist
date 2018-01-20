@@ -5,41 +5,50 @@
     <table id="adminDatagrid" style="height:100%;"></table>
     <script>
         $('#adminDatagrid').datagrid({
-            rownumbers: true,
-            pagination: true,
             url: '/showAdmins',
             columns: [
                 [{
                     field: 'username',
                     title: '用户名',
+                    align: 'center',
                     width: 100
                 }, {
                     field: 'realname',
                     title: '姓名',
+                    align: 'center',
                     width: 100
                 }, {
                     field: 'phone',
                     title: '手机号码',
+                    align: 'center',
                     width: 100
                 }, {
                     field: 'address',
                     title: '地址',
+                    align: 'center',
                     width: 100
                 }, {
                     field: 'isAdmin',
                     title: '是否为管理员',
+                    align: 'center',
                     width: 100,
-                    formatter: function(isAdmin) {
-                        return isAdmin == 1 ? '是' : '否';
-                    }
-                }, {
-                    field: '操作',
-                    title: '操作',
-                    width: 100
+                    formatter: dict.yesOrNo
                 }]
             ]
         });
-        easyuiConfig.setPager("adminDatagrid");
+        easyuiConfig.setToolbar("adminDatagrid", {
+            add: addFnc,
+            edit: editFnc
+        })
+        easyuiConfig.initDatagrid("adminDatagrid");
+
+        function addFnc() {
+            alert("add");
+        }
+
+        function editFnc() {
+            alert("edit");
+        }
     </script>
 </body>
 
