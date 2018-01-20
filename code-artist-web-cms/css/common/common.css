@@ -1,0 +1,23 @@
+.formTable {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #D4D4D4;
+}
+
+.formTable td {
+    border: 1px solid #D4D4D4;
+}
+
+.odd {
+    color: #333;
+    text-align: right;
+    background-color: #eee;
+}
+
+.even input {
+    width: 100%;
+}
+
+.dialog-button {
+    text-align: center;
+}

@@ -3,6 +3,7 @@
 
 <body>
     <table id="adminDatagrid" style="height:100%;"></table>
+    <div id="newAdminDialog" hidden></div>
     <script>
         $('#adminDatagrid').datagrid({
             url: '/user/showUserList',
@@ -39,19 +40,19 @@
                 }]
             ]
         });
+        var userMan = {
+            addAdmin: function() {
+                easyuiConfig.newDialog("newAdminDialog", '新建管理员', 280, 222, "/system/newAdmin.html");
+            },
+            editAdmin: function() {
+                alert("edit");
+            }
+        }
         easyuiConfig.setToolbar("adminDatagrid", {
-            add: addFnc,
-            edit: editFnc
+            add: userMan.addAdmin,
+            edit: userMan.editAdmin
         });
         easyuiConfig.initDatagrid("adminDatagrid");
-
-        function addFnc() {
-            alert("add");
-        }
-
-        function editFnc() {
-            alert("edit");
-        }
     </script>
 </body>
 

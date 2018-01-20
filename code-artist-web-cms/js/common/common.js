@@ -41,6 +41,24 @@ var easyuiConfig = {
         $("#" + id).datagrid({
             toolbar: toolbarArr
         });
+    },
+    newDialog: function(id, title, width, height, href) {
+        $('#' + id).dialog({
+            title: title,
+            width: width,
+            height: height,
+            closed: false,
+            cache: false,
+            modal: true,
+            href: href,
+            buttons: [{
+                text: '提交',
+                handler: function() { alert("123"); }
+            }, {
+                text: '取消',
+                handler: function() { $('#' + id).dialog('close'); }
+            }]
+        });
     }
 }
 
