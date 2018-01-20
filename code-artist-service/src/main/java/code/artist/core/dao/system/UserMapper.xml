@@ -2,10 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="code.artist.core.dao.system.UserMapper">
 
-    <select id="selUserByUser" parameterType="User" resultType="User">
-        SELECT id,username,password,realname,is_admin AS isAdmin FROM t_user WHERE username=#{username} AND password=#{password}
-    </select>
-
     <sql id="userList">
         `id`,`username`,`password`,`realname`,`phone`,`address`,`is_admin`,`status`,`create_user`,`create_time`,`update_user`,`update_time`,`description`
     </sql>
@@ -30,11 +26,12 @@
         INSERT INTO t_user (<include refid="userList"></include>) VALUES (#{id},#{username},#{password},#{realname},#{phone},#{address},#{isAdmin},#{status},#{createUser},#{createTime},#{updateUser},#{updateTime},#{description})
     </insert>
 
-    <select id="selUserList" resultMap="userMap" parameterType="User">
-        SELECT <include refid="userList"></include> FROM t_user WHERE 1=1
-        <if test="isAdmin == 0">
-            AND id = #{id}
-        </if>
+    <select id="selUserByUser" parameterType="User" resultMap="userMap">
+        SELECT <include refid="userList"></include> FROM t_user WHERE username=#{username} AND password=#{password}
+    </select>
+
+    <select id="selEntityList" resultMap="userMap">
+        SELECT <include refid="userList"></include> FROM t_user
     </select>
 
     <update id="updUserById" parameterType="User">

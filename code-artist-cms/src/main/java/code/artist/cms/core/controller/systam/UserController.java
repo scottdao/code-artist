@@ -48,18 +48,13 @@ public class UserController {
     }
 
     /**
-     * 查询所有用户（如果非超级管理员，只显示自己）
+     * 查询所有用户
      *
-     * @param id      ID
-     * @param isAdmin 是否为管理员
      * @return 用户列表
      */
     @RequestMapping(value = "showUserList", method = RequestMethod.POST)
-    public RestResponse showUserList(String id, Integer isAdmin) {
-        User user = new User();
-        user.setId(id);
-        user.setIsAdmin(isAdmin);
-        List<User> userList = userService.selectUserByUser(user);
+    public RestResponse showUserList() {
+        List<User> userList = userService.selectUserList();
         if (!CollectionUtils.isEmpty(userList)) {
             return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, userList);
         } else {
@@ -70,13 +65,14 @@ public class UserController {
     /**
      * 显示菜单
      *
-     * @param userId 当前登陆用户ID
+     * @param userJson 当前登陆用户
      * @return 返回结果
      */
     @RequestMapping(value = "showMenu", method = RequestMethod.POST)
-    public RestResponse showMenu(String userId) {
-        logger.info("userId: {}", userId);
-        List<Menu> menuList = userService.showMenu(userId);
+    public RestResponse showMenu(String userJson) {
+        logger.info("userJson: {}", userJson);
+        User user = JSON.parseObject(userJson, User.class);
+        List<Menu> menuList = userService.showMenu(user.getId());
         if (menuList != null && menuList.size() != 0) {
             return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, menuList);
         } else {

@@ -1,5 +1,5 @@
 $(function() {
-    $.post("/showMenu", function(menu) {
+    $.post("/user/showMenu", function(menu) {
         if (menu != 1) {
             var result = '<ul>';
             for (var i = 0, n = menu.length; i < n; i++) {

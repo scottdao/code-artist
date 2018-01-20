@@ -22,12 +22,11 @@ public interface IUserService {
     User login(String username, String password);
 
     /**
-     * 查询所有用户（如果非超级管理员，只显示自己）
+     * 查询所有用户
      *
-     * @param user 用户筛选条件
      * @return 用户列表
      */
-    List<User> selectUserByUser(User user);
+    List<User> selectUserList();
 
     /**
      * 通过用户ID查询菜单列表

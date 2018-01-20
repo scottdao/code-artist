@@ -35,25 +35,6 @@ app.post('/showLogin', function(req, res) {
 });
 
 /**
- * 显示菜单
- */
-app.post('/showMenu', function(req, res) {
-    request.post({ url: config.API_BASE_URL + '/user/showMenu', form: { userId: req.session.user.id } }, function(err, resp, body) {
-        if (!err && resp.statusCode == 200) {
-            var respJson = JSON.parse(body);
-            if (respJson.code == config.HTTP_SUCCESS) {
-                res.send(respJson.data);
-            } else {
-                res.send(config.HTTP_ERROR);
-            }
-        } else {
-            console.error(resp.statusCode);
-            res.send(config.HTTP_ERROR);
-        }
-    });
-});
-
-/**
  * 退出
  */
 app.get('/exit', function(req, res) {
@@ -62,30 +43,13 @@ app.get('/exit', function(req, res) {
 });
 
 /**
- * 显示管理员用户
- */
-app.post('/showAdmins', function(req, res) {
-    request.post({ url: config.API_BASE_URL + "/user/showUserList", form: req.session.user }, function(err, resp, body) {
-        if (!err && resp.statusCode == 200) {
-            var respJson = JSON.parse(body);
-            if (respJson.code == config.HTTP_SUCCESS) {
-                res.send(respJson.data);
-            } else {
-                res.send(config.HTTP_ERROR);
-            }
-        } else {
-            console.error(resp.statusCode);
-            res.send(resp.HTTP_ERROR);
-        }
-    });
-});
-
-/**
  * user接口中间件
  * 前端ajax的POST请求直接访问后端的接口
  */
 app.post('/user/*', function(req, res) {
-    request.post({ url: config.API_BASE_URL + req.path, form: req.body }, function(err, resp, body) {
+    var userJson = JSON.stringify(req.session.user);
+    var paramJson = JSON.stringify(req.body);
+    request.post({ url: config.API_BASE_URL + req.path, form: { userJson: userJson, paramJson: paramJson } }, function(err, resp, body) {
         if (!err && resp.statusCode == 200) {
             var respJson = JSON.parse(body);
             if (respJson.code == config.HTTP_SUCCESS) {

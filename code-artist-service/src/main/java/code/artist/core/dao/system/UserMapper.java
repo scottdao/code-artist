@@ -20,12 +20,4 @@ public interface UserMapper extends BaseMapper<User> {
      */
     User selUserByUser(User user);
 
-    /**
-     * 通过User条件查询User
-     *
-     * @param user
-     * @return
-     */
-    List<User> selUserList(User user);
-
 }
