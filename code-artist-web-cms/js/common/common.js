@@ -42,7 +42,7 @@ var easyuiConfig = {
             toolbar: toolbarArr
         });
     },
-    newDialog: function(id, title, width, height, href) {
+    newDialog: function(id, title, width, height, href, func) {
         $('#' + id).dialog({
             title: title,
             width: width,
@@ -53,7 +53,7 @@ var easyuiConfig = {
             href: href,
             buttons: [{
                 text: '提交',
-                handler: function() { alert("123"); }
+                handler: func
             }, {
                 text: '取消',
                 handler: function() { $('#' + id).dialog('close'); }

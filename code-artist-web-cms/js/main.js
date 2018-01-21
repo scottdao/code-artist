@@ -12,7 +12,6 @@ $(function() {
                 result += '</div>';
             }
             result += '</div>';
-            console.info(result);
             $("#menu").html(result);
         }
         $.parser.parse($('#menu'));

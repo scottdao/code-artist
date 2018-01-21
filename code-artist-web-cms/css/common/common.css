@@ -18,6 +18,10 @@
     width: 100%;
 }
 
+.even input[type=radio] {
+    width: 10px;
+}
+
 .dialog-button {
     text-align: center;
 }

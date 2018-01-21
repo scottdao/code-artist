@@ -63,6 +63,28 @@ public class UserController {
     }
 
     /**
+     * 新增管理员
+     *
+     * @param userJson  当前登录用户
+     * @param paramJson 注册用户信息
+     * @return 返回结果
+     */
+    @RequestMapping(value = "addUser", method = RequestMethod.POST)
+    public RestResponse addUser(String userJson, String paramJson) {
+        User loginUser = JSON.parseObject(userJson, User.class);
+        logger.info("paramJson: {}", paramJson);
+        User user = JSON.parseObject(paramJson, User.class);
+        user.setCreateUser(loginUser.getRealname());
+        user.setUpdateUser(loginUser.getRealname());
+        int flag = userService.insertUser(user);
+        if (flag == 1) {
+            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, user.getRealname());
+        } else {
+            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+        }
+    }
+
+    /**
      * 显示菜单
      *
      * @param userJson 当前登陆用户
@@ -73,7 +95,7 @@ public class UserController {
         logger.info("userJson: {}", userJson);
         User user = JSON.parseObject(userJson, User.class);
         List<Menu> menuList = userService.showMenu(user.getId());
-        if (menuList != null && menuList.size() != 0) {
+        if (!CollectionUtils.isEmpty(menuList)) {
             return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, menuList);
         } else {
             return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);

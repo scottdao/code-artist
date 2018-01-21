@@ -29,6 +29,14 @@ public interface IUserService {
     List<User> selectUserList();
 
     /**
+     * 注册管理员用户
+     *
+     * @param user
+     * @return
+     */
+    int insertUser(User user);
+
+    /**
      * 通过用户ID查询菜单列表
      *
      * @param userId 用户ID
