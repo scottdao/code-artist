@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import {Router,Route,hashHistory} from 'react-router';
 import RouterIndex from './router/router'
 
-
 //加载全局样式
 import './css/reset.scss'
 
