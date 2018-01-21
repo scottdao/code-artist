@@ -5,7 +5,7 @@ var constants = {
     /**
      * 后台接口根地址
      */
-    "API_BASE_URL": "http://localhost:8080",
+    "API_BASE_URL": "http://192.168.0.115:8080",
     /**
      * 接口请求成功
      */

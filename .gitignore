@@ -4,3 +4,7 @@ node_modules
 *.iml
 target
 package-lock.json
+build/
+npm-debug.log
+code-communitybuild
+package.json
