@@ -1,9 +1,10 @@
 package code.artist.core.model.system;
 
-import java.io.Serializable;
-import java.util.Date;
+import code.artist.common.base.BaseModel;
 
-public class Role implements Serializable {
+import java.io.Serializable;
+
+public class Role extends BaseModel implements Serializable {
 
     private Integer id;// 主键
     private String code;// 角色编码

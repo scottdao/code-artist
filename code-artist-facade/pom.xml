@@ -12,7 +12,11 @@
     <packaging>jar</packaging>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.code.artist</groupId>
+            <artifactId>code-artist-common</artifactId>
+            <version>${code-artist-common.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

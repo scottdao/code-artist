@@ -13,13 +13,20 @@ import java.util.List;
 public interface IUserService {
 
     /**
-     * 用户登陆
+     * 用户登录
      *
      * @param username 用户名
      * @param password 密码
-     * @return
+     * @return 登录的用户
      */
     User login(String username, String password);
+
+    /**
+     * 查询所有用户
+     *
+     * @return 用户列表
+     */
+    List<User> selectUserList();
 
     /**
      * 通过用户ID查询菜单列表

@@ -13,13 +13,16 @@ app.post('/toLogin', function(req, res) {
     request.post({ url: config.API_BASE_URL + '/user/login', form: { username: user.username, password: user.password } }, function(err, resp, body) {
         if (!err && resp.statusCode == 200) {
             var respJson = JSON.parse(body);
-            if (respJson.code == 0) {
+            if (respJson.code == config.HTTP_SUCCESS) {
                 req.session.user = respJson.data;
                 res.send(config.HTTP_SUCCESS);
             } else {
                 req.session.destroy();
                 res.send("用户名或密码错误！");
             }
+        } else {
+            console.error(resp.statusCode);
+            res.send(config.HTTP_ERROR);
         }
     });
 });
@@ -32,22 +35,6 @@ app.post('/showLogin', function(req, res) {
 });
 
 /**
- * 显示菜单
- */
-app.post('/showMenu', function(req, res) {
-    request.post({ url: config.API_BASE_URL + '/user/showMenu', form: { userId: req.session.user.id } }, function(err, resp, body) {
-        if (!err && resp.statusCode == 200) {
-            var respJson = JSON.parse(body);
-            if (respJson.code == 0) {
-                res.send(respJson.data);
-            } else {
-                res.send(config.HTTP_ERROR);
-            }
-        }
-    });
-});
-
-/**
  * 退出
  */
 app.get('/exit', function(req, res) {
@@ -56,24 +43,23 @@ app.get('/exit', function(req, res) {
 });
 
 /**
- * 显示管理员用户
- */
-app.post('/showAdmins', function(req, res) {
-    var userArr = new Array();
-    userArr[0] = req.session.user;
-    res.send(userArr);
-});
-
-/**
  * user接口中间件
  * 前端ajax的POST请求直接访问后端的接口
  */
 app.post('/user/*', function(req, res) {
-    request.post({ url: config.API_BASE_URL + req.path, form: req.body }, function(err, resp, body) {
+    var userJson = JSON.stringify(req.session.user);
+    var paramJson = JSON.stringify(req.body);
+    request.post({ url: config.API_BASE_URL + req.path, form: { userJson: userJson, paramJson: paramJson } }, function(err, resp, body) {
         if (!err && resp.statusCode == 200) {
-            res.send(JSON.parse(body));
+            var respJson = JSON.parse(body);
+            if (respJson.code == config.HTTP_SUCCESS) {
+                res.send(respJson.data);
+            } else {
+                res.send(config.HTTP_ERROR);
+            }
         } else {
-            res.send(resp.statusCode);
+            console.error(resp.statusCode);
+            res.send(resp.HTTP_ERROR);
         }
     });
 });

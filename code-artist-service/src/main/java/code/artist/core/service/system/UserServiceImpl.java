@@ -24,6 +24,11 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public List<User> selectUserList() {
+        return userMapper.selEntityList();
+    }
+
+    @Override
     public List<Menu> showMenu(String userId) {
         return menuMapper.selMenuByUserId(userId);
     }

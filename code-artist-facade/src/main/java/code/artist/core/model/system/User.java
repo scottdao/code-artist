@@ -1,14 +1,15 @@
 package code.artist.core.model.system;
 
+import code.artist.common.base.BaseModel;
+
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 用户实体类
  *
  * @author 艾江南
  */
-public class User implements Serializable {
+public class User extends BaseModel implements Serializable {
 
     private String id;// 主键
     private String username;// 用户名

@@ -2,42 +2,57 @@
 <html lang="en">
 
 <body>
-    <table id="adminDatagrid"></table>
+    <table id="adminDatagrid" style="height:100%;"></table>
+    <div id="newAdminDialog" hidden></div>
     <script>
         $('#adminDatagrid').datagrid({
-            rownumbers: true,
-            url: '/showAdmins',
+            url: '/user/showUserList',
             columns: [
                 [{
+                    field: 'id',
+                    hidden: true
+                }, {
                     field: 'username',
                     title: '用户名',
+                    align: 'center',
                     width: 100
                 }, {
                     field: 'realname',
                     title: '姓名',
+                    align: 'center',
                     width: 100
                 }, {
                     field: 'phone',
                     title: '手机号码',
+                    align: 'center',
                     width: 100
                 }, {
                     field: 'address',
                     title: '地址',
+                    align: 'center',
                     width: 100
                 }, {
                     field: 'isAdmin',
                     title: '是否为管理员',
+                    align: 'center',
                     width: 100,
-                    formatter: function(isAdmin) {
-                        return isAdmin == 1 ? '是' : '否';
-                    }
-                }, {
-                    field: '操作',
-                    title: '操作',
-                    width: 100
+                    formatter: dict.yesOrNo
                 }]
             ]
         });
+        var userMan = {
+            addAdmin: function() {
+                easyuiConfig.newDialog("newAdminDialog", '新建管理员', 280, 222, "/system/newAdmin.html");
+            },
+            editAdmin: function() {
+                alert("edit");
+            }
+        }
+        easyuiConfig.setToolbar("adminDatagrid", {
+            add: userMan.addAdmin,
+            edit: userMan.editAdmin
+        });
+        easyuiConfig.initDatagrid("adminDatagrid");
     </script>
 </body>
 

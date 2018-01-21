@@ -1,10 +1,11 @@
 package code.artist.core.model.system;
 
+import code.artist.common.base.BaseModel;
+
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
-public class Menu implements Serializable {
+public class Menu extends BaseModel implements Serializable {
 
     private Integer id;// 主键自增
     private String name;// 菜单名称

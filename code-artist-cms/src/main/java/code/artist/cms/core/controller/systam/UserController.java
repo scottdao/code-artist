@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,24 +43,40 @@ public class UserController {
         if (loginUser != null) {
             return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, loginUser);
         } else {
-            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE, null);
+            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * 查询所有用户
+     *
+     * @return 用户列表
+     */
+    @RequestMapping(value = "showUserList", method = RequestMethod.POST)
+    public RestResponse showUserList() {
+        List<User> userList = userService.selectUserList();
+        if (!CollectionUtils.isEmpty(userList)) {
+            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, userList);
+        } else {
+            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
         }
     }
 
     /**
      * 显示菜单
      *
-     * @param userId 当前登陆用户ID
+     * @param userJson 当前登陆用户
      * @return 返回结果
      */
     @RequestMapping(value = "showMenu", method = RequestMethod.POST)
-    public RestResponse showMenu(String userId) {
-        logger.info("userId: {}", userId);
-        List<Menu> menuList = userService.showMenu(userId);
+    public RestResponse showMenu(String userJson) {
+        logger.info("userJson: {}", userJson);
+        User user = JSON.parseObject(userJson, User.class);
+        List<Menu> menuList = userService.showMenu(user.getId());
         if (menuList != null && menuList.size() != 0) {
             return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, menuList);
         } else {
-            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE, null);
+            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
         }
     }
 
