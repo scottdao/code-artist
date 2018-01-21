@@ -1,7 +1,0 @@
-{
-  "devDependencies": {
-    "express": "^4.16.2",
-    "express-session": "^1.15.6",
-    "serve-favicon": "^2.4.5"
-  }
-}
