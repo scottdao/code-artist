@@ -58,20 +58,25 @@
                 });
             },
             editAdmin: function() {
-                easyuiConfig.newDialog("newAdminDialog", '修改管理员', 280, 200, "/system/editAdmin.html", function() {
-                    if ($("#newAdminForm").form('validate')) {
-                        $.post("/user/*", $("#newAdminForm").serialize(), function(data) {
-                            if (data != '') {
-                                $.messager.alert('系统提示', '管理员' + data + '保存成功！');
-                                $("#newAdminDialog").dialog('close');
-                                $("#adminDatagrid").datagrid('reload');
-                            } else {
-                                $.messager.alert('系统提示', '管理员保存失败！');
-                                $("#newAdminDialog").dialog('close');
-                            }
-                        });
-                    }
-                });
+                var userJson = $("#adminDatagrid").datagrid('getSelected');
+                if (userJson != null) {
+                    easyuiConfig.newDialog("newAdminDialog", '修改管理员', 280, 200, "/system/editAdmin.html", function() {
+                        if ($("#newAdminForm").form('validate')) {
+                            $.post("/user/*", $("#newAdminForm").serialize(), function(data) {
+                                if (data != '') {
+                                    $.messager.alert('系统提示', '管理员' + data + '保存成功！');
+                                    $("#newAdminDialog").dialog('close');
+                                    $("#adminDatagrid").datagrid('reload');
+                                } else {
+                                    $.messager.alert('系统提示', '管理员保存失败！');
+                                    $("#newAdminDialog").dialog('close');
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    $.messager.alert('系统提示', '请选择要编辑的行！');
+                }
             }
         }
         easyuiConfig.setToolbar("adminDatagrid", {
