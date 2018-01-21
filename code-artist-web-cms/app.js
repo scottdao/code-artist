@@ -33,6 +33,6 @@ app.use(express.static(path.join(__dirname, 'html')));
 
 app.use('/', user);
 
-app.listen(8080);
+app.listen(80);
 
 console.log("successful! http://localhost");
