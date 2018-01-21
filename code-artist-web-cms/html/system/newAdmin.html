@@ -1,30 +1,37 @@
 <body>
-    <table class="formTable">
-        <form id="newAdminForm" method="post">
+    <form id="newAdminForm" method="post">
+        <table class="formTable">
             <tr>
                 <td class="odd"><label for="username">用户名：</label></td>
-                <td class="even"><input class="easyui-validatebox" type="text" name="username" data-options="required:true" /></td>
+                <td class="even"><input class="easyui-validatebox" type="text" id="username" name="username" data-options="required:true" /></td>
             </tr>
             <tr>
                 <td class="odd"><label for="realname">姓　名：</label></td>
-                <td class="even"><input class="easyui-validatebox" type="text" name="realname" data-options="validType:'email'" /></td>
+                <td class="even"><input class="easyui-validatebox" type="text" id="realname" name="realname" data-options="" /></td>
             </tr>
             <tr>
                 <td class="odd"><label for="phone">手机号：</label></td>
-                <td class="even"><input class="easyui-validatebox" type="text" name="phone" data-options="validType:'email'" /></td>
+                <td class="even"><input class="easyui-validatebox" type="text" id="phone" name="phone" data-options="" /></td>
             </tr>
             <tr>
                 <td class="odd"><label for="address">地　址：</label></td>
-                <td class="even"><input class="easyui-validatebox" type="text" name="address" data-options="validType:'email'" /></td>
+                <td class="even"><input class="easyui-validatebox" type="text" id="address" name="address" data-options="" /></td>
             </tr>
             <tr>
                 <td class="odd"><label for="password">密　码：</label></td>
-                <td class="even"><input class="easyui-validatebox" type="text" name="password" data-options="validType:'email'" /></td>
+                <td class="even"><input class="easyui-validatebox" type="text" id="password" name="password" data-options="" /></td>
             </tr>
             <tr>
                 <td class="odd"><label for="passwordCheck">确认密码：</label></td>
-                <td class="even"><input class="easyui-validatebox" type="text" name="passwordCheck" data-options="validType:'email'" /></td>
+                <td class="even"><input class="easyui-validatebox" type="text" id="passwordCheck" data-options="" /></td>
             </tr>
-        </form>
-    </table>
+            <tr>
+                <td class="odd"><label for="isAdmin">管理员：</label></td>
+                <td class="even">
+                    <input type="radio" name="isAdmin" value="0" checked>否</input>
+                    <input type="radio" name="isAdmin" value="1">是</input>
+                </td>
+            </tr>
+        </table>
+    </form>
 </body>

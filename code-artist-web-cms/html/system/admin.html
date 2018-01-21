@@ -42,7 +42,17 @@
         });
         var userMan = {
             addAdmin: function() {
-                easyuiConfig.newDialog("newAdminDialog", '新建管理员', 280, 222, "/system/newAdmin.html");
+                easyuiConfig.newDialog("newAdminDialog", '新建管理员', 280, 260, "/system/newAdmin.html", function() {
+                    if ($("#newAdminForm").form('validate')) {
+                        $.post("/user/addUser", $("#newAdminForm").serialize(), function(data) {
+                            if (data != '') {
+                                $.messager.alert('系统提示', '管理员' + data + '保存成功！');
+                                $("#newAdminDialog").dialog('close');
+                                $("#adminDatagrid").datagrid('reload');
+                            }
+                        });
+                    }
+                });
             },
             editAdmin: function() {
                 alert("edit");

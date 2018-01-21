@@ -49,6 +49,7 @@ app.get('/exit', function(req, res) {
 app.post('/user/*', function(req, res) {
     var userJson = JSON.stringify(req.session.user);
     var paramJson = JSON.stringify(req.body);
+    console.log(paramJson);
     request.post({ url: config.API_BASE_URL + req.path, form: { userJson: userJson, paramJson: paramJson } }, function(err, resp, body) {
         if (!err && resp.statusCode == 200) {
             var respJson = JSON.parse(body);

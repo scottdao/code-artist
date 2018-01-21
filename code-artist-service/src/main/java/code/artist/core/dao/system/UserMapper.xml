@@ -22,7 +22,7 @@
         <result column="description" property="description" />
     </resultMap>
 
-    <insert id="insUser" parameterType="User">
+    <insert id="insEntity" parameterType="User">
         INSERT INTO t_user (<include refid="userList"></include>) VALUES (#{id},#{username},#{password},#{realname},#{phone},#{address},#{isAdmin},#{status},#{createUser},#{createTime},#{updateUser},#{updateTime},#{description})
     </insert>
 
