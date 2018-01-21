@@ -39,9 +39,9 @@ public class UserServiceImpl implements IUserService {
         user.setUpdateTime(date);
         return userMapper.insEntity(user);
     }
+
     @Override
-    public int updateUser(User operator,User admin){
-        admin.setUpdateUser(operator.getUsername());
+    public int updateUser(User admin) {
         admin.setUpdateTime(new Date());
         return userMapper.updEntityById(admin);
     }

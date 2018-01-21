@@ -38,10 +38,11 @@ public interface IUserService {
 
     /**
      * 更改管理员用户
-     * @param user
+     *
+     * @param admin
      * @return
      */
-    int updateUser(User operator,User admin);
+    int updateUser(User admin);
 
     /**
      * 通过用户ID查询菜单列表

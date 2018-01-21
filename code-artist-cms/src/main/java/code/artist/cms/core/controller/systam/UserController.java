@@ -6,11 +6,11 @@ import code.artist.core.facade.system.IUserService;
 import code.artist.core.model.system.Menu;
 import code.artist.core.model.system.User;
 import com.alibaba.fastjson.JSON;
-import com.sun.org.apache.xpath.internal.SourceTreeManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -85,16 +85,22 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "editUser",method = RequestMethod.POST)
-    public RestResponse editUser(String userJson,String paramJson){
+    /**
+     * 修改管理员信息
+     *
+     * @param userJson  当前登录用户
+     * @param paramJson 修改参数
+     * @return 返回结果
+     */
+    @RequestMapping(value = "editUser", method = RequestMethod.POST)
+    public RestResponse editUser(String userJson, String paramJson) {
         User operator = JSON.parseObject(userJson, User.class);
         User admin = JSON.parseObject(paramJson, User.class);
-        int flag = 0;
-        if(null != operator && null != admin){
-            flag = userService.updateUser(operator, admin);
+        if (admin == null || StringUtils.isEmpty(admin.getId())) {
+            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
         }
-        System.out.println(admin);
-        System.out.println(flag);
+        admin.setUpdateUser(operator.getRealname());
+        int flag = userService.updateUser(admin);
         if (flag == 1) {
             return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, admin.getRealname());
         } else {
