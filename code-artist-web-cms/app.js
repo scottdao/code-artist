@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const path = require('path');
 const app = express();
-
 const user = require('./route/user');
 
 app.use(session({
@@ -35,4 +34,3 @@ app.use('/', user);
 
 app.listen(80);
 
-console.log("successful! http://localhost");
