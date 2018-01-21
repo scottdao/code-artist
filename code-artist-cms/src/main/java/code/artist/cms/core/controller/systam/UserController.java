@@ -6,6 +6,7 @@ import code.artist.core.facade.system.IUserService;
 import code.artist.core.model.system.Menu;
 import code.artist.core.model.system.User;
 import com.alibaba.fastjson.JSON;
+import com.sun.org.apache.xpath.internal.SourceTreeManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +80,23 @@ public class UserController {
         int flag = userService.insertUser(user);
         if (flag == 1) {
             return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, user.getRealname());
+        } else {
+            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+        }
+    }
+
+    @RequestMapping(value = "editUser",method = RequestMethod.POST)
+    public RestResponse editUser(String userJson,String paramJson){
+        User operator = JSON.parseObject(userJson, User.class);
+        User admin = JSON.parseObject(paramJson, User.class);
+        int flag = 0;
+        if(null != operator && null != admin){
+            flag = userService.updateUser(operator, admin);
+        }
+        System.out.println(admin);
+        System.out.println(flag);
+        if (flag == 1) {
+            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, admin.getRealname());
         } else {
             return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
         }
