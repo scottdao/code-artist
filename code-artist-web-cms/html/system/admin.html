@@ -61,8 +61,8 @@
                 var userJson = $("#adminDatagrid").datagrid('getSelected');
                 if (userJson != null) {
                     easyuiConfig.newDialog("newAdminDialog", '修改管理员', 280, 200, "/system/editAdmin.html", function() {
-                        if ($("#newAdminForm").form('validate')) {
-                            $.post("/user/*", $("#newAdminForm").serialize(), function(data) {
+                        if ($("#editAdminForm").form('validate')) {
+                            $.post("/user/editUser", $("#editAdminForm").serialize(), function(data) {
                                 if (data != '') {
                                     $.messager.alert('系统提示', '管理员' + data + '保存成功！');
                                     $("#newAdminDialog").dialog('close');

@@ -34,7 +34,7 @@
         SELECT <include refid="userList"></include> FROM t_user
     </select>
 
-    <update id="updUserById" parameterType="User">
+    <update id="updEntityById" parameterType="User">
         UPDATE t_user
         <trim prefix="SET" suffixOverrides=",">
             <if test="username != null and username !=''">
@@ -62,13 +62,13 @@
                 `create_user`=#{createUser},
             </if>
             <if test="createTime != null">
-                `createTime`=#{create_time},
+                `create_time`=#{createTime},
             </if>
             <if test="updateUser != null and updateUser !=''">
                 `update_user`=#{updateUser},
             </if>
             <if test="updateTime != null">
-                `updateTime`=#{update_time},
+                `update_time`=#{updateTime},
             </if>
             <if test="description != null and description !=''">
                 `description`=#{description},
