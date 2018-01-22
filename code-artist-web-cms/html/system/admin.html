@@ -37,6 +37,14 @@
                     align: 'center',
                     width: 100,
                     formatter: dict.yesOrNo
+                }, {
+                    field: '操作',
+                    title: '操作',
+                    align: 'center',
+                    width: 100,
+                    formatter: function() {
+                        return '<a href="#">分配权限</a>';
+                    }
                 }]
             ]
         });
@@ -77,11 +85,15 @@
                 } else {
                     $.messager.alert('系统提示', '请选择要编辑的行！');
                 }
+            },
+            deleteAdmin: function() {
+                alert("delete");
             }
         }
         easyuiConfig.setToolbar("adminDatagrid", {
             add: userMan.addAdmin,
-            edit: userMan.editAdmin
+            edit: userMan.editAdmin,
+            delete: userMan.deleteAdmin
         });
         easyuiConfig.initDatagrid("adminDatagrid");
     </script>

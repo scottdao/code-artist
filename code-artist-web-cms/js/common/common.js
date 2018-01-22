@@ -38,6 +38,13 @@ var easyuiConfig = {
                 handler: obj.edit
             });
         }
+        if (obj.delete) {
+            toolbarArr.push({
+                iconCls: 'icon-remove',
+                text: '删除',
+                handler: obj.delete
+            });
+        }
         $("#" + id).datagrid({
             toolbar: toolbarArr
         });
