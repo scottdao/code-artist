@@ -2,7 +2,55 @@
 <html lang="en">
 
 <body>
-    menu
+    <table id="menuTreegrid" style="height:100%;"></table>
+    <script>
+        $('#menuTreegrid').treegrid({
+            url: '/user/showMenuList',
+            treeField: 'name',
+            rownumbers: true,
+            singleSelect: true,
+            loadMsg: "数据加载中...",
+            columns: [
+                [{
+                    field: 'name',
+                    title: '菜单名称',
+                    align: 'center',
+                    width: 100
+                }, {
+                    field: 'url',
+                    title: '菜单链接',
+                    align: 'center',
+                    width: 100,
+                }, {
+                    field: 'sort',
+                    title: '排序',
+                    align: 'center',
+                    width: 100
+                }, {
+                    field: '操作',
+                    title: '操作',
+                    align: 'center',
+                    width: 100
+                }]
+            ]
+        });
+        var menuMan = {
+            addMenu: function() {
+                alert("add");
+            },
+            editMenu: function() {
+                alert("edit");
+            },
+            deleteMenu: function() {
+                alert("delete");
+            }
+        }
+        easyuiConfig.setToolbar("menuTreegrid", {
+            add: menuMan.addMenu,
+            edit: menuMan.editMenu,
+            delete: menuMan.deleteMenu
+        });
+    </script>
 </body>
 
 </html>
