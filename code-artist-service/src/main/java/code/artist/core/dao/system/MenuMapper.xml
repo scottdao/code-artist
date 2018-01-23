@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="code.artist.core.dao.system.MenuMapper">
 
+    <sql id="menuList">
+        `id`,`name`,`url`,`sort`,`is_leaf`,`parent_id`,`status`,`create_user`,`create_time`,`update_user`,`update_time`,`description`
+    </sql>
+
     <resultMap id="menuListMap" type="Menu">
         <id column="id" property="id"></id>
         <collection property="children" select="selChildMenuByParentId" column="{parentId=id,userId=userId}"></collection>
@@ -28,7 +32,7 @@
         ORDER BY m.sort
     </select>
 
-    <resultMap id="menuMap" type="code.artist.core.model.system.Menu" >
+    <resultMap id="menuMap" type="Menu" >
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="url" property="url" />
@@ -43,7 +47,7 @@
         <result column="description" property="description" />
     </resultMap>
 
-    <insert id="insEntity" parameterType="code.artist.core.model.system.Menu">
+    <insert id="insEntity" parameterType="Menu">
         INSERT INTO t_menu (<include refid="menuList"></include>) VALUES (#{id},#{name},#{url},#{sort},#{isLeaf},#{parentId},1,#{createUser},#{createTime},#{updateUser},#{updateTime},#{description})
     </insert>
 
@@ -51,7 +55,7 @@
         SELECT <include refid="menuList"></include> FROM t_menu WHERE status=1
     </select>
 
-    <update id="updEntityById" parameterType="code.artist.core.model.system.Menu">
+    <update id="updEntityById" parameterType="Menu">
         UPDATE t_menu
         <trim prefix="SET" suffixOverrides=",">
             <if test="name != null and name !=''">

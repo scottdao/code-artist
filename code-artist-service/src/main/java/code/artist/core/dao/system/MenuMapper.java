@@ -1,5 +1,6 @@
 package code.artist.core.dao.system;
 
+import code.artist.common.base.BaseMapper;
 import code.artist.core.model.system.Menu;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @author 艾江南
  */
-public interface MenuMapper {
+public interface MenuMapper extends BaseMapper<Menu> {
 
     /**
      * 通过用户ID查询菜单列表
