@@ -18,15 +18,15 @@
 		<result column="description" property="description" />
 	</resultMap>
 
-	<insert id="insRole" parameterType="code.artist.core.model.system.Role">
-		INSERT INTO t_role (<include refid="roleList"></include>) VALUES (#{id},#{code},#{name},#{status},#{createUser},#{createTime},#{updateUser},#{updateTime},#{description})
+	<insert id="insEntity" parameterType="Role">
+		INSERT INTO t_role (<include refid="roleList"></include>) VALUES (#{id},#{code},#{name},1,#{createUser},#{createTime},#{updateUser},#{updateTime},#{description})
 	</insert>
 
-	<select id="selRoleList" resultMap="roleMap">
-		SELECT <include refid="roleList"></include> FROM t_role
+	<select id="selEntityList" resultMap="roleMap">
+		SELECT <include refid="roleList"></include> FROM t_role WHERE status=1
 	</select>
 
-	<update id="updRoleById" parameterType="code.artist.core.model.system.Role">
+	<update id="updEntityById" parameterType="Role">
 		UPDATE t_role
 		<trim prefix="SET" suffixOverrides=",">
 			<if test="code != null and code !=''">
@@ -42,13 +42,13 @@
 				`create_user`=#{createUser},
 			</if>
 			<if test="createTime != null">
-				`createTime`=#{create_time},
+				`create_time`=#{createTime},
 			</if>
 			<if test="updateUser != null and updateUser !=''">
 				`update_user`=#{updateUser},
 			</if>
 			<if test="updateTime != null">
-				`updateTime`=#{update_time},
+				`update_time`=#{updateTime},
 			</if>
 			<if test="description != null and description !=''">
 				`description`=#{description},

@@ -14,7 +14,7 @@
         LEFT JOIN t_role r ON r.id = rm.role_id
         LEFT JOIN t_user_role ur ON ur.role_id = r.id
         LEFT JOIN t_user u ON u.id = ur.user_id
-        WHERE m.is_leaf = 0 AND u.id = #{userId}
+        WHERE m.is_leaf = 0 AND u.id = #{userId} AND m.status=1
         ORDER BY m.sort
     </select>
     <select id="selChildMenuByParentId" resultType="Menu">
@@ -24,11 +24,11 @@
         LEFT JOIN t_role r ON r.id = rm.role_id
         LEFT JOIN t_user_role ur ON ur.role_id = r.id
         LEFT JOIN t_user u ON u.id = ur.user_id
-        WHERE m.is_leaf = 1 AND u.id = #{userId} AND m.parent_id=#{parentId}
+        WHERE m.is_leaf = 1 AND u.id = #{userId} AND m.parent_id=#{parentId} AND m.status=1
         ORDER BY m.sort
     </select>
 
-    <!--<resultMap id="menuMap" type="code.artist.core.model.system.Menu" >
+    <resultMap id="menuMap" type="code.artist.core.model.system.Menu" >
         <id column="id" property="id" />
         <result column="name" property="name" />
         <result column="url" property="url" />
@@ -43,15 +43,15 @@
         <result column="description" property="description" />
     </resultMap>
 
-    <insert id="insMenu" parameterType="code.artist.core.model.system.Menu">
-        INSERT INTO t_menu (<include refid="menuList"></include>) VALUES (#{id},#{name},#{url},#{sort},#{isLeaf},#{parentId},#{status},#{createUser},#{createTime},#{updateUser},#{updateTime},#{description})
+    <insert id="insEntity" parameterType="code.artist.core.model.system.Menu">
+        INSERT INTO t_menu (<include refid="menuList"></include>) VALUES (#{id},#{name},#{url},#{sort},#{isLeaf},#{parentId},1,#{createUser},#{createTime},#{updateUser},#{updateTime},#{description})
     </insert>
 
-    <select id="selMenuList" resultMap="menuMap">
-        SELECT <include refid="menuList"></include> FROM t_menu
+    <select id="selEntityList" resultMap="menuMap">
+        SELECT <include refid="menuList"></include> FROM t_menu WHERE status=1
     </select>
 
-    <update id="updMenuById" parameterType="code.artist.core.model.system.Menu">
+    <update id="updEntityById" parameterType="code.artist.core.model.system.Menu">
         UPDATE t_menu
         <trim prefix="SET" suffixOverrides=",">
             <if test="name != null and name !=''">
@@ -76,19 +76,19 @@
                 `create_user`=#{createUser},
             </if>
             <if test="createTime != null">
-                `createTime`=#{create_time},
+                `create_time`=#{createTime},
             </if>
             <if test="updateUser != null and updateUser !=''">
                 `update_user`=#{updateUser},
             </if>
             <if test="updateTime != null">
-                `updateTime`=#{update_time},
+                `update_time`=#{updateTime},
             </if>
             <if test="description != null and description !=''">
                 `description`=#{description},
             </if>
         </trim>
         WHERE `id`=#{id}
-    </update>-->
+    </update>
 
 </mapper>

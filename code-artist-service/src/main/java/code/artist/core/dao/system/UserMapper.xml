@@ -23,15 +23,15 @@
     </resultMap>
 
     <insert id="insEntity" parameterType="User">
-        INSERT INTO t_user (<include refid="userList"></include>) VALUES (#{id},#{username},#{password},#{realname},#{phone},#{address},#{isAdmin},#{status},#{createUser},#{createTime},#{updateUser},#{updateTime},#{description})
+        INSERT INTO t_user (<include refid="userList"></include>) VALUES (#{id},#{username},#{password},#{realname},#{phone},#{address},#{isAdmin},1,#{createUser},#{createTime},#{updateUser},#{updateTime},#{description})
     </insert>
 
     <select id="selUserByUser" parameterType="User" resultMap="userMap">
-        SELECT <include refid="userList"></include> FROM t_user WHERE username=#{username} AND password=#{password}
+        SELECT <include refid="userList"></include> FROM t_user WHERE username=#{username} AND password=#{password} AND status=1
     </select>
 
     <select id="selEntityList" resultMap="userMap">
-        SELECT <include refid="userList"></include> FROM t_user
+        SELECT <include refid="userList"></include> FROM t_user WHERE status=1
     </select>
 
     <update id="updEntityById" parameterType="User">
