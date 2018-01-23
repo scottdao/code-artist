@@ -16,6 +16,11 @@ $(function() {
         }
         $.parser.parse($('#menu'));
     });
+
+    $("#editMe").click(function() {
+        alert("这里用于修改个人信息，包括修改密码");
+    });
+
 });
 
 function addTab(title, url) {
