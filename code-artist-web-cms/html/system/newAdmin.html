@@ -7,23 +7,23 @@
             </tr>
             <tr>
                 <td class="odd"><label for="realname">姓　名：</label></td>
-                <td class="even"><input class="easyui-validatebox" type="text" id="realname" name="realname" data-options="" /></td>
+                <td class="even"><input class="easyui-validatebox" type="text" id="realname" name="realname" data-options="required:true,validType:['length[1,10]']" /></td>
             </tr>
             <tr>
                 <td class="odd"><label for="phone">手机号：</label></td>
-                <td class="even"><input class="easyui-validatebox" type="text" id="phone" name="phone" data-options="" /></td>
+                <td class="even"><input class="easyui-validatebox" type="text" id="phone" name="phone" data-options="required:true,validType:['length[1,11]']" /></td>
             </tr>
             <tr>
                 <td class="odd"><label for="address">地　址：</label></td>
-                <td class="even"><input class="easyui-validatebox" type="text" id="address" name="address" data-options="" /></td>
+                <td class="even"><input class="easyui-validatebox" type="text" id="address" name="address" data-options="required:true" /></td>
             </tr>
             <tr>
                 <td class="odd"><label for="password">密　码：</label></td>
-                <td class="even"><input class="easyui-validatebox" type="text" id="password" name="password" data-options="" /></td>
+                <td class="even"><input class="easyui-validatebox" type="password" id="password" name="password" data-options="required:true" /></td>
             </tr>
             <tr>
                 <td class="odd"><label for="passwordCheck">确认密码：</label></td>
-                <td class="even"><input class="easyui-validatebox" type="text" id="passwordCheck" data-options="" /></td>
+                <td class="even"><input class="easyui-validatebox" type="password" id="passwordCheck" required="required" validType="equals['#password']" /></td>
             </tr>
             <tr>
                 <td class="odd"><label for="isAdmin">管理员：</label></td>

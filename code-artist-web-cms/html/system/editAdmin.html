@@ -3,19 +3,19 @@
         <table class="formTable">
             <tr>
                 <td class="odd"><label for="username">用户名：</label></td>
-                <td class="even"><input readonly type="text" id="username_edit" /></td>
+                <td class="even"><input readonly type="text" id="username_edit" data-options="required:true,validType:['length[1,10]']" /></td>
             </tr>
             <tr>
                 <td class="odd"><label for="realname">姓　名：</label></td>
-                <td class="even"><input class="easyui-validatebox" type="text" id="realname_edit" name="realname" data-options="" /></td>
+                <td class="even"><input class="easyui-validatebox" type="text" id="realname_edit" name="realname" data-options="required:true,validType:['length[1,10]']" /></td>
             </tr>
             <tr>
                 <td class="odd"><label for="phone">手机号：</label></td>
-                <td class="even"><input class="easyui-validatebox" type="text" id="phone_edit" name="phone" data-options="" /></td>
+                <td class="even"><input class="easyui-validatebox" type="text" id="phone_edit" name="phone" data-options="required:true,validType:['length[1,11]']" /></td>
             </tr>
             <tr>
                 <td class="odd"><label for="address">地　址：</label></td>
-                <td class="even"><input class="easyui-validatebox" type="text" id="address_edit" name="address" data-options="" /></td>
+                <td class="even"><input class="easyui-validatebox" type="text" id="address_edit" name="address" data-options="required:true" /></td>
             </tr>
         </table>
         <input type="hidden" id="id_edit" name="id">

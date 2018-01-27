@@ -69,12 +69,20 @@ var dict = {
  * 表单验证
  */
 $.extend($.fn.validatebox.defaults.rules, {
+    /** 长度范围 */
     mLength: {
         validator: function(value, param) {
             console.info("enter");
             return value.length >= param[0] && value.length <= param[1];
         },
         message: '输入字符长度在{0}～{1}之间'
+    },
+    /** 确认密码 */
+    equals: {
+        validator: function(value, param) {
+            return value == $(param[0]).val();
+        },
+        message: '两次密码输入不一致'
     }
 });
 
