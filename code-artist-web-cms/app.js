@@ -35,4 +35,4 @@ app.use('/', user);
 
 app.listen(80);
 
-console.log("successful! http://localhost:80");
+console.log("successful! http://localhost");
