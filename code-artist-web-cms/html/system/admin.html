@@ -87,7 +87,23 @@
                 }
             },
             deleteAdmin: function() {
-                alert("delete");
+                var userJson = $("#adminDatagrid").datagrid('getSelected');
+                if (userJson != null) {
+                    $.messager.confirm('系统提示', '你确定要删除管理员' + userJson.realname + '吗？', function(flag) {
+                        if (flag) {
+                            $.post("/user/deleteUser/" + userJson.id, function(data) {
+                                if (data != '') {
+                                    $.messager.alert('系统提示', data);
+                                    $("#adminDatagrid").datagrid('reload');
+                                } else {
+                                    $.messager.alert('系统提示', '删除失败！');
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    $.messager.alert('系统提示', '请选择要编辑的行！');
+                }
             }
         }
         easyuiConfig.setToolbar("adminDatagrid", {

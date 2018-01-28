@@ -18,7 +18,7 @@ public class User extends BaseModel implements Serializable {
     private String phone;// 手机号
     private String address;// 地址
     private Integer isAdmin;// 是否为超级管理员
-    private Integer status;// 状态
+    private Integer status;// 状态：0：删除；1：有效
 
     public User() {
     }
