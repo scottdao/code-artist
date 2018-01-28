@@ -17,7 +17,7 @@
     <div id="cc" class="easyui-layout" style="width:100%;height:100%;">
         <div data-options="region:'north'" style="padding:5px 50px;text-align:right;">
             <h1>码匠后台管理系统</h1>
-            当前用户：<a id="editMe" href="javascript:void(0);"><span id="admin"><script>$.post("/showLogin", function(data) {$('#admin').html(data);});</script></span></a>
+            当前用户：<a id="editMe" href="javascript:void(0);"><span id="admin"></span></a>
             <a href="/exit" style="margin-left:50px;">[退出]</a>
         </div>
         <div id="menu" data-options="region:'west',title:'菜单'" style="width:15%;"></div>
@@ -37,6 +37,7 @@
         </div>
         <div data-options="region:'south'" style="text-align:center;padding:5px;">版权所有 码匠工作组</div>
     </div>
+    <div id="editDialog" hidden></div>
 </body>
 
 </html>
