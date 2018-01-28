@@ -15,7 +15,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const webpackServer = {
 	protocol:'http://',
-	host:'172.20.0.31',
+	host:'localhost',
 	port:'8080'
 }
 module.exports={
