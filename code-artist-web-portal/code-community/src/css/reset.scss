@@ -1,0 +1,59 @@
+@charset "utf-8";
+//开启全局配置样式；
+*{
+	margin:0;
+	padding:0;
+}
+body,html{
+	height:100%;
+	width:100%;
+	font-size:14px;
+	font-family:'微软雅黑';
+}
+table { 
+	border-collapse:collapse; /*让表格边框细线*/
+	border-spacing:0; /*清除边框间距*/
+} 
+img { 
+	border:0 none; /*有些浏览器默认这些标签有边框，所以要清除默认边框*/
+	display:block;
+} 
+address,caption,cite,code,dfn,em,i,u,b,strong,th,var { 
+	font-style:normal; 
+	font-weight:normal; 
+	/*清除标签默认文本样式和加粗*/
+}
+input,textarea{
+	outline:0 none;/*去掉文本框的默认轮廓线*/
+	&:-ms-input-placeholder,&::-moz-placeholder,&::-webkit-input-placeholder{
+		color:#333;
+		font-size:12px;
+	}
+
+} 
+ol,ul { 
+	list-style:none; /*清除列表默认样式*/
+} 
+caption,th { 
+	text-align:left; /*清除标签默认文本居中对齐*/
+} 
+h1,h2,h3,h4,h5,h6 { 
+	font-size:100%; 
+	font-weight:normal; /*清除标题标签的默认样式*/
+} 
+a{
+	text-decoration:none;/*大部分页面中的链接没有下划线*/
+}
+//清除浮动
+.clearFix:after{
+		content:" ";
+		display:block;
+		overflow:hidden;
+		clear:both;
+		height:0;
+		visibility:hidden;
+	}
+.clearFix{
+	zoom:1;/*IE低版本浏览器不支持after伪类所以要加这一句*/
+}
+
