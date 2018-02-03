@@ -1,14 +1,14 @@
 /**
  * 常量数据字典
  */
-var DICT_CONSTANTS = {
+const DICT_CONSTANTS = {
     yesOrNo: ["否", "是"]
 }
 
 /**
  * EasyUI全局配置
  */
-var easyuiConfig = {
+const easyuiConfig = {
     setToolbar: (id, obj) => {
         var toolbarArr = [];
         if (obj.add) {
@@ -59,7 +59,7 @@ var easyuiConfig = {
 /**
  * 调用数据字典函数
  */
-var dict = {
+const dict = {
     yesOrNo: value => DICT_CONSTANTS.yesOrNo[value]
 }
 
