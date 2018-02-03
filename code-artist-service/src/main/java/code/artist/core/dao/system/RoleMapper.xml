@@ -2,59 +2,59 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="code.artist.core.dao.system.RoleMapper">
 
-	<sql id="roleList">
-		`id`,`code`,`name`,`status`,`create_user`,`create_time`,`update_user`,`update_time`,`description`
-	</sql>
+    <sql id="roleList">
+        `id`, `code`, `name`, `status`, `create_user`, `create_time`, `update_user`, `update_time`, `description`
+    </sql>
 
-	<resultMap id="roleMap" type="code.artist.core.model.system.Role" >
-		<id column="id" property="id" />
-		<result column="code" property="code" />
-		<result column="name" property="name" />
-		<result column="status" property="status" />
-		<result column="create_user" property="createUser" />
-		<result column="create_time" property="createTime" />
-		<result column="update_user" property="updateUser" />
-		<result column="update_time" property="updateTime" />
-		<result column="description" property="description" />
-	</resultMap>
+    <resultMap id="roleMap" type="Role">
+        <id column="id" property="id"/>
+        <result column="code" property="code"/>
+        <result column="name" property="name"/>
+        <result column="status" property="status"/>
+        <result column="create_user" property="createUser"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user" property="updateUser"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="description" property="description"/>
+    </resultMap>
 
-	<insert id="insEntity" parameterType="Role">
-		INSERT INTO t_role (<include refid="roleList"></include>) VALUES (#{id},#{code},#{name},1,#{createUser},#{createTime},#{updateUser},#{updateTime},#{description})
-	</insert>
+    <insert id="insEntity" parameterType="Role">
+        INSERT INTO t_role (<include refid="roleList"></include>) VALUES (#{id},#{code},#{name},1,#{createUser},#{createTime},#{updateUser},#{updateTime},#{description})
+    </insert>
 
-	<select id="selEntityList" resultMap="roleMap">
-		SELECT <include refid="roleList"></include> FROM t_role WHERE status=1
-	</select>
+    <select id="selEntityList" resultMap="roleMap">
+        SELECT <include refid="roleList"></include> FROM t_role WHERE status=1
+    </select>
 
-	<update id="updEntityById" parameterType="Role">
-		UPDATE t_role
-		<trim prefix="SET" suffixOverrides=",">
-			<if test="code != null and code !=''">
-				`code`=#{code},
-			</if>
-			<if test="name != null and name !=''">
-				`name`=#{name},
-			</if>
-			<if test="status != null and status !=''">
-				`status`=#{status},
-			</if>
-			<if test="createUser != null and createUser !=''">
-				`create_user`=#{createUser},
-			</if>
-			<if test="createTime != null">
-				`create_time`=#{createTime},
-			</if>
-			<if test="updateUser != null and updateUser !=''">
-				`update_user`=#{updateUser},
-			</if>
-			<if test="updateTime != null">
-				`update_time`=#{updateTime},
-			</if>
-			<if test="description != null and description !=''">
-				`description`=#{description},
-			</if>
-		</trim>
-		WHERE `id`=#{id}
-	</update>
+    <update id="updEntityById" parameterType="Role">
+        UPDATE t_role
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="code != null and code !=''">
+                `code`=#{code},
+            </if>
+            <if test="name != null and name !=''">
+                `name`=#{name},
+            </if>
+            <if test="status != null">
+                `status`=#{status},
+            </if>
+            <if test="createUser != null and createUser !=''">
+                `create_user`=#{createUser},
+            </if>
+            <if test="createTime != null">
+                `create_time`=#{createTime},
+            </if>
+            <if test="updateUser != null and updateUser !=''">
+                `update_user`=#{updateUser},
+            </if>
+            <if test="updateTime != null">
+                `update_time`=#{updateTime},
+            </if>
+            <if test="description != null and description !=''">
+                `description`=#{description},
+            </if>
+        </trim>
+        WHERE `id`=#{id}
+    </update>
 
 </mapper>

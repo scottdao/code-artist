@@ -2,8 +2,10 @@ package code.artist.cms.core.controller.systam;
 
 import code.artist.common.constants.Constants;
 import code.artist.common.result.RestResponse;
+import code.artist.core.facade.system.IRoleService;
 import code.artist.core.facade.system.IUserService;
 import code.artist.core.model.system.Menu;
+import code.artist.core.model.system.Role;
 import code.artist.core.model.system.User;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
@@ -31,6 +33,8 @@ public class UserController {
 
     @Autowired
     private IUserService userService;
+    @Autowired
+    private IRoleService roleService;
 
     /**
      * 管理员登陆
@@ -109,6 +113,13 @@ public class UserController {
         }
     }
 
+    /**
+     * 删除管理员
+     *
+     * @param userJson
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "deleteUser/{id}", method = RequestMethod.POST)
     public RestResponse deleteUser(String userJson, @PathVariable("id") String id) {
         User loginUser = JSON.parseObject(userJson, User.class);
@@ -137,6 +148,21 @@ public class UserController {
         List<Menu> menuList = userService.showMenu(user.getId());
         if (!CollectionUtils.isEmpty(menuList)) {
             return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, menuList);
+        } else {
+            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * 查询所有角色
+     *
+     * @return
+     */
+    @RequestMapping(value = "showRole", method = RequestMethod.POST)
+    public RestResponse showRole() {
+        List<Role> roleList = roleService.selectEntityList();
+        if (!CollectionUtils.isEmpty(roleList)) {
+            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, roleList);
         } else {
             return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
         }

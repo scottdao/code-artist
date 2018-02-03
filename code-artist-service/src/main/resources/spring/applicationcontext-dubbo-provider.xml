@@ -25,5 +25,6 @@
     <!-- 声明需要暴露的服务接口 -->
     <!--系统服务-->
     <dubbo:service retries="0" interface="code.artist.core.facade.system.IUserService" ref="userService"/>
+    <dubbo:service retries="0" interface="code.artist.core.facade.system.IRoleService" ref="roleService"/>
 
 </beans>

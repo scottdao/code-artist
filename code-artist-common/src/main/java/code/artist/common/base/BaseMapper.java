@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author 艾江南
  */
-public interface BaseMapper<T> {
+public interface BaseMapper<T extends BaseModel> {
 
     /**
      * 插入
