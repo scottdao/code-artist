@@ -1,5 +1,5 @@
-$(function () {
-    $("#submitForm").click(function () {
+$(() => {
+    $("#submitForm").click(() => {
         var username = $("[name='username']").val();
         var password = $("[name='password']").val();
         if (username == '') {
@@ -9,7 +9,7 @@ $(function () {
             $("#message").html("密码不能为空");
             return;
         }
-        $.post("/toLogin", $("#loginForm").serialize(), function (data) {
+        $.post("/toLogin", $("#loginForm").serialize(), data => {
             if (data == 0) {
                 location = "main.html";
             } else {

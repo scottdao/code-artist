@@ -13,11 +13,11 @@ const logger = log4js.getLogger('user');
 /**
  * 登陆验证
  */
-app.post('/toLogin', function(req, res) {
-    var user = req.body;
-    request.post({ url: config.API_BASE_URL + '/user/login', form: { username: user.username, password: user.password } }, function(err, resp, body) {
+app.post('/toLogin', (req, res) => {
+    let user = req.body;
+    request.post({ url: config.API_BASE_URL + '/user/login', form: { username: user.username, password: user.password } }, (err, resp, body) => {
         if (!err && resp.statusCode == 200) {
-            var respJson = JSON.parse(body);
+            let respJson = JSON.parse(body);
             if (respJson.code == config.HTTP_SUCCESS) {
                 req.session.user = respJson.data;
                 res.send(config.HTTP_SUCCESS);
@@ -35,24 +35,20 @@ app.post('/toLogin', function(req, res) {
 /**
  * 修改个人资料
  */
-app.post('/toEdit', function(req, res) {
-    var loginUser = req.session.user;
-    var user = req.body;
-    var userJson = JSON.stringify(loginUser);
-    var paramJson = JSON.stringify(user);
+app.post('/toEdit', (req, res) => {
+    let [user, loginUser] = [req.body, req.session.user];
+    let [userJson, paramJson] = [JSON.stringify(loginUser), JSON.stringify(user)];
     if (user.password != '' && user.opassword != loginUser.password) {
         res.send("100");
     } else {
-        request.post({ url: config.API_BASE_URL + '/user/editUser', form: { userJson: userJson, paramJson: paramJson } }, function(err, resp, body) {
+        request.post({ url: config.API_BASE_URL + '/user/editUser', form: { userJson: userJson, paramJson: paramJson } }, (err, resp, body) => {
             if (!err && resp.statusCode == 200) {
-                var respJson = JSON.parse(body);
+                let respJson = JSON.parse(body);
                 if (respJson.code == config.HTTP_SUCCESS) {
                     if (user.password != '' || user.username != loginUser.username) {
                         res.send("200");
                     } else {
-                        loginUser.realname = user.realname;
-                        loginUser.phone = user.phone;
-                        loginUser.address = user.address;
+                        [loginUser.realname, loginUser.phone, loginUser.address] = [user.realname, user.phone, user.address];
                         res.send(respJson.data);
                     }
                 } else {
@@ -69,14 +65,14 @@ app.post('/toEdit', function(req, res) {
 /**
  * 获取当前登陆管理员信息
  */
-app.post('/showLogin', function(req, res) {
+app.post('/showLogin', (req, res) => {
     res.send(req.session.user);
 });
 
 /**
  * 退出
  */
-app.get('/exit', function(req, res) {
+app.get('/exit', (req, res) => {
     req.session.destroy();
     res.redirect("/");
 });
@@ -85,13 +81,12 @@ app.get('/exit', function(req, res) {
  * user接口中间件
  * 前端ajax的POST请求直接访问后端的接口
  */
-app.post('/user/*', function(req, res) {
-    var userJson = JSON.stringify(req.session.user);
-    var paramJson = JSON.stringify(req.body);
+app.post('/user/*', (req, res) => {
+    let [userJson, paramJson] = [JSON.stringify(req.session.user), JSON.stringify(req.body)];
     logger.info(paramJson);
-    request.post({ url: config.API_BASE_URL + req.path, form: { userJson: userJson, paramJson: paramJson } }, function(err, resp, body) {
+    request.post({ url: config.API_BASE_URL + req.path, form: { userJson: userJson, paramJson: paramJson } }, (err, resp, body) => {
         if (!err && resp.statusCode == 200) {
-            var respJson = JSON.parse(body);
+            let respJson = JSON.parse(body);
             if (respJson.code == config.HTTP_SUCCESS) {
                 res.send(respJson.data);
             } else {

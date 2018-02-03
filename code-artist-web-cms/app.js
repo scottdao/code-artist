@@ -21,8 +21,8 @@ app.use(express.static(path.join(__dirname, 'js')));
 app.use(express.static(path.join(__dirname, 'img')));
 
 //登录拦截器
-app.use(function(req, res, next) {
-    var url = req.originalUrl;
+app.use((req, res, next) => {
+    let url = req.originalUrl;
     if (url != "/toLogin" && url != "/" && !req.session.user) {
         return res.redirect("/");
     }

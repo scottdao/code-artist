@@ -1,11 +1,11 @@
-$(function() {
-    $.post("/showLogin", function(user) {
+$(() => {
+    $.post("/showLogin", user => {
         $("#admin").html(user.realname);
     });
 
-    $.post("/user/showMenu", function(menu) {
+    $.post("/user/showMenu", menu => {
         if (menu != 1) {
-            var result = '<div class="easyui-accordion" style="height:100%;">';
+            let result = '<div class="easyui-accordion" style="height:100%;">';
             for (var i = 0, n = menu.length; i < n; i++) {
                 result += '<div title="' + menu[i].name + '">';
                 result += '<ul class="s-menu">';
@@ -21,11 +21,11 @@ $(function() {
         $.parser.parse($('#menu'));
     });
 
-    $("#editMe").click(function() {
-        easyuiConfig.newDialog("editDialog", '修改个人信息', 280, 260, "/system/edit.html", function() {
+    $("#editMe").click(() => {
+        easyuiConfig.newDialog("editDialog", '修改个人信息', 280, 260, "/system/edit.html", () => {
             $("#editForm").form('enableValidation');
             if ($("#editForm").form('validate')) {
-                $.post("/toEdit", $("#editForm").serialize(), function(data) {
+                $.post("/toEdit", $("#editForm").serialize(), data => {
                     if (data == "100") {
                         $.messager.alert('系统提示', '原始密码密码错误！');
                     } else if (data == "200") {
@@ -45,7 +45,7 @@ $(function() {
 
 });
 
-function addTab(title, url) {
+var addTab = (title, url) => {
     if (url == '') {
         return;
     }

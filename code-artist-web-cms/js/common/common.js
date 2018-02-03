@@ -9,7 +9,7 @@ var DICT_CONSTANTS = {
  * EasyUI全局配置
  */
 var easyuiConfig = {
-    setToolbar: function(id, obj) {
+    setToolbar: (id, obj) => {
         var toolbarArr = [];
         if (obj.add) {
             toolbarArr.push({
@@ -36,7 +36,7 @@ var easyuiConfig = {
             toolbar: toolbarArr
         });
     },
-    newDialog: function(id, title, width, height, href, func) {
+    newDialog: (id, title, width, height, href, func) => {
         $('#' + id).dialog({
             title: title,
             width: width,
@@ -50,7 +50,7 @@ var easyuiConfig = {
                 handler: func
             }, {
                 text: '取消',
-                handler: function() { $('#' + id).dialog('close'); }
+                handler: () => { $('#' + id).dialog('close'); }
             }]
         });
     }
@@ -60,9 +60,7 @@ var easyuiConfig = {
  * 调用数据字典函数
  */
 var dict = {
-    yesOrNo: function(value) {
-        return DICT_CONSTANTS.yesOrNo[value];
-    }
+    yesOrNo: value => DICT_CONSTANTS.yesOrNo[value]
 }
 
 /**
@@ -71,17 +69,12 @@ var dict = {
 $.extend($.fn.validatebox.defaults.rules, {
     /** 长度范围 */
     mLength: {
-        validator: function(value, param) {
-            console.info("enter");
-            return value.length >= param[0] && value.length <= param[1];
-        },
+        validator: (value, param) => value.length >= param[0] && value.length <= param[1],
         message: '输入字符长度在{0}～{1}之间'
     },
     /** 确认密码 */
     equals: {
-        validator: function(value, param) {
-            return value == $(param[0]).val();
-        },
+        validator: (value, param) => value == $(param[0]).val(),
         message: '两次密码输入不一致'
     }
 });
@@ -111,7 +104,7 @@ $.map(['validatebox', 'textbox', 'passwordbox', 'filebox', 'searchbox',
     'combo', 'combobox', 'combogrid', 'combotree',
     'datebox', 'datetimebox', 'numberbox',
     'spinner', 'numberspinner', 'timespinner', 'datetimespinner'
-], function(plugin) {
+], plugin => {
     if ($.fn[plugin]) {
         $.fn[plugin].defaults.missingMessage = '该输入项不能为空';
     }
@@ -130,13 +123,13 @@ if ($.fn.datebox) {
     $.fn.datebox.defaults.currentText = '今天';
     $.fn.datebox.defaults.closeText = '关闭';
     $.fn.datebox.defaults.okText = '确定';
-    $.fn.datebox.defaults.formatter = function(date) {
+    $.fn.datebox.defaults.formatter = date => {
         var y = date.getFullYear();
         var m = date.getMonth() + 1;
         var d = date.getDate();
         return y + '-' + (m < 10 ? ('0' + m) : m) + '-' + (d < 10 ? ('0' + d) : d);
     };
-    $.fn.datebox.defaults.parser = function(s) {
+    $.fn.datebox.defaults.parser = s => {
         if (!s) return new Date();
         var ss = s.split('-');
         var y = parseInt(ss[0], 10);
