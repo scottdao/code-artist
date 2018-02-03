@@ -33,7 +33,7 @@
         </table>
     </form>
     <script>
-        $.post("/showLogin", function(user) {
+        $.post("/showLogin", user => {
             $("#editForm").form('disableValidation');
             $("#id").val(user.id);
             $("#username").val(user.username);

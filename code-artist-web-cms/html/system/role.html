@@ -26,20 +26,18 @@
                     title: '操作',
                     align: 'center',
                     width: 100,
-                    formatter: function() {
-                        return '<a href="#">分配菜单</a>';
-                    }
+                    formatter: () => '<a href="#">分配菜单</a>'
                 }]
             ]
         });
         var roleMan = {
-            addRole: function() {
+            addRole: () => {
                 alert("add");
             },
-            editRole: function() {
+            editRole: () => {
                 alert("edit");
             },
-            deleteRole: function() {
+            deleteRole: () => {
                 alert("delete");
             }
         }

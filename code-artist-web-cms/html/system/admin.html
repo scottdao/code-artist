@@ -42,17 +42,15 @@
                     title: '操作',
                     align: 'center',
                     width: 100,
-                    formatter: function() {
-                        return '<a href="#">分配权限</a>';
-                    }
+                    formatter: () => '<a href="#">分配权限</a>'
                 }]
             ]
         });
         var userMan = {
-            addAdmin: function() {
-                easyuiConfig.newDialog("newAdminDialog", '新建管理员', 280, 260, "/system/newAdmin.html", function() {
+            addAdmin: () => {
+                easyuiConfig.newDialog("newAdminDialog", '新建管理员', 280, 260, "/system/newAdmin.html", () => {
                     if ($("#newAdminForm").form('validate')) {
-                        $.post("/user/addUser", $("#newAdminForm").serialize(), function(data) {
+                        $.post("/user/addUser", $("#newAdminForm").serialize(), data => {
                             if (data != '') {
                                 $.messager.alert('系统提示', '管理员' + data + '保存成功！');
                                 $("#newAdminDialog").dialog('close');
@@ -65,12 +63,12 @@
                     }
                 });
             },
-            editAdmin: function() {
-                var userJson = $("#adminDatagrid").datagrid('getSelected');
+            editAdmin: () => {
+                let userJson = $("#adminDatagrid").datagrid('getSelected');
                 if (userJson != null) {
-                    easyuiConfig.newDialog("newAdminDialog", '修改管理员', 280, 185, "/system/editAdmin.html", function() {
+                    easyuiConfig.newDialog("newAdminDialog", '修改管理员', 280, 185, "/system/editAdmin.html", () => {
                         if ($("#editAdminForm").form('validate')) {
-                            $.post("/user/editUser", $("#editAdminForm").serialize(), function(data) {
+                            $.post("/user/editUser", $("#editAdminForm").serialize(), data => {
                                 if (data != '') {
                                     $.messager.alert('系统提示', '管理员' + data + '保存成功！');
                                     $("#newAdminDialog").dialog('close');
@@ -86,12 +84,12 @@
                     $.messager.alert('系统提示', '请选择要编辑的行！');
                 }
             },
-            deleteAdmin: function() {
-                var userJson = $("#adminDatagrid").datagrid('getSelected');
+            deleteAdmin: () => {
+                let userJson = $("#adminDatagrid").datagrid('getSelected');
                 if (userJson != null) {
-                    $.messager.confirm('系统提示', '你确定要删除管理员' + userJson.realname + '吗？', function(flag) {
+                    $.messager.confirm('系统提示', '你确定要删除管理员' + userJson.realname + '吗？', flag => {
                         if (flag) {
-                            $.post("/user/deleteUser/" + userJson.id, function(data) {
+                            $.post("/user/deleteUser/" + userJson.id, data => {
                                 if (data != '') {
                                     $.messager.alert('系统提示', data);
                                     $("#adminDatagrid").datagrid('reload');

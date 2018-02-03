@@ -3,13 +3,13 @@ var gulp = require('gulp'), //gulp基础库
     rename = require('gulp-rename'), //文件重命名
     uglify = require('gulp-uglify'); //js压缩
 
-gulp.task('default', function() {
+gulp.task('default', () => {
     gulp.start('minifycss', 'minifyjs');
 });
 
 //css压缩
-gulp.task('minifycss', function() {
-    var path = 'css/easyui';
+gulp.task('minifycss', () => {
+    const path = 'css/easyui';
     return gulp.src(path + '/*.css') //设置css
         .pipe(rename({ suffix: '.min' })) //修改文件名
         .pipe(minifycss()) //压缩文件
@@ -17,8 +17,8 @@ gulp.task('minifycss', function() {
 });
 
 //JS压缩
-gulp.task('minifyjs', function() {
-    var path = 'js/easyui';
+gulp.task('minifyjs', () => {
+    const path = 'js/easyui';
     return gulp.src(path + '/*.js') //选择合并的JS
         .pipe(rename({ suffix: '.min' })) //重命名
         .pipe(uglify()) //压缩
