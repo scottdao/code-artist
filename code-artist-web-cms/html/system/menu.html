@@ -2,7 +2,7 @@
 <html lang="en">
 
 <body>
-    <table id="menuTreegrid" style="height:100%;"></table>
+    <table id="menuTreegrid"></table>
     <script>
         $('#menuTreegrid').treegrid({
             url: '/user/showMenuList',
@@ -21,8 +21,7 @@
                 }, {
                     field: 'url',
                     title: '菜单链接',
-                    align: 'center',
-                    width: 100,
+                    width: 180,
                 }, {
                     field: 'sort',
                     title: '排序',

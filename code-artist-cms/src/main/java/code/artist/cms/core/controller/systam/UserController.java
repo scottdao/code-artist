@@ -163,7 +163,7 @@ public class UserController {
      *
      * @return
      */
-    @RequestMapping(value = "showRole", method = RequestMethod.POST)
+    @RequestMapping(value = "showRoleList", method = RequestMethod.POST)
     public RestResponse showRole() {
         List<Role> roleList = roleService.selectEntityList();
         if (!CollectionUtils.isEmpty(roleList)) {

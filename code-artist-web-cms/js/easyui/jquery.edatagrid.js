@@ -65,15 +65,15 @@
 	function buildGrid(target){
 		var opts = $.data(target, 'edatagrid').options;
 		$(target).datagrid($.extend({}, opts, {
-			onDblClickCell:function(index,field,value){
-				if (opts.editing){
-					$(this).edatagrid('editRow', index);
-					focusEditor(target, field);
-				}
-				if (opts.onDblClickCell){
-					opts.onDblClickCell.call(target, index, field, value);
-				}
-			},
+			// onDblClickCell:function(index,field,value){
+			// 	if (opts.editing){
+			// 		$(this).edatagrid('editRow', index);
+			// 		focusEditor(target, field);
+			// 	}
+			// 	if (opts.onDblClickCell){
+			// 		opts.onDblClickCell.call(target, index, field, value);
+			// 	}
+			// },
 			onClickCell:function(index,field,value){
 				// if (opts.editing && opts.editIndex >= 0){
 				// 	$(this).edatagrid('editRow', index);

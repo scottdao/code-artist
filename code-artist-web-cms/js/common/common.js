@@ -9,7 +9,7 @@ const DICT_CONSTANTS = {
  * EasyUI全局配置
  */
 const easyuiConfig = {
-    setToolbar: (id, obj) => {
+    setToolbar: (id, obj, arr = []) => {
         var toolbarArr = [];
         if (obj.add) {
             toolbarArr.push({
@@ -31,6 +31,9 @@ const easyuiConfig = {
                 text: '删除',
                 handler: obj.delete
             });
+        }
+        for (let [i, n] = [0, arr.length]; i < n; i++) {
+            toolbarArr.push(arr[i]);
         }
         $("#" + id).datagrid({
             toolbar: toolbarArr
@@ -91,7 +94,14 @@ if ($.fn.datagrid) {
     $.fn.datagrid.defaults.rownumbers = true;
     $.fn.datagrid.defaults.pagination = true;
     $.fn.datagrid.defaults.singleSelect = true;
+    $.fn.datagrid.defaults.height = '100%';
     $.fn.datagrid.defaults.loadMsg = '数据加载中...';
+}
+if ($.fn.edatagrid) {
+    $.fn.edatagrid.defaults.rownumbers = $.fn.datagrid.defaults.rownumbers;
+    $.fn.edatagrid.defaults.pagination = $.fn.datagrid.defaults.pagination;
+    $.fn.edatagrid.defaults.height = $.fn.datagrid.defaults.height;
+    $.fn.edatagrid.defaults.loadMsg = $.fn.datagrid.defaults.loadMsg;
 }
 if ($.fn.treegrid && $.fn.datagrid) {
     $.fn.treegrid.defaults.loadMsg = $.fn.datagrid.defaults.loadMsg;

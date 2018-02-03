@@ -2,40 +2,21 @@
 <html lang="en">
 
 <body>
-    <table id="roleDatagrid" style="height:100%;"></table>
-    <div id="newRoleDialog" hidden></div>
     <script>
-        $('#roleDatagrid').datagrid({
-            url: '/user/showRole',
-            columns: [
-                [{
-                    field: 'id',
-                    hidden: true
-                }, {
-                    field: 'code',
-                    title: '编号',
-                    align: 'center',
-                    width: 100
-                }, {
-                    field: 'name',
-                    title: '角色名称',
-                    align: 'center',
-                    width: 100
-                }, {
-                    field: '操作',
-                    title: '操作',
-                    align: 'center',
-                    width: 100,
-                    formatter: () => '<a href="#">分配菜单</a>'
-                }]
-            ]
+        var setup = () => '<a href="#">分配菜单</>';
+        $('#roleDatagrid').edatagrid({
+            height: '100%',
+            url: '/user/showRoleList',
+            saveUrl: '/user/addRole',
+            updateUrl: '/user/editRole',
+            destroyUrl: '/user/deleteRole',
         });
         var roleMan = {
             addRole: () => {
-                alert("add");
+                $('#roleDatagrid').edatagrid('addRow');
             },
             editRole: () => {
-                alert("edit");
+                $('#roleDatagrid').edatagrid('editRow');
             },
             deleteRole: () => {
                 alert("delete");
@@ -45,7 +26,25 @@
             add: roleMan.addRole,
             edit: roleMan.editRole,
             delete: roleMan.deleteRole
-        });
+        }, [{
+            iconCls: 'icon-cancel',
+            text: '取消',
+            handler: () => {
+                $('#roleDatagrid').edatagrid('cancelRow');
+            }
+        }]);
+    </script>
+    <table id="roleDatagrid">
+        <thead>
+            <tr>
+                <th field="code" width="100" align="center" editor="{type:'validatebox',options:{required:true}}">编号</th>
+                <th field="name" width="100" align="center" editor="{type:'validatebox',options:{required:true}}">角色名称</th>
+                <th field="操作" width="100" align="center" editor="none" formatter="setup">操作</th>
+            </tr>
+        </thead>
+    </table>
+    <div id="newRoleDialog" hidden></div>
+    <script>
     </script>
 </body>
 
