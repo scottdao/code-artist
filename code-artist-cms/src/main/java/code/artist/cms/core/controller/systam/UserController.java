@@ -7,6 +7,7 @@ import code.artist.core.facade.system.IUserService;
 import code.artist.core.model.system.Menu;
 import code.artist.core.model.system.Role;
 import code.artist.core.model.system.User;
+import code.artist.utils.common.IDUtil;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,7 +61,7 @@ public class UserController {
      */
     @RequestMapping(value = "showUserList", method = RequestMethod.POST)
     public RestResponse showUserList() {
-        List<User> userList = userService.selectUserList();
+        List<User> userList = userService.selectEntityList();
         if (!CollectionUtils.isEmpty(userList)) {
             return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, userList);
         } else {
@@ -80,9 +81,10 @@ public class UserController {
         User loginUser = JSON.parseObject(userJson, User.class);
         logger.info("paramJson: {}", paramJson);
         User user = JSON.parseObject(paramJson, User.class);
+        user.setId(IDUtil.getUUID());
         user.setCreateUser(loginUser.getRealname());
         user.setUpdateUser(loginUser.getRealname());
-        int flag = userService.insertUser(user);
+        int flag = userService.insertEntity(user);
         if (flag == 1) {
             return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, user.getRealname());
         } else {
@@ -105,7 +107,7 @@ public class UserController {
             return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
         }
         admin.setUpdateUser(operator.getRealname());
-        int flag = userService.updateUser(admin);
+        int flag = userService.updateEntityById(admin);
         if (flag == 1) {
             return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, admin.getRealname());
         } else {
@@ -127,7 +129,7 @@ public class UserController {
         user.setId(id);
         user.setStatus(0);
         user.setUpdateUser(loginUser.getRealname());
-        int flag = userService.updateUser(user);
+        int flag = userService.updateEntityById(user);
         if (flag == 1) {
             return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, "删除成功！");
         } else {

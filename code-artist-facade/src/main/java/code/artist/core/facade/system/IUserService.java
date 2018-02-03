@@ -1,5 +1,6 @@
 package code.artist.core.facade.system;
 
+import code.artist.common.base.IBaseService;
 import code.artist.core.model.system.Menu;
 import code.artist.core.model.system.User;
 
@@ -10,7 +11,7 @@ import java.util.List;
  *
  * @author 艾江南
  */
-public interface IUserService {
+public interface IUserService extends IBaseService<User> {
 
     /**
      * 用户登录
@@ -20,29 +21,6 @@ public interface IUserService {
      * @return 登录的用户
      */
     User login(String username, String password);
-
-    /**
-     * 查询所有用户
-     *
-     * @return 用户列表
-     */
-    List<User> selectUserList();
-
-    /**
-     * 注册管理员用户
-     *
-     * @param user
-     * @return
-     */
-    int insertUser(User user);
-
-    /**
-     * 更改管理员用户
-     *
-     * @param admin
-     * @return
-     */
-    int updateUser(User admin);
 
     /**
      * 通过用户ID查询菜单列表
