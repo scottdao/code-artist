@@ -2,6 +2,7 @@ package code.artist.cms.core.controller.systam;
 
 import code.artist.common.constants.Constants;
 import code.artist.common.result.RestResponse;
+import code.artist.core.facade.system.IMenuService;
 import code.artist.core.facade.system.IRoleService;
 import code.artist.core.facade.system.IUserService;
 import code.artist.core.model.system.Menu;
@@ -36,6 +37,8 @@ public class UserController {
     private IUserService userService;
     @Autowired
     private IRoleService roleService;
+    @Autowired
+    private IMenuService menuService;
 
     /**
      * 管理员登陆
@@ -165,6 +168,21 @@ public class UserController {
         List<Role> roleList = roleService.selectEntityList();
         if (!CollectionUtils.isEmpty(roleList)) {
             return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, roleList);
+        } else {
+            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * 查询所有菜单
+     *
+     * @return
+     */
+    @RequestMapping(value = "showMenuList", method = RequestMethod.POST)
+    public RestResponse showMenu() {
+        List<Menu> menuList = menuService.selectEntityList();
+        if (!CollectionUtils.isEmpty(menuList)) {
+            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, menuList);
         } else {
             return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
         }

@@ -15,9 +15,9 @@ import java.util.List;
 public class UserServiceImpl extends BaseServiceImpl<User> implements IUserService {
 
     @Autowired
-    UserMapper userMapper;
+    private UserMapper userMapper;
     @Autowired
-    MenuMapper menuMapper;
+    private MenuMapper menuMapper;
 
     @Override
     public User login(String username, String password) {

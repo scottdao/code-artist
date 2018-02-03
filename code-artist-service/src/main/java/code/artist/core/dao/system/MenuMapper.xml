@@ -45,6 +45,7 @@
         <result column="update_user" property="updateUser" />
         <result column="update_time" property="updateTime" />
         <result column="description" property="description" />
+        <collection property="children" select="selChildrenByParentId" column="id"></collection>
     </resultMap>
 
     <insert id="insEntity" parameterType="Menu">
@@ -52,7 +53,10 @@
     </insert>
 
     <select id="selEntityList" resultMap="menuMap">
-        SELECT <include refid="menuList"></include> FROM t_menu WHERE status=1
+        SELECT <include refid="menuList"></include> FROM t_menu WHERE status=1 AND is_leaf=0 ORDER BY sort
+    </select>
+    <select id="selChildrenByParentId" resultType="Menu">
+        SELECT <include refid="menuList"></include> FROM t_menu WHERE status=1 AND is_leaf=1 AND parent_id=#{id} ORDER BY sort
     </select>
 
     <update id="updEntityById" parameterType="Menu">
@@ -64,16 +68,16 @@
             <if test="url != null and url !=''">
                 `url`=#{url},
             </if>
-            <if test="sort != null and sort !=''">
+            <if test="sort != null">
                 `sort`=#{sort},
             </if>
-            <if test="isLeaf != null and isLeaf !=''">
+            <if test="isLeaf != null">
                 `is_leaf`=#{isLeaf},
             </if>
-            <if test="parentId != null and parentId !=''">
+            <if test="parentId != null">
                 `parent_id`=#{parentId},
             </if>
-            <if test="status != null and status !=''">
+            <if test="status != null">
                 `status`=#{status},
             </if>
             <if test="createUser != null and createUser !=''">

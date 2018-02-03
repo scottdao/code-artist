@@ -6,16 +6,18 @@
     <script>
         $('#menuTreegrid').treegrid({
             url: '/user/showMenuList',
+            idField: 'id',
             treeField: 'name',
             rownumbers: true,
-            singleSelect: true,
-            loadMsg: "数据加载中...",
             columns: [
                 [{
+                    field: 'id',
+                    hidden: true
+                }, {
                     field: 'name',
                     title: '菜单名称',
                     align: 'center',
-                    width: 100
+                    width: 180
                 }, {
                     field: 'url',
                     title: '菜单链接',

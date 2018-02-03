@@ -19,4 +19,6 @@
     <!-- 系统接口 -->
     <dubbo:reference interface="code.artist.core.facade.system.IUserService" id="userService" check="false"/>
     <dubbo:reference interface="code.artist.core.facade.system.IRoleService" id="roleService" check="false"/>
+    <dubbo:reference interface="code.artist.core.facade.system.IMenuService" id="menuService" check="false"/>
+
 </beans>

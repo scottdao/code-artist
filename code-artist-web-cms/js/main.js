@@ -28,9 +28,9 @@ $(() => {
                 $.messager.confirm('系统提示', '确定修改本次信息？', flag => {
                     if (flag) {
                         $.post("/toEdit", $("#editForm").serialize(), data => {
-                            if (data == "100") {
+                            if (data === "100") {
                                 $.messager.alert('系统提示', '原始密码密码错误！');
-                            } else if (data == "200") {
+                            } else if (data === "200") {
                                 location = "/exit";
                             } else if (data != '') {
                                 $.messager.alert('系统提示', '管理员' + data + '保存成功！');

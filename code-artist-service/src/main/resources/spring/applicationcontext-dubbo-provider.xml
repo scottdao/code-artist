@@ -26,5 +26,6 @@
     <!--系统服务-->
     <dubbo:service retries="0" interface="code.artist.core.facade.system.IUserService" ref="userService"/>
     <dubbo:service retries="0" interface="code.artist.core.facade.system.IRoleService" ref="roleService"/>
+    <dubbo:service retries="0" interface="code.artist.core.facade.system.IMenuService" ref="menuService"/>
 
 </beans>
