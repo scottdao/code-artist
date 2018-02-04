@@ -82,7 +82,7 @@
 				if (opts.editIndex >= 0){
 					var dg = $(this);
 					if (opts.editing){
-						dg.edatagrid('editRow', index);
+						dg.edatagrid('cancelRow', index);
 					} else {
 						setTimeout(function(){
 							dg.edatagrid('selectRow', opts.editIndex);

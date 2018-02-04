@@ -3,49 +3,68 @@
 
 <body>
     <script>
-        var setup = () => '<a href="#">分配菜单</>';
-        $('#roleDatagrid').edatagrid({
-            height: '100%',
-            url: '/user/showRoleList',
-            saveUrl: '/user/addRole',
-            updateUrl: '/user/editRole',
-            destroyUrl: '/user/deleteRole',
-        });
-        var roleMan = {
+        const roleMan = {
             addRole: () => {
                 $('#roleDatagrid').edatagrid('addRow');
             },
             editRole: () => {
-                $('#roleDatagrid').edatagrid('editRow');
+                let row = $('#roleDatagrid').edatagrid('getSelected');
+                if (row == null) {
+                    $.messager.alert('系统提示', '请选择要编辑的行！');
+                    return;
+                }
+                let index = $('#roleDatagrid').edatagrid('getRowIndex', row);
+                $('#roleDatagrid').edatagrid('editRow', index);
             },
             deleteRole: () => {
                 alert("delete");
             }
         }
-        easyuiConfig.setToolbar("roleDatagrid", {
-            add: roleMan.addRole,
-            edit: roleMan.editRole,
-            delete: roleMan.deleteRole
-        }, [{
-            iconCls: 'icon-cancel',
-            text: '取消',
-            handler: () => {
-                $('#roleDatagrid').edatagrid('cancelRow');
-            }
-        }]);
+        $(() => {
+            $('#roleDatagrid').edatagrid({
+                url: '/user/showRoleList',
+                saveUrl: '/user/addRole',
+                updateUrl: '/user/editRole',
+                destroyUrl: '/user/deleteRole',
+                onAfterEdit: (index, row) => {
+                    $.messager.alert('系统提示', '保存成功！');
+                    $('#roleDatagrid').edatagrid('reload');
+                }
+            });
+            easyuiConfig.setToolbar("roleDatagrid", {
+                add: roleMan.addRole,
+                edit: roleMan.editRole,
+                delete: roleMan.deleteRole
+            }, [{
+                iconCls: 'icon-cancel',
+                text: '取消',
+                handler: () => {
+                    $('#roleDatagrid').edatagrid('cancelRow');
+                }
+            }, {
+                iconCls: 'icon-save',
+                text: '保存',
+                handler: () => {
+                    $('#roleDatagrid').edatagrid('saveRow');
+                }
+            }, {
+                iconCls: 'icon-large-chart',
+                text: '分配菜单',
+                handler: () => {
+                    alert("分配菜单");
+                }
+            }]);
+        });
     </script>
     <table id="roleDatagrid">
         <thead>
             <tr>
+                <th field="id" hidden="true"></th>
                 <th field="code" width="100" align="center" editor="{type:'validatebox',options:{required:true}}">编号</th>
                 <th field="name" width="100" align="center" editor="{type:'validatebox',options:{required:true}}">角色名称</th>
-                <th field="操作" width="100" align="center" editor="none" formatter="setup">操作</th>
             </tr>
         </thead>
     </table>
-    <div id="newRoleDialog" hidden></div>
-    <script>
-    </script>
 </body>
 
 </html>

@@ -174,6 +174,50 @@ public class UserController {
     }
 
     /**
+     * 新增角色
+     *
+     * @param userJson
+     * @param paramJson
+     * @return
+     */
+    @RequestMapping(value = "addRole", method = RequestMethod.POST)
+    public RestResponse addRole(String userJson, String paramJson) {
+        User loginUser = JSON.parseObject(userJson, User.class);
+        Role role = JSON.parseObject(paramJson, Role.class);
+        logger.info("role: {}", paramJson);
+        role.setCreateUser(loginUser.getRealname());
+        role.setUpdateUser(loginUser.getRealname());
+        int flag = roleService.insertEntity(role);
+        if (flag == 1) {
+            return new RestResponse(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE);
+        } else {
+            return new RestResponse(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * 修改角色信息
+     *
+     * @param userJson
+     * @param paramJson
+     * @return
+     */
+    @RequestMapping(value = "editRole", method = RequestMethod.POST)
+    public RestResponse editRole(String userJson, String paramJson) {
+        User loginUser = JSON.parseObject(userJson, User.class);
+        Role role = JSON.parseObject(paramJson, Role.class);
+        logger.info("role: {}", paramJson);
+        logger.info("roleCloss: {}", JSON.toJSONString(role));
+        role.setUpdateUser(loginUser.getRealname());
+        int flag = roleService.updateEntityById(role);
+        if (flag == 1) {
+            return new RestResponse(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE);
+        } else {
+            return new RestResponse(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+        }
+    }
+
+    /**
      * 查询所有菜单
      *
      * @return
