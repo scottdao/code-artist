@@ -270,7 +270,7 @@ public class UserController {
         menu.setUpdateUser(loginUser.getRealname());
         int flag = menuService.insertEntity(menu);
         if (flag == 1) {
-            return new RestResponse(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, menu.getName());
+            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, menu.getName());
         } else {
             return new RestResponse(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
         }
