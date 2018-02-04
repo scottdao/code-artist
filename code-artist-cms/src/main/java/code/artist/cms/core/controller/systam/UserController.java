@@ -232,7 +232,7 @@ public class UserController {
         role.setUpdateUser(loginUser.getRealname());
         int flag = roleService.updateEntityById(role);
         if (flag == 1) {
-            return new RestResponse(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, "删除成功！");
+            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, "删除成功！");
         } else {
             return new RestResponse(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
         }
