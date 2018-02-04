@@ -17,7 +17,23 @@
                 $('#roleDatagrid').edatagrid('editRow', index);
             },
             deleteRole: () => {
-                alert("delete");
+                let roleJson = $("#roleDatagrid").datagrid('getSelected');
+                if (roleJson != null) {
+                    $.messager.confirm('系统提示', '你确定要删除角色' + roleJson.name + '吗？', flag => {
+                        if (flag) {
+                            $.post("/user/deleteRole/" + roleJson.id, data => {
+                                if (data != '') {
+                                    $.messager.alert('系统提示', data);
+                                    $("#roleDatagrid").datagrid('reload');
+                                } else {
+                                    $.messager.alert('系统提示', '删除失败！');
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    $.messager.alert('系统提示', '请选择要删除的行！');
+                }
             }
         }
         $(() => {

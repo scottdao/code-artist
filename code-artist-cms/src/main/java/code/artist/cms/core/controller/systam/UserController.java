@@ -218,6 +218,27 @@ public class UserController {
     }
 
     /**
+     * 删除角色
+     *
+     * @param userJson
+     * @return
+     */
+    @RequestMapping(value = "deleteRole/{id}", method = RequestMethod.POST)
+    public RestResponse deleteRole(String userJson, @PathVariable("id") Integer id) {
+        User loginUser = JSON.parseObject(userJson, User.class);
+        Role role = new Role();
+        role.setId(id);
+        role.setStatus(0);
+        role.setUpdateUser(loginUser.getRealname());
+        int flag = roleService.updateEntityById(role);
+        if (flag == 1) {
+            return new RestResponse(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, "删除成功！");
+        } else {
+            return new RestResponse(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+        }
+    }
+
+    /**
      * 查询所有菜单
      *
      * @return

@@ -42,7 +42,7 @@
         });
         var userMan = {
             addAdmin: () => {
-                easyuiConfig.newDialog("newAdminDialog", '新建管理员', 280, 260, "/system/newAdmin.html", () => {
+                easyuiConfig.newDialog("newAdminDialog", '新建管理员', 350, 300, "/system/newAdmin.html", () => {
                     if ($("#newAdminForm").form('validate')) {
                         $.post("/user/addUser", $("#newAdminForm").serialize(), data => {
                             if (data != '') {
@@ -60,7 +60,7 @@
             editAdmin: () => {
                 let userJson = $("#adminDatagrid").datagrid('getSelected');
                 if (userJson != null) {
-                    easyuiConfig.newDialog("newAdminDialog", '修改管理员', 280, 185, "/system/editAdmin.html", () => {
+                    easyuiConfig.newDialog("newAdminDialog", '修改管理员', 350, 250, "/system/editAdmin.html", () => {
                         if ($("#editAdminForm").form('validate')) {
                             $.post("/user/editUser", $("#editAdminForm").serialize(), data => {
                                 if (data != '') {
@@ -94,7 +94,7 @@
                         }
                     });
                 } else {
-                    $.messager.alert('系统提示', '请选择要编辑的行！');
+                    $.messager.alert('系统提示', '请选择要删除的行！');
                 }
             }
         }

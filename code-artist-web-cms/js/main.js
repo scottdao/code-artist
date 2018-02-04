@@ -22,7 +22,7 @@ $(() => {
     });
 
     $("#editMe").click(() => {
-        easyuiConfig.newDialog("editDialog", '修改个人信息', 280, 260, "/system/edit.html", () => {
+        easyuiConfig.newDialog("editDialog", '修改个人信息', 350, 300, "/system/edit.html", () => {
             $("#editForm").form('enableValidation');
             if ($("#editForm").form('validate')) {
                 $.messager.confirm('系统提示', '确定修改本次信息？', flag => {
