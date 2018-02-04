@@ -37,12 +37,6 @@
                     align: 'center',
                     width: 100,
                     formatter: dict.yesOrNo
-                }, {
-                    field: '操作',
-                    title: '操作',
-                    align: 'center',
-                    width: 100,
-                    formatter: () => '<a href="#">分配权限</a>'
                 }]
             ]
         });
@@ -108,7 +102,13 @@
             add: userMan.addAdmin,
             edit: userMan.editAdmin,
             delete: userMan.deleteAdmin
-        });
+        }, [{
+            iconCls: 'icon-large-chart',
+            text: '分配角色',
+            handler: () => {
+                alert("分配角色");
+            }
+        }]);
     </script>
 </body>
 
