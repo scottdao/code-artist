@@ -3,12 +3,12 @@
 
 <body>
     <table id="menuTreegrid"></table>
+    <div id="newMenuDialog" hidden></div>
     <script>
         $('#menuTreegrid').treegrid({
             url: '/user/showMenuList',
             idField: 'id',
             treeField: 'name',
-            rownumbers: true,
             columns: [
                 [{
                     field: 'id',
@@ -16,20 +16,16 @@
                 }, {
                     field: 'name',
                     title: '菜单名称',
-                    align: 'center',
+                    halign: 'center',
                     width: 180
                 }, {
                     field: 'url',
                     title: '菜单链接',
+                    halign: 'center',
                     width: 180,
                 }, {
                     field: 'sort',
                     title: '排序',
-                    align: 'center',
-                    width: 100
-                }, {
-                    field: '操作',
-                    title: '操作',
                     align: 'center',
                     width: 100
                 }]
@@ -37,7 +33,25 @@
         });
         var menuMan = {
             addMenu: () => {
-                alert("add");
+                let selectedMenu = $("#menuTreegrid").treegrid('getSelected');
+                if (selectedMenu == null || selectedMenu.isLeaf == 1) {
+                    $.messager.alert('系统提示', '请选择一个父菜单！');
+                    return;
+                }
+                easyuiConfig.newDialog("newMenuDialog", '新建菜单', 350, 250, "/system/newMenu.html", () => {
+                    if ($("#newMenuForm").form('validate')) {
+                        $.post("/user/addMenu", $("#newMenuForm").serialize(), data => {
+                            if (data != '') {
+                                $.messager.alert('系统提示', '菜单' + data + '保存成功！');
+                                $("#newMenuDialog").dialog('close');
+                                $("#menuTreegrid").treegrid('reload');
+                            } else {
+                                $.messager.alert('系统提示', '菜单保存失败！');
+                                $("#newMenuDialog").dialog('close');
+                            }
+                        });
+                    }
+                });
             },
             editMenu: () => {
                 alert("edit");

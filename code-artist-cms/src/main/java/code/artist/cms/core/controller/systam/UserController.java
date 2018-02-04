@@ -151,6 +151,9 @@ public class UserController {
         logger.info("userJson: {}", userJson);
         User user = JSON.parseObject(userJson, User.class);
         List<Menu> menuList = userService.showMenu(user.getId());
+        if (user.getIsAdmin() == 1) {
+            menuList = menuService.selectEntityList();
+        }
         if (!CollectionUtils.isEmpty(menuList)) {
             return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, menuList);
         } else {
@@ -250,6 +253,26 @@ public class UserController {
             return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, menuList);
         } else {
             return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * 新增菜单
+     *
+     * @return
+     */
+    @RequestMapping(value = "addMenu", method = RequestMethod.POST)
+    public RestResponse addMenu(String userJson, String paramJson) {
+        User loginUser = JSON.parseObject(userJson, User.class);
+        Menu menu = JSON.parseObject(paramJson, Menu.class);
+        logger.info("role: {}", paramJson);
+        menu.setCreateUser(loginUser.getRealname());
+        menu.setUpdateUser(loginUser.getRealname());
+        int flag = menuService.insertEntity(menu);
+        if (flag == 1) {
+            return new RestResponse(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, menu.getName());
+        } else {
+            return new RestResponse(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
         }
     }
 

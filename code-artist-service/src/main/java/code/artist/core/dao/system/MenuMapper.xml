@@ -55,7 +55,7 @@
     <select id="selEntityList" resultMap="menuMap">
         SELECT <include refid="menuList"></include> FROM t_menu WHERE status=1 AND is_leaf=0 ORDER BY sort
     </select>
-    <select id="selChildrenByParentId" resultType="Menu">
+    <select id="selChildrenByParentId" resultMap="menuMap">
         SELECT <include refid="menuList"></include> FROM t_menu WHERE status=1 AND is_leaf=1 AND parent_id=#{id} ORDER BY sort
     </select>
 

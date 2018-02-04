@@ -104,7 +104,10 @@ if ($.fn.edatagrid) {
     $.fn.edatagrid.defaults.loadMsg = $.fn.datagrid.defaults.loadMsg;
 }
 if ($.fn.treegrid && $.fn.datagrid) {
+    $.fn.treegrid.defaults.rownumbers = true;
+    $.fn.treegrid.defaults.animate = true;
     $.fn.treegrid.defaults.loadMsg = $.fn.datagrid.defaults.loadMsg;
+    $.fn.treegrid.defaults.height = $.fn.datagrid.defaults.height;
 }
 if ($.messager) {
     $.messager.defaults.ok = '确定';
