@@ -58,6 +58,18 @@
     <select id="selChildrenByParentId" resultMap="menuMap">
         SELECT <include refid="menuList"></include> FROM t_menu WHERE status=1 AND is_leaf=1 AND parent_id=#{id} ORDER BY sort
     </select>
+    <select id="selRoleMenuByRoleId" resultType="java.lang.Integer">
+        SELECT menu_id AS id FROM t_role_menu WHERE role_id=#{roleId}
+    </select>
+    <delete id="delRoleMenuByRoleId">
+        DELETE FROM t_role_menu WHERE role_id=#{roleId}
+    </delete>
+    <insert id="insRoleMenu">
+        INSERT INTO t_role_menu (id,role_id,menu_id) VALUES
+        <foreach collection="menuIds" item="menu" separator=",">
+            (DEFAULT,#{roleId},#{menu})
+        </foreach>
+    </insert>
 
     <update id="updEntityById" parameterType="Menu">
         UPDATE t_menu

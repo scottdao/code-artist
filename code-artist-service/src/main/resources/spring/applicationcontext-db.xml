@@ -36,7 +36,7 @@
     <tx:advice id="txAdvice" transaction-manager="txManage">
         <tx:attributes>
             <tx:method name="delete*" propagation="REQUIRED" read-only="false" rollback-for="Exception"/>
-            <tx:method name="create*" propagation="REQUIRED" read-only="false" rollback-for="Exception"/>
+            <tx:method name="insert*" propagation="REQUIRED" read-only="false" rollback-for="Exception"/>
             <tx:method name="reset*" propagation="REQUIRED" read-only="false" rollback-for="Exception"/>
             <tx:method name="send*" propagation="REQUIRED" read-only="false" rollback-for="Exception"/>
             <tx:method name="select*" propagation="SUPPORTS" read-only="true"/>

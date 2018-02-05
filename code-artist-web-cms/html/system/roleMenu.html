@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <table id="roleMenuTreegrid"></table>
+    <script>
+        $('#roleMenuTreegrid').treegrid({
+            url: '/user/showMenuList',
+            idField: 'id',
+            treeField: 'name',
+            checkbox: true,
+            columns: [
+                [{
+                    field: 'id',
+                    hidden: true
+                }, {
+                    field: 'name',
+                    title: '菜单名称',
+                    halign: 'center',
+                    width: 180
+                }, {
+                    field: 'url',
+                    title: '菜单链接',
+                    halign: 'center',
+                    width: 180,
+                }, {
+                    field: 'sort',
+                    title: '排序',
+                    align: 'center',
+                    width: 100
+                }]
+            ],
+            onLoadSuccess: () => {
+                var roleJson = $("#roleDatagrid").datagrid('getSelected');
+                $.post("/user/chooseMenu/" + roleJson.id, menuIds => {
+                    menuIds.map(value => $('#roleMenuTreegrid').treegrid('checkNode', value));
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

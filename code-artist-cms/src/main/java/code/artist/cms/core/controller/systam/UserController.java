@@ -10,6 +10,8 @@ import code.artist.core.model.system.Role;
 import code.artist.core.model.system.User;
 import code.artist.utils.common.IDUtil;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -151,9 +154,6 @@ public class UserController {
         logger.info("userJson: {}", userJson);
         User user = JSON.parseObject(userJson, User.class);
         List<Menu> menuList = userService.showMenu(user.getId());
-        if (user.getIsAdmin() == 1) {
-            menuList = menuService.selectEntityList();
-        }
         if (!CollectionUtils.isEmpty(menuList)) {
             return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, menuList);
         } else {
@@ -314,6 +314,44 @@ public class UserController {
         int flag = menuService.updateEntityById(menu);
         if (flag == 1) {
             return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, "删除成功！");
+        } else {
+            return new RestResponse(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * 通过角色ID查询菜单ID列表
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "chooseMenu/{id}", method = RequestMethod.POST)
+    public RestResponse chooseMenu(@PathVariable("id") Integer id) {
+        List<Integer> menuIdList = menuService.selectMenuIdsByRoleId(id);
+        logger.info("menuIdList: {}", JSON.toJSONString(menuIdList));
+        return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, menuIdList);
+    }
+
+    /**
+     * 角色分配菜单
+     *
+     * @param paramJson
+     * @return
+     */
+    @RequestMapping(value = "roleMenu", method = RequestMethod.POST)
+    public RestResponse roleMenu(String paramJson) {
+        logger.info("paramJson: {}", paramJson);
+        List<Integer> menuIdList = new ArrayList<>();
+        JSONObject jsonObject = JSON.parseObject(paramJson);
+        Integer roleId = Integer.valueOf((String) jsonObject.get("roleId"));
+        JSONArray jsonArray = jsonObject.getJSONArray("menuIds[]");
+        for (int i = 0, n = jsonArray.size(); i < n; i++) {
+            menuIdList.add(Integer.valueOf((String) jsonArray.get(i)));
+        }
+        logger.info("Array: {}", JSON.toJSONString(menuIdList));
+        int flag = menuService.insertRoleMenu(roleId, menuIdList);
+        if (flag > 0) {
+            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, "分配菜单成功！");
         } else {
             return new RestResponse(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
         }

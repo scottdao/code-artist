@@ -34,6 +34,34 @@
                 } else {
                     $.messager.alert('系统提示', '请选择要删除的行！');
                 }
+            },
+            roleMenu: () => {
+                let roleJson = $("#roleDatagrid").datagrid('getSelected');
+                if (roleJson != null) {
+                    easyuiConfig.newDialog("roleDialog", '分配菜单', 550, 500, "/system/roleMenu.html", () => {
+                        let menuIds = [];
+                        let menus = $("#roleMenuTreegrid").treegrid('getCheckedNodes');
+                        if (menus.length < 2) {
+                            $.messager.alert('系统提示', '要选中一个以上菜单');
+                            return;
+                        }
+                        menus.map(menu => menuIds.push(menu.id));
+                        $.post("/user/roleMenu", {
+                            roleId: roleJson.id,
+                            menuIds: menuIds
+                        }, data => {
+                            if (data != '') {
+                                $.messager.alert('系统提示', data);
+                                $("#roleDialog").dialog('close');
+                            } else {
+                                $.messager.alert('系统提示', '分配失败！');
+                                $("#roleDialog").dialog('close');
+                            }
+                        });
+                    });
+                } else {
+                    $.messager.alert('系统提示', '请选择要分配的角色！');
+                }
             }
         }
         $(() => {
@@ -65,12 +93,11 @@
             }, {
                 iconCls: 'icon-large-chart',
                 text: '分配菜单',
-                handler: () => {
-                    alert("分配菜单");
-                }
+                handler: roleMan.roleMenu
             }]);
         });
     </script>
+    <div id="roleDialog" hidden></div>
     <table id="roleDatagrid">
         <thead>
             <tr>
