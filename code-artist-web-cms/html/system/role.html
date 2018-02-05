@@ -43,8 +43,7 @@
                 updateUrl: '/user/editRole',
                 destroyUrl: '/user/deleteRole',
                 onAfterEdit: (index, row) => {
-                    $.messager.alert('系统提示', '保存成功！');
-                    $('#roleDatagrid').edatagrid('reload');
+                    $.messager.alert('系统提示', '保存成功！', () => $('#roleDatagrid').edatagrid('reload'));
                 }
             });
             easyuiConfig.setToolbar("roleDatagrid", {
