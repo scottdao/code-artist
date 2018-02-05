@@ -276,4 +276,47 @@ public class UserController {
         }
     }
 
+    /**
+     * 修改菜单信息
+     *
+     * @param userJson
+     * @param paramJson
+     * @return
+     */
+    @RequestMapping(value = "editMenu", method = RequestMethod.POST)
+    public RestResponse editMenu(String userJson, String paramJson) {
+        User loginUser = JSON.parseObject(userJson, User.class);
+        Menu menu = JSON.parseObject(paramJson, Menu.class);
+        logger.info("menu: {}", paramJson);
+        logger.info("menuCloss: {}", JSON.toJSONString(menu));
+        menu.setUpdateUser(loginUser.getRealname());
+        int flag = menuService.updateEntityById(menu);
+        if (flag == 1) {
+            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, menu.getName());
+        } else {
+            return new RestResponse(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * 删除菜单
+     *
+     * @param userJson
+     * @return
+     */
+    @RequestMapping(value = "deleteMenu/{id}", method = RequestMethod.POST)
+    public RestResponse deleteMenu(String userJson, @PathVariable("id") Integer id) {
+        User loginUser = JSON.parseObject(userJson, User.class);
+        Menu menu = new Menu();
+        menu.setId(id);
+        menu.setStatus(0);
+        menu.setUpdateUser(loginUser.getRealname());
+        int flag = menuService.updateEntityById(menu);
+        if (flag == 1) {
+            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, "删除成功！");
+        } else {
+            return new RestResponse(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+        }
+    }
+
 }

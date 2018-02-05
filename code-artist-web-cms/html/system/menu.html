@@ -54,10 +54,46 @@
                 });
             },
             editMenu: () => {
-                alert("edit");
+                let selectedMenu = $("#menuTreegrid").treegrid('getSelected');
+                if (selectedMenu == null) {
+                    $.messager.alert('系统提示', '请选择一个菜单！');
+                    return;
+                }
+                easyuiConfig.newDialog("newMenuDialog", '新建菜单', 350, 250, "/system/editMenu.html", () => {
+                    if ($("#editMenuForm").form('validate')) {
+                        $.post("/user/editMenu", $("#editMenuForm").serialize(), data => {
+                            if (data != '') {
+                                $.messager.alert('系统提示', '菜单' + data + '修改成功！');
+                                $("#newMenuDialog").dialog('close');
+                                $("#menuTreegrid").treegrid('reload');
+                            } else {
+                                $.messager.alert('系统提示', '菜单修改失败！');
+                                $("#newMenuDialog").dialog('close');
+                            }
+                        });
+                    }
+                });
             },
             deleteMenu: () => {
-                alert("delete");
+                let selectedMenu = $("#menuTreegrid").treegrid('getSelected');
+                if (selectedMenu == null) {
+                    $.messager.alert('系统提示', '请选择一个要删除的菜单！');
+                    return;
+                } else {
+                    let message = '你确定要删除这个菜单？';
+                    $.messager.confirm('系统提示', selectedMenu.isLeaf == 0 ? '你确定要删除这个<span style="color:red;">父菜单</span>，删除后该菜单下所有子菜单将被删除？' : message, flag => {
+                        if (flag) {
+                            $.post("/user/deleteMenu/" + selectedMenu.id, data => {
+                                if (data != '') {
+                                    $.messager.alert('系统提示', data);
+                                    $("#menuTreegrid").treegrid('reload');
+                                } else {
+                                    $.messager.alert('系统提示', '删除失败！');
+                                }
+                            });
+                        }
+                    });
+                }
             }
         }
         easyuiConfig.setToolbar("menuTreegrid", {
