@@ -54,9 +54,9 @@ public class UserController {
         logger.info("loginInfo: {}", JSON.toJSONString(user));
         User loginUser = userService.login(user.getUsername(), user.getPassword());
         if (loginUser != null) {
-            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, loginUser);
+            return new RestResponse(loginUser);
         } else {
-            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+            return new RestResponse(Constants.HTTP_CODE.ERROR);
         }
     }
 
@@ -69,9 +69,9 @@ public class UserController {
     public RestResponse showUserList() {
         List<User> userList = userService.selectEntityList();
         if (!CollectionUtils.isEmpty(userList)) {
-            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, userList);
+            return new RestResponse(userList);
         } else {
-            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+            return new RestResponse(Constants.HTTP_CODE.ERROR);
         }
     }
 
@@ -92,9 +92,9 @@ public class UserController {
         user.setUpdateUser(loginUser.getRealname());
         int flag = userService.insertEntity(user);
         if (flag == 1) {
-            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, user.getRealname());
+            return new RestResponse(user.getRealname());
         } else {
-            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+            return new RestResponse(Constants.HTTP_CODE.ERROR);
         }
     }
 
@@ -110,14 +110,14 @@ public class UserController {
         User operator = JSON.parseObject(userJson, User.class);
         User admin = JSON.parseObject(paramJson, User.class);
         if (admin == null || StringUtils.isEmpty(admin.getId())) {
-            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+            return new RestResponse(Constants.HTTP_CODE.ERROR);
         }
         admin.setUpdateUser(operator.getRealname());
         int flag = userService.updateEntityById(admin);
         if (flag == 1) {
-            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, admin.getRealname());
+            return new RestResponse(admin.getRealname());
         } else {
-            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+            return new RestResponse(Constants.HTTP_CODE.ERROR);
         }
     }
 
@@ -137,9 +137,9 @@ public class UserController {
         user.setUpdateUser(loginUser.getRealname());
         int flag = userService.updateEntityById(user);
         if (flag == 1) {
-            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, "删除成功！");
+            return new RestResponse("删除成功！");
         } else {
-            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+            return new RestResponse(Constants.HTTP_CODE.ERROR);
         }
     }
 
@@ -155,9 +155,9 @@ public class UserController {
         User user = JSON.parseObject(userJson, User.class);
         List<Menu> menuList = userService.showMenu(user.getId());
         if (!CollectionUtils.isEmpty(menuList)) {
-            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, menuList);
+            return new RestResponse(menuList);
         } else {
-            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+            return new RestResponse(Constants.HTTP_CODE.ERROR);
         }
     }
 
@@ -170,9 +170,9 @@ public class UserController {
     public RestResponse showRole() {
         List<Role> roleList = roleService.selectEntityList();
         if (!CollectionUtils.isEmpty(roleList)) {
-            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, roleList);
+            return new RestResponse(roleList);
         } else {
-            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+            return new RestResponse(Constants.HTTP_CODE.ERROR);
         }
     }
 
@@ -192,9 +192,9 @@ public class UserController {
         role.setUpdateUser(loginUser.getRealname());
         int flag = roleService.insertEntity(role);
         if (flag == 1) {
-            return new RestResponse(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE);
+            return new RestResponse(Constants.HTTP_CODE.SUCCESS);
         } else {
-            return new RestResponse(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+            return new RestResponse(Constants.HTTP_CODE.ERROR);
         }
     }
 
@@ -214,9 +214,9 @@ public class UserController {
         role.setUpdateUser(loginUser.getRealname());
         int flag = roleService.updateEntityById(role);
         if (flag == 1) {
-            return new RestResponse(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE);
+            return new RestResponse(Constants.HTTP_CODE.SUCCESS);
         } else {
-            return new RestResponse(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+            return new RestResponse(Constants.HTTP_CODE.ERROR);
         }
     }
 
@@ -235,9 +235,9 @@ public class UserController {
         role.setUpdateUser(loginUser.getRealname());
         int flag = roleService.updateEntityById(role);
         if (flag == 1) {
-            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, "删除成功！");
+            return new RestResponse("删除成功！");
         } else {
-            return new RestResponse(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+            return new RestResponse(Constants.HTTP_CODE.ERROR);
         }
     }
 
@@ -250,9 +250,9 @@ public class UserController {
     public RestResponse showMenu() {
         List<Menu> menuList = menuService.selectEntityList();
         if (!CollectionUtils.isEmpty(menuList)) {
-            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, menuList);
+            return new RestResponse(menuList);
         } else {
-            return new RestResponse<>(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+            return new RestResponse(Constants.HTTP_CODE.ERROR);
         }
     }
 
@@ -270,9 +270,9 @@ public class UserController {
         menu.setUpdateUser(loginUser.getRealname());
         int flag = menuService.insertEntity(menu);
         if (flag == 1) {
-            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, menu.getName());
+            return new RestResponse(menu.getName());
         } else {
-            return new RestResponse(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+            return new RestResponse(Constants.HTTP_CODE.ERROR);
         }
     }
 
@@ -292,9 +292,9 @@ public class UserController {
         menu.setUpdateUser(loginUser.getRealname());
         int flag = menuService.updateEntityById(menu);
         if (flag == 1) {
-            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, menu.getName());
+            return new RestResponse(menu.getName());
         } else {
-            return new RestResponse(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+            return new RestResponse(Constants.HTTP_CODE.ERROR);
         }
     }
 
@@ -313,9 +313,9 @@ public class UserController {
         menu.setUpdateUser(loginUser.getRealname());
         int flag = menuService.updateEntityById(menu);
         if (flag == 1) {
-            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, "删除成功！");
+            return new RestResponse("删除成功！");
         } else {
-            return new RestResponse(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+            return new RestResponse(Constants.HTTP_CODE.ERROR);
         }
     }
 
@@ -329,7 +329,7 @@ public class UserController {
     public RestResponse chooseMenu(@PathVariable("id") Integer id) {
         List<Integer> menuIdList = menuService.selectMenuIdsByRoleId(id);
         logger.info("menuIdList: {}", JSON.toJSONString(menuIdList));
-        return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, menuIdList);
+        return new RestResponse(menuIdList);
     }
 
     /**
@@ -341,7 +341,7 @@ public class UserController {
     @RequestMapping(value = "roleMenu", method = RequestMethod.POST)
     public RestResponse roleMenu(String paramJson) {
         logger.info("paramJson: {}", paramJson);
-        List<Integer> menuIdList = new ArrayList<>();
+        List<Integer> menuIdList = new ArrayList();
         JSONObject jsonObject = JSON.parseObject(paramJson);
         Integer roleId = Integer.valueOf((String) jsonObject.get("roleId"));
         JSONArray jsonArray = jsonObject.getJSONArray("menuIds[]");
@@ -351,9 +351,9 @@ public class UserController {
         logger.info("Array: {}", JSON.toJSONString(menuIdList));
         int flag = menuService.insertRoleMenu(roleId, menuIdList);
         if (flag > 0) {
-            return new RestResponse<>(Constants.Http.SUCCESS_CODE, Constants.Http.SUCCESS_MESSAGE, "分配菜单成功！");
+            return new RestResponse("分配菜单成功！");
         } else {
-            return new RestResponse(Constants.Http.ERROR_CODE, Constants.Http.ERROR_MESSAGE);
+            return new RestResponse(Constants.HTTP_CODE.ERROR);
         }
     }
 

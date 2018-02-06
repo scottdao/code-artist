@@ -1,21 +1,25 @@
 package code.artist.common.result;
 
-public class RestResponse<T> {
+import code.artist.common.constants.Constants;
+
+public class RestResponse {
 
     private int code;
     private String message;
-    private T data;
+    private Object data;
 
-    public RestResponse() {
+    public RestResponse(Constants.HTTP_CODE httpCode, Object data) {
+        this(httpCode);
+        this.data = data;
     }
 
-    public RestResponse(int code, String message) {
-        this.code = code;
-        this.message = message;
+    public RestResponse(Constants.HTTP_CODE httpCode) {
+        this.code = httpCode.getCode();
+        this.message = httpCode.getMessage();
     }
 
-    public RestResponse(int code, String message, T data) {
-        this(code, message);
+    public RestResponse(Object data) {
+        this(Constants.HTTP_CODE.SUCCESS);
         this.data = data;
     }
 
@@ -35,11 +39,11 @@ public class RestResponse<T> {
         this.message = message;
     }
 
-    public T getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(Object data) {
         this.data = data;
     }
 }
