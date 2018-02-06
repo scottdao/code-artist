@@ -16,19 +16,19 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpackServer = {
 	protocol:'http://',
 	host:'localhost',
+	//host:'192.168.0.108',
 	port:'8080'
 }
 module.exports={
 	//入口文件；
 	entry:{
 		vendor: ['react','react-dom','react-router'],
-		app:['./src/index.jsx']
+		app:['./app/index.jsx']
 	},
 	//出口文件；__dirname+'/build/project/'
 	output:{
-		//path:path.join(__dirname,'../','/build/project/'),//配置打包路径
-		path:path.join(__dirname,'/build/project/'),
-		publicPath:'./',//打包后HTML对所有资源链接
+		path:path.join(__dirname,'/build/project/'),//配置打包路径
+		publicPath:'/',//打包后HTML对所有资源链接
 		filename:'js/[name].min.js',
 		chunkFilename:'chuncks/chunkfile.min.js'
 	},
@@ -39,11 +39,6 @@ module.exports={
 		rules:[
 			{
 				test:/\.(css|scss)$/,
-//				use:[
-//					"style-loader",
-//					"css-loader",
-//					"sass-loader"
-//				]
 				use: ExtractTextPlugin.extract({
 					fallback: 'style-loader',
                     use: [
@@ -65,11 +60,6 @@ module.exports={
 			},
 			{
 				test:/\.less$/,
-//				use:[
-//					"style-loader",
-//					"css-loader",
-//					"less-loader"
-//				]
 				use: ExtractTextPlugin.extract({
 					fallback: 'style-loader',
                     use: [
@@ -113,7 +103,7 @@ module.exports={
 		}),
 		//html模板插件；
 		new htmlWebpackPlugin({
-			template:__dirname+'/src/index.html',
+			template:__dirname+'/app/index.html',
 			favicon:'./favicon.ico'
 		}),
 		//自动开启浏览器；
