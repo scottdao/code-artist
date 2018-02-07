@@ -52,9 +52,12 @@ CREATE TABLE t_user_role (
     role_id INT(10)     NOT NULL COMMENT '用户id'
 ) COMMENT '用户角色表';
 
--- 用户菜单表
+-- 角色菜单表
 CREATE TABLE t_role_menu (
     id      BIGINT(20) PRIMARY KEY AUTO_INCREMENT COMMENT '用户菜单表id',
     role_id INT(10) NOT NULL COMMENT '角色id',
     menu_id INT(10) NOT NULL COMMENT '菜单id'
 ) COMMENT '用户菜单表';
+
+ALTER TABLE t_role_menu ADD UNIQUE INDEX(role_id,menu_id);
+ALTER TABLE t_user_role ADD UNIQUE INDEX(user_id,role_id);
