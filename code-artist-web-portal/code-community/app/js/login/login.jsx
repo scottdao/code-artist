@@ -6,7 +6,7 @@ class Login extends Component{
         super()
     }
     componentDidMount(){
-        documment.title = '登录'
+        //document.title = '登录'
     }
     pageIndex(){//登录跳转接口
     	hashHistory.push('/community/pageIndex');
