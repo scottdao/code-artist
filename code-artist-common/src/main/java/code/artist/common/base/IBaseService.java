@@ -17,6 +17,15 @@ public interface IBaseService<T extends BaseModel> {
     List<T> selectEntityList();
 
     /**
+     * 分页查询
+     *
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    String selectEntityPage(Integer pageNum, Integer pageSize);
+
+    /**
      * 插入
      *
      * @param entity
