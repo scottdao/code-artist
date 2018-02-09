@@ -104,7 +104,6 @@
                         let roleIds = [];
                         let roles = $("#userRoleDatagrid").datagrid('getChecked');
                         roles.map(role => roleIds.push(role.id));
-                        console.log(roleIds);
                         $.post("/user/userRole", {
                             userId: userJson.id,
                             roleIds: roleIds
