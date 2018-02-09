@@ -65,11 +65,11 @@ public class UserController {
      *
      * @return 用户列表
      */
-    @RequestMapping(value = "showUserList", method = RequestMethod.POST)
-    public RestResponse showUserList() {
-        List<User> userList = userService.selectEntityList();
-        if (!CollectionUtils.isEmpty(userList)) {
-            return new RestResponse(userList);
+    @RequestMapping(value = "showUserList/{pageNum}/{pageSize}", method = RequestMethod.POST)
+    public RestResponse showUser(@PathVariable("pageNum") Integer pageNum, @PathVariable("pageSize") Integer pageSize) {
+        String userPage = userService.selectEntityPage(pageNum, pageSize);
+        if (!StringUtils.isEmpty(userPage)) {
+            return new RestResponse(userPage);
         } else {
             return new RestResponse(Constants.HTTP_CODE.ERROR);
         }
@@ -166,11 +166,11 @@ public class UserController {
      *
      * @return
      */
-    @RequestMapping(value = "showRoleList", method = RequestMethod.POST)
-    public RestResponse showRole() {
-        List<Role> roleList = roleService.selectEntityList();
-        if (!CollectionUtils.isEmpty(roleList)) {
-            return new RestResponse(roleList);
+    @RequestMapping(value = "showRoleList/{pageNum}/{pageSize}", method = RequestMethod.POST)
+    public RestResponse showRole(@PathVariable("pageNum") Integer pageNum, @PathVariable("pageSize") Integer pageSize) {
+        String rolePage = roleService.selectEntityPage(pageNum, pageSize);
+        if (!StringUtils.isEmpty(rolePage)) {
+            return new RestResponse(rolePage);
         } else {
             return new RestResponse(Constants.HTTP_CODE.ERROR);
         }

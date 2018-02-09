@@ -6,7 +6,6 @@
     <div id="newAdminDialog" hidden></div>
     <script>
         $('#adminDatagrid').datagrid({
-            url: '/user/showUserList',
             columns: [
                 [{
                     field: 'id',
@@ -40,6 +39,7 @@
                 }]
             ]
         });
+        easyuiConfig.loadData("adminDatagrid", "/user/showUserList");
         var userMan = {
             addAdmin: () => {
                 easyuiConfig.newDialog("newAdminDialog", '新建管理员', 350, 300, "/system/newAdmin.html", () => {
@@ -48,7 +48,7 @@
                             if (data != '') {
                                 $.messager.alert('系统提示', '管理员' + data + '保存成功！');
                                 $("#newAdminDialog").dialog('close');
-                                $("#adminDatagrid").datagrid('reload');
+                                easyuiConfig.loadData("adminDatagrid", "/user/showUserList");
                             } else {
                                 $.messager.alert('系统提示', '管理员保存失败！');
                                 $("#newAdminDialog").dialog('close');
@@ -66,7 +66,7 @@
                                 if (data != '') {
                                     $.messager.alert('系统提示', '管理员' + data + '保存成功！');
                                     $("#newAdminDialog").dialog('close');
-                                    $("#adminDatagrid").datagrid('reload');
+                                    easyuiConfig.loadData("adminDatagrid", "/user/showUserList");
                                 } else {
                                     $.messager.alert('系统提示', '管理员保存失败！');
                                     $("#newAdminDialog").dialog('close');
@@ -86,7 +86,7 @@
                             $.post("/user/deleteUser/" + userJson.id, data => {
                                 if (data != '') {
                                     $.messager.alert('系统提示', data);
-                                    $("#adminDatagrid").datagrid('reload');
+                                    easyuiConfig.loadData("adminDatagrid", "/user/showUserList");
                                 } else {
                                     $.messager.alert('系统提示', '删除失败！');
                                 }

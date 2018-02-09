@@ -56,6 +56,30 @@ const easyuiConfig = {
                 handler: () => { $('#' + id).dialog('close'); }
             }]
         });
+    },
+    loadData: (id, url, param = {}) => {
+        let load = (id, url, pn, ps) => {
+            $.post(url + "/" + pn + "/" + ps, param, data => {
+                let json = JSON.parse(data);
+                if (json.list) {
+                    $('#' + id).datagrid('loadData', json.list);
+                } else {
+                    $('#' + id).datagrid('loadData', []);
+                }
+                $("#" + id).datagrid('getPager').pagination({
+                    total: json.total,
+                    pageNumber: json.pageNum,
+                    pageSize: json.pageSize,
+                    onSelectPage: (pn, ps) => {
+                        load(id, url, pn, ps);
+                    }
+                });
+            })
+        }
+        let page = $("#" + id).datagrid('getPager');
+        let _pageNum = page.pagination('options').pageNumber || 1;
+        let _pageSize = page.pagination('options').pageSize;
+        load(id, url, _pageNum, _pageSize);
     }
 }
 
