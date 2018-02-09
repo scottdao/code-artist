@@ -16,9 +16,9 @@ app.use(session({
 // 创建 application/x-www-form-urlencoded 编码解析
 app.use(bodyParser.urlencoded({ extended: false }));
 // 添加静态资源
-app.use(express.static(path.join(__dirname, 'css')));
-app.use(express.static(path.join(__dirname, 'js')));
-app.use(express.static(path.join(__dirname, 'img')));
+app.use('/css', express.static(path.join(__dirname, 'public/css')));
+app.use('/js', express.static(path.join(__dirname, 'public/js')));
+app.use('/img', express.static(path.join(__dirname, 'public/img')));
 
 //登录拦截器
 app.use((req, res, next) => {
@@ -29,7 +29,7 @@ app.use((req, res, next) => {
     next();
 });
 // 在拦截器后添加静态资源
-app.use(express.static(path.join(__dirname, 'html')));
+app.use(express.static(path.join(__dirname, 'public/html')));
 
 app.use('/', user);
 

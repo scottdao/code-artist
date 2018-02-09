@@ -11,7 +11,7 @@ $(() => {
         }
         $.post("/toLogin", $("#loginForm").serialize(), data => {
             if (data == 0) {
-                location = "main.html";
+                location = "/main.html";
             } else {
                 $("#message").html(data);
             }
