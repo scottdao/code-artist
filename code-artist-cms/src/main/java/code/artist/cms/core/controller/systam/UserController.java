@@ -177,6 +177,21 @@ public class UserController {
     }
 
     /**
+     * 查询所有角色（不分页）
+     *
+     * @return
+     */
+    @RequestMapping(value = "showRole", method = RequestMethod.POST)
+    public RestResponse showRole() {
+        List<Role> roleList = roleService.selectEntityList();
+        if (!CollectionUtils.isEmpty(roleList)) {
+            return new RestResponse(roleList);
+        } else {
+            return new RestResponse(Constants.HTTP_CODE.ERROR);
+        }
+    }
+
+    /**
      * 新增角色
      *
      * @param userJson
@@ -236,6 +251,47 @@ public class UserController {
         int flag = roleService.updateEntityById(role);
         if (flag == 1) {
             return new RestResponse("删除成功！");
+        } else {
+            return new RestResponse(Constants.HTTP_CODE.ERROR);
+        }
+    }
+
+    /**
+     * 通过管理员ID查询角色ID列表
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "chooseRole/{id}", method = RequestMethod.POST)
+    public RestResponse chooseRole(@PathVariable("id") String id) {
+        List<Integer> roleIdList = roleService.selectRoleIdsByUserId(id);
+        logger.info("roleIdList: {}", JSON.toJSONString(roleIdList));
+        return new RestResponse(roleIdList);
+    }
+
+    /**
+     * 管理员分配角色
+     *
+     * @param paramJson
+     * @return
+     */
+    @RequestMapping(value = "userRole", method = RequestMethod.POST)
+    public RestResponse userRole(String paramJson) {
+        List<Integer> roleIdList = new ArrayList();
+        JSONObject jsonObject = JSON.parseObject(paramJson);
+        String userId = jsonObject.getString("userId");
+        try {
+            JSONArray jsonArray = jsonObject.getJSONArray("roleIds[]");
+            for (int i = 0, n = jsonArray.size(); i < n; i++) {
+                roleIdList.add(Integer.valueOf((String) jsonArray.get(i)));
+            }
+        } catch (ClassCastException e) {
+            roleIdList.add(jsonObject.getInteger("roleIds[]"));
+        }
+        logger.info("Array: {}", JSON.toJSONString(roleIdList));
+        int flag = roleService.insertUserRole(userId, roleIdList);
+        if (flag > 0) {
+            return new RestResponse("分配角色成功！");
         } else {
             return new RestResponse(Constants.HTTP_CODE.ERROR);
         }

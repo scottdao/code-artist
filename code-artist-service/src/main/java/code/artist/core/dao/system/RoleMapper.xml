@@ -23,8 +23,20 @@
     </insert>
 
     <select id="selEntityList" resultMap="roleMap">
-        SELECT <include refid="roleList"></include> FROM t_role WHERE status=1
+        SELECT <include refid="roleList"></include> FROM t_role WHERE status=1 ORDER BY create_time
     </select>
+    <select id="selUserRoleByUserId" resultType="java.lang.Integer">
+        SELECT role_id FROM t_user_role WHERE user_id=#{userId}
+    </select>
+    <delete id="delUserRoleByUserId">
+        DELETE FROM t_user_role WHERE user_id=#{userId}
+    </delete>
+    <insert id="insUserRole">
+        INSERT INTO t_user_role (id,user_id,role_id) VALUES
+        <foreach collection="roleIds" item="role" separator=",">
+            (DEFAULT,#{userId},#{role})
+        </foreach>
+    </insert>
 
     <update id="updEntityById" parameterType="Role">
         UPDATE t_role

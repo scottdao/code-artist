@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <table id="userRoleDatagrid"></table>
+    <script>
+        $('#userRoleDatagrid').datagrid({
+            url: '/user/showRole',
+            singleSelect: false,
+            pagination: false,
+            columns: [
+                [{
+                    field: 'id',
+                    checkbox: true,
+                }, {
+                    field: 'name',
+                    title: '菜单名称',
+                    align: 'center',
+                    width: 180
+                }]
+            ],
+            onLoadSuccess: () => {
+                let userJson = $("#adminDatagrid").datagrid('getSelected');
+                $.post("/user/chooseRole/" + userJson.id, roleIds => {
+                    roleIds.map(value => {
+                        let rows = $('#userRoleDatagrid').datagrid('getRows');
+                        rows.map((row, index) => {
+                            if (row.id === value) {
+                                $('#userRoleDatagrid').datagrid('checkRow', index);
+                            }
+                        });
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

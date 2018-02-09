@@ -31,7 +31,7 @@
     </select>
 
     <select id="selEntityList" resultMap="userMap">
-        SELECT <include refid="userList"></include> FROM t_user WHERE status=1
+        SELECT <include refid="userList"></include> FROM t_user WHERE status=1 ORDER BY create_time
     </select>
 
     <update id="updEntityById" parameterType="User">
