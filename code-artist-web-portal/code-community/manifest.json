@@ -1,0 +1,12 @@
+{
+    "name": "vendor_ac51ba426d4f259b8b18",
+    "content": {
+        "./node_modules/react/react.js": 1,
+        "./node_modules/react/lib/React.js": 2,
+        "./node_modules/react/node_modules/object-assign/index.js": 3,
+        "./node_modules/react/lib/ReactChildren.js": 4,
+        "./node_modules/react/lib/PooledClass.js": 5,
+        "./node_modules/react/lib/reactProdInvariant.js": 6
+        
+    }
+}
