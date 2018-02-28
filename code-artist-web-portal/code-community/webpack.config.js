@@ -12,12 +12,23 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 //采用并行压缩打包；
 const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
+//happypack多进程加速打包；
+const HappyPack = require('happypack');
+const happyThreadPool = HappyPack.ThreadPool({ size: 5 });
 
 const webpackServer = {
 	protocol:'http://',
 	host:'localhost',
 	//host:'192.168.0.108',
 	port:'8080'
+}
+//加入happyThreadPool插件包；
+function createHappyThread(id,loaders){
+	return new HappyPack({
+      id: id,
+      threadPool: happyThreadPool,
+      loaders: loaders
+    })
 }
 module.exports={
 	//入口文件；
@@ -32,7 +43,7 @@ module.exports={
 		chunkFilename:'chuncks/chunkfile.min.js'
 	},
 	resolve:{
-		extensions:['.js','.jsx','json']
+		extensions:['.js','.jsx','.json']
 	},
 	module:{
 		rules:[
@@ -40,42 +51,47 @@ module.exports={
 				test:/\.(css|scss)$/,
 				use: ExtractTextPlugin.extract({
 					fallback: 'style-loader',
-                    use: [
-                        'css-loader',
-                        'autoprefixer-loader',
-                        'fast-sass-loader'
-                    ]
+					use: 'happypack/loader?id=sass'
+                    // use: [
+                    //     'css-loader',
+                    //     'autoprefixer-loader',
+                    //     'fast-sass-loader'
+                    // ]
 				})
 			
 			},
 			{
 				test:/\.(js|jsx)$/,
-				use:[{
-					loader:"babel-loader",
-					 options: {
-                    	cacheDirectory: true
-               		 }
-				}]
+				use:'happypack/loader?id=jsx'
+				// use: [{
+				// 	loader:"babel-loader",
+				// 	 options: {
+    //                 	cacheDirectory: true
+    //            		 }
+				// }]
 			},
 			{
 				test:/\.json$/,
-				use:"json-loader"
+				use:'happypack/loader?id=json'
+				//use:"json-loader"
 				
 			},
 			{
 				test:/\.less$/,
 				use: ExtractTextPlugin.extract({
 					fallback: 'style-loader',
-                    use: [
-                        'css-loader',
-                        'autoprefixer-loader',
-                        'less-loader'
-                    ]
+					use:'happypack/loader?id=styles'
+                    // use: [
+                    //     'css-loader',
+                    //     'autoprefixer-loader',
+                    //     'less-loader'
+                    // ]
 				})	
 			},
 			{
 				test:/\.(png|jpg|gif|jpeg|svg)$/i,
-				use:"file-loader?limit=2048&name=img/[hash:8].[name].[ext]",
+				use:'happypack/loader?id=file'
+				//use:"file-loader?limit=2048&name=img/[hash:8].[name].[ext]",
 		    }
 		]
 	},
@@ -89,6 +105,16 @@ module.exports={
 	},
     devtool: "source-map",
 	plugins:[
+		createHappyThread('jsx',[{
+					loader:"babel-loader",
+					 options: {
+                    	cacheDirectory: true
+               		 }
+				}]),
+		createHappyThread('sass',['css-loader','autoprefixer-loader','fast-sass-loader']),
+		createHappyThread('json',['json-loader']),
+		createHappyThread('less',['css-loader','autoprefixer-loader','less-loader']),
+		createHappyThread('file',['file-loader?limit=2048&name=img/[hash:8].[name].[ext]']),
 		new CleanWebpackPlugin(['build']//匹配删除的文件
 			,{
 			   root:__dirname,//根目录

@@ -3,7 +3,8 @@ const webpack = require('webpack');
 const vendor =  [
     'react',
     'react-dom',
-    'react-router'
+    'react-router',
+    'antd'
     // ...其它库
 ];
 module.exports = {
