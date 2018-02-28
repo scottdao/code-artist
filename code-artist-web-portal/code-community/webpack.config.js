@@ -52,28 +52,18 @@ module.exports={
 				use: ExtractTextPlugin.extract({
 					fallback: 'style-loader',
 					use: 'happypack/loader?id=sass'
-                    // use: [
-                    //     'css-loader',
-                    //     'autoprefixer-loader',
-                    //     'fast-sass-loader'
-                    // ]
+                    
 				})
 			
 			},
 			{
 				test:/\.(js|jsx)$/,
 				use:'happypack/loader?id=jsx'
-				// use: [{
-				// 	loader:"babel-loader",
-				// 	 options: {
-    //                 	cacheDirectory: true
-    //            		 }
-				// }]
+				
 			},
 			{
 				test:/\.json$/,
 				use:'happypack/loader?id=json'
-				//use:"json-loader"
 				
 			},
 			{
@@ -81,18 +71,13 @@ module.exports={
 				use: ExtractTextPlugin.extract({
 					fallback: 'style-loader',
 					use:'happypack/loader?id=styles'
-                    // use: [
-                    //     'css-loader',
-                    //     'autoprefixer-loader',
-                    //     'less-loader'
-                    // ]
+                    
 				})	
 			},
 			{
 				test:/\.(png|jpg|gif|jpeg|svg)$/i,
 				use:'happypack/loader?id=file'
-				//use:"file-loader?limit=2048&name=img/[hash:8].[name].[ext]",
-		    }
+			}
 		]
 	},
 	devServer: {
