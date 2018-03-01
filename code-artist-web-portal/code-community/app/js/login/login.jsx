@@ -14,7 +14,7 @@ class Login extends Component{
     render(){
         return(
             <div>
-            	<Button type='default' onClick={this.pageIndex.bind(this)}>
+            	<Button type='primary' onClick={this.pageIndex.bind(this)}>
             		登录界面
             	</Button>
             </div>
