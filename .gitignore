@@ -8,6 +8,5 @@ target
 package-lock.json
 build/
 code-communitybuild
-
 package.json
 .cache
