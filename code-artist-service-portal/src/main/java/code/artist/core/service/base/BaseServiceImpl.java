@@ -3,6 +3,9 @@ package code.artist.core.service.base;
 import code.artist.common.base.BaseMapper;
 import code.artist.common.base.BaseModel;
 import code.artist.common.base.IBaseService;
+import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
@@ -16,6 +19,14 @@ public class BaseServiceImpl<T extends BaseModel> implements IBaseService<T> {
     @Override
     public List<T> selectEntityList() {
         return baseMapper.selEntityList();
+    }
+
+    @Override
+    public String selectEntityPage(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<T> tList = baseMapper.selEntityList();
+        PageInfo<T> tPageInfo = new PageInfo<>(tList);
+        return JSON.toJSONString(tPageInfo);
     }
 
     @Override
