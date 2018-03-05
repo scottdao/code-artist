@@ -1,6 +1,6 @@
 package code.artist.cms.core.controller.systam;
 
-import code.artist.common.constants.Constants;
+import code.artist.common.constants.Constants.HTTP_CODE;
 import code.artist.common.result.RestResponse;
 import code.artist.core.facade.system.IMenuService;
 import code.artist.core.facade.system.IRoleService;
@@ -56,7 +56,7 @@ public class UserController {
         if (loginUser != null) {
             return new RestResponse(loginUser);
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -71,7 +71,7 @@ public class UserController {
         if (!StringUtils.isEmpty(userPage)) {
             return new RestResponse(userPage);
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -94,7 +94,7 @@ public class UserController {
         if (flag == 1) {
             return new RestResponse(user.getRealname());
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -110,14 +110,14 @@ public class UserController {
         User operator = JSON.parseObject(userJson, User.class);
         User admin = JSON.parseObject(paramJson, User.class);
         if (admin == null || StringUtils.isEmpty(admin.getId())) {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
         admin.setUpdateUser(operator.getRealname());
         int flag = userService.updateEntityById(admin);
         if (flag == 1) {
             return new RestResponse(admin.getRealname());
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -139,7 +139,7 @@ public class UserController {
         if (flag == 1) {
             return new RestResponse("删除成功！");
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -157,7 +157,7 @@ public class UserController {
         if (!CollectionUtils.isEmpty(menuList)) {
             return new RestResponse(menuList);
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -172,7 +172,7 @@ public class UserController {
         if (!StringUtils.isEmpty(rolePage)) {
             return new RestResponse(rolePage);
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -187,7 +187,7 @@ public class UserController {
         if (!CollectionUtils.isEmpty(roleList)) {
             return new RestResponse(roleList);
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -207,9 +207,9 @@ public class UserController {
         role.setUpdateUser(loginUser.getRealname());
         int flag = roleService.insertEntity(role);
         if (flag == 1) {
-            return new RestResponse(Constants.HTTP_CODE.SUCCESS);
+            return new RestResponse(HTTP_CODE.SUCCESS);
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -229,9 +229,9 @@ public class UserController {
         role.setUpdateUser(loginUser.getRealname());
         int flag = roleService.updateEntityById(role);
         if (flag == 1) {
-            return new RestResponse(Constants.HTTP_CODE.SUCCESS);
+            return new RestResponse(HTTP_CODE.SUCCESS);
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -252,7 +252,7 @@ public class UserController {
         if (flag == 1) {
             return new RestResponse("删除成功！");
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -293,7 +293,7 @@ public class UserController {
         if (flag > 0) {
             return new RestResponse("分配角色成功！");
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -308,7 +308,7 @@ public class UserController {
         if (!CollectionUtils.isEmpty(menuList)) {
             return new RestResponse(menuList);
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -328,7 +328,7 @@ public class UserController {
         if (flag == 1) {
             return new RestResponse(menu.getName());
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -350,7 +350,7 @@ public class UserController {
         if (flag == 1) {
             return new RestResponse(menu.getName());
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -371,7 +371,7 @@ public class UserController {
         if (flag == 1) {
             return new RestResponse("删除成功！");
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -409,7 +409,7 @@ public class UserController {
         if (flag > 0) {
             return new RestResponse("分配菜单成功！");
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
