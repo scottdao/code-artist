@@ -19,11 +19,6 @@
         </dependency>
         <dependency>
             <groupId>com.code.artist</groupId>
-            <artifactId>code-artist-common</artifactId>
-            <version>${code-artist-common.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.code.artist</groupId>
             <artifactId>code-artist-facade-portal</artifactId>
             <version>${code-artist-facade-portal.version}</version>
         </dependency>

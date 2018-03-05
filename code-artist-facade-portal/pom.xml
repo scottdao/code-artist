@@ -20,29 +20,6 @@
     </dependencies>
 
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                    <include>**/*.xml</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>spring/*.properties</include>
-                    <include>spring/*.xml</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources/${profiles.active}</directory>
-                <includes>
-                    <include>*.properties</include>
-                    <include>*.xml</include>
-                </includes>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
