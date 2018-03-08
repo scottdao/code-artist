@@ -196,3 +196,29 @@ if ($.fn.datetimespinner) {
         [17, 19]
     ]
 }
+
+$.put = (url, data, callback) => {
+    $.ajax({
+        url: url,
+        type: 'put',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: data,
+        success: function(data) {
+            callback(data);
+        }
+    })
+}
+
+$.delete = (url, data, callback) => {
+    $.ajax({
+        url: url,
+        type: 'delete',
+        contentType: 'application/json',
+        dataType: 'json',
+        data: data,
+        success: function(data) {
+            callback(data);
+        }
+    })
+}
