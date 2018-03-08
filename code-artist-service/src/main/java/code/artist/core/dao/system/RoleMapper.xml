@@ -6,23 +6,11 @@
         `id`, `code`, `name`, `status`, `create_user`, `create_time`, `update_user`, `update_time`, `description`
     </sql>
 
-    <resultMap id="roleMap" type="Role">
-        <id column="id" property="id"/>
-        <result column="code" property="code"/>
-        <result column="name" property="name"/>
-        <result column="status" property="status"/>
-        <result column="create_user" property="createUser"/>
-        <result column="create_time" property="createTime"/>
-        <result column="update_user" property="updateUser"/>
-        <result column="update_time" property="updateTime"/>
-        <result column="description" property="description"/>
-    </resultMap>
-
     <insert id="insEntity" parameterType="Role">
         INSERT INTO t_role (<include refid="roleList"></include>) VALUES (#{id},#{code},#{name},1,#{createUser},#{createTime},#{updateUser},#{updateTime},#{description})
     </insert>
 
-    <select id="selEntityList" resultMap="roleMap">
+    <select id="selEntityList" resultType="Role">
         SELECT <include refid="roleList"></include> FROM t_role WHERE status=1 ORDER BY create_time
     </select>
     <select id="selUserRoleByUserId" resultType="java.lang.Integer">

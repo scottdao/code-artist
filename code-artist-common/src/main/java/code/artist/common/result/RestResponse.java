@@ -1,6 +1,6 @@
 package code.artist.common.result;
 
-import code.artist.common.constants.Constants;
+import code.artist.common.constants.Constants.HTTP_CODE;
 
 public class RestResponse {
 
@@ -8,18 +8,18 @@ public class RestResponse {
     private String message;
     private Object data;
 
-    public RestResponse(Constants.HTTP_CODE httpCode, Object data) {
+    public RestResponse(HTTP_CODE httpCode, Object data) {
         this(httpCode);
         this.data = data;
     }
 
-    public RestResponse(Constants.HTTP_CODE httpCode) {
+    public RestResponse(HTTP_CODE httpCode) {
         this.code = httpCode.getCode();
         this.message = httpCode.getMessage();
     }
 
     public RestResponse(Object data) {
-        this(Constants.HTTP_CODE.SUCCESS);
+        this(HTTP_CODE.SUCCESS);
         this.data = data;
     }
 
