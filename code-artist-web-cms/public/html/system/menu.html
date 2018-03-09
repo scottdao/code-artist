@@ -85,7 +85,7 @@
                         if (flag) {
                             $.post("/menu/" + selectedMenu.id, data => {
                                 if (data != '') {
-                                    $.messager.alert('系统提示', data);
+                                    $.messager.alert('系统提示', '删除成功！');
                                     $("#menuTreegrid").treegrid('reload');
                                 } else {
                                     $.messager.alert('系统提示', '删除失败！');

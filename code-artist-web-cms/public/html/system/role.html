@@ -23,7 +23,7 @@
                         if (flag) {
                             $.post("/role/" + roleJson.id, data => {
                                 if (data != '') {
-                                    $.messager.alert('系统提示', data);
+                                    $.messager.alert('系统提示', '删除成功！');
                                     easyuiConfig.loadData("roleDatagrid", "/role");
                                 } else {
                                     $.messager.alert('系统提示', '删除失败！');
@@ -51,7 +51,7 @@
                             menuIds: menuIds
                         }, data => {
                             if (data != '') {
-                                $.messager.alert('系统提示', data);
+                                $.messager.alert('系统提示', '分配菜单成功！');
                                 $("#roleDialog").dialog('close');
                             } else {
                                 $.messager.alert('系统提示', '分配失败！');

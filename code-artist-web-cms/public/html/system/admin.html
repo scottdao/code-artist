@@ -85,7 +85,7 @@
                         if (flag) {
                             $.post("/user/" + userJson.id, data => {
                                 if (data != '') {
-                                    $.messager.alert('系统提示', data);
+                                    $.messager.alert('系统提示', '删除成功！');
                                     easyuiConfig.loadData("adminDatagrid", "/user");
                                 } else {
                                     $.messager.alert('系统提示', '删除失败！');
@@ -113,7 +113,7 @@
                             roleIds: roleIds
                         }, data => {
                             if (data != '') {
-                                $.messager.alert('系统提示', data);
+                                $.messager.alert('系统提示', '分配角色成功！');
                                 $("#newAdminDialog").dialog('close');
                             } else {
                                 $.messager.alert('系统提示', '分配失败！');

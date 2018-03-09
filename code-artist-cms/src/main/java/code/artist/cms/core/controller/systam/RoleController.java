@@ -1,6 +1,6 @@
 package code.artist.cms.core.controller.systam;
 
-import code.artist.common.constants.Constants;
+import code.artist.common.constants.Constants.HTTP_CODE;
 import code.artist.common.result.RestResponse;
 import code.artist.core.facade.system.IRoleService;
 import code.artist.core.model.system.Role;
@@ -56,9 +56,9 @@ public class RoleController {
         logger.info("Array: {}", JSON.toJSONString(roleIdList));
         int flag = roleService.insertUserRole(userId, roleIdList);
         if (flag > 0) {
-            return new RestResponse("分配角色成功！");
+            return new RestResponse(HTTP_CODE.SUCCESS.getMessage());
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -75,7 +75,7 @@ public class RoleController {
         if (!StringUtils.isEmpty(rolePage)) {
             return new RestResponse(rolePage);
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -90,7 +90,7 @@ public class RoleController {
         if (!CollectionUtils.isEmpty(roleList)) {
             return new RestResponse(roleList);
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -110,9 +110,9 @@ public class RoleController {
         role.setUpdateUser(loginUser.getRealname());
         int flag = roleService.insertEntity(role);
         if (flag == 1) {
-            return new RestResponse(Constants.HTTP_CODE.SUCCESS);
+            return new RestResponse(HTTP_CODE.SUCCESS);
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -132,9 +132,9 @@ public class RoleController {
         role.setUpdateUser(loginUser.getRealname());
         int flag = roleService.updateEntityById(role);
         if (flag == 1) {
-            return new RestResponse(Constants.HTTP_CODE.SUCCESS);
+            return new RestResponse(HTTP_CODE.SUCCESS);
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -153,9 +153,9 @@ public class RoleController {
         role.setUpdateUser(loginUser.getRealname());
         int flag = roleService.updateEntityById(role);
         if (flag == 1) {
-            return new RestResponse("删除成功！");
+            return new RestResponse(HTTP_CODE.SUCCESS.getMessage());
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 

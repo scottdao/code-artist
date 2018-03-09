@@ -1,6 +1,6 @@
 package code.artist.cms.core.controller.systam;
 
-import code.artist.common.constants.Constants;
+import code.artist.common.constants.Constants.HTTP_CODE;
 import code.artist.common.result.RestResponse;
 import code.artist.core.facade.system.IMenuService;
 import code.artist.core.model.system.Menu;
@@ -43,7 +43,7 @@ public class MenuController {
         if (!CollectionUtils.isEmpty(menuList)) {
             return new RestResponse(menuList);
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -65,7 +65,7 @@ public class MenuController {
         if (flag == 1) {
             return new RestResponse(menu.getName());
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -87,7 +87,7 @@ public class MenuController {
         if (flag == 1) {
             return new RestResponse(menu.getName());
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -107,9 +107,9 @@ public class MenuController {
         menu.setUpdateUser(loginUser.getRealname());
         int flag = menuService.updateEntityById(menu);
         if (flag == 1) {
-            return new RestResponse("删除成功！");
+            return new RestResponse(HTTP_CODE.SUCCESS.getMessage());
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 
@@ -140,9 +140,9 @@ public class MenuController {
         logger.info("Array: {}", JSON.toJSONString(menuIdList));
         int flag = menuService.insertRoleMenu(roleId, menuIdList);
         if (flag > 0) {
-            return new RestResponse("分配菜单成功！");
+            return new RestResponse(HTTP_CODE.SUCCESS.getMessage());
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 

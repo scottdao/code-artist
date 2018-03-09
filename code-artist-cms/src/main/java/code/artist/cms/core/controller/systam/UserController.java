@@ -147,7 +147,7 @@ public class UserController {
         user.setUpdateUser(loginUser.getRealname());
         int flag = userService.updateEntityById(user);
         if (flag == 1) {
-            return new RestResponse("删除成功！");
+            return new RestResponse(HTTP_CODE.SUCCESS.getMessage());
         } else {
             return new RestResponse(HTTP_CODE.ERROR);
         }
