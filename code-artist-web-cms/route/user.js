@@ -13,7 +13,7 @@ const logger = log4js.getLogger('user');
 /**
  * 登陆验证
  */
-app.post('/toLogin', (req, res) => {
+app.post('/login', (req, res) => {
     let user = req.body;
     request.post({ url: config.API_BASE_URL + '/user/login', form: { username: user.username, password: user.password } }, (err, resp, body) => {
         if (!err && resp.statusCode == 200) {
@@ -26,7 +26,7 @@ app.post('/toLogin', (req, res) => {
                 res.send("用户名或密码错误！");
             }
         } else {
-            console.error(resp.statusCode);
+            logger.error(__filename + ':29', resp.statusCode);
             res.send(config.HTTP_ERROR);
         }
     });
@@ -55,7 +55,7 @@ app.post('/toEdit', (req, res) => {
                     res.send(config.HTTP_ERROR);
                 }
             } else {
-                console.error(resp.statusCode);
+                logger.error(__filename + ':58', resp.statusCode);
                 res.send(config.HTTP_ERROR);
             }
         });
@@ -81,22 +81,42 @@ app.get('/exit', (req, res) => {
  * user接口中间件
  * 前端ajax的POST请求直接访问后端的接口
  */
-app.post('/user/*', (req, res) => {
-    let [userJson, paramJson] = [JSON.stringify(req.session.user), JSON.stringify(req.body)];
-    logger.info(paramJson);
-    request.post({ url: config.API_BASE_URL + req.path, form: { userJson: userJson, paramJson: paramJson } }, (err, resp, body) => {
-        if (!err && resp.statusCode == 200) {
-            let respJson = JSON.parse(body);
-            if (respJson.code == config.HTTP_SUCCESS) {
-                res.send(respJson.data);
+app.route('/*')
+    .all((req, res, next) => {
+        logger.info(__filename + ':86', req.path);
+        next();
+    })
+    .get((req, res) => {
+        request.get({ url: config.API_BASE_URL + req.path }, (err, resp, body) => {
+            if (!err && resp.statusCode == 200) {
+                let respJson = JSON.parse(body);
+                if (respJson.code == config.HTTP_SUCCESS) {
+                    res.send(respJson.data);
+                } else {
+                    res.send(config.HTTP_ERROR);
+                }
             } else {
-                res.send(config.HTTP_ERROR);
+                logger.error(__filename + ':99', resp.statusCode);
+                res.send(resp.HTTP_ERROR);
             }
-        } else {
-            logger.error(resp.statusCode);
-            res.send(resp.HTTP_ERROR);
-        }
+        });
+    })
+    .post((req, res) => {
+        let [userJson, paramJson] = [JSON.stringify(req.session.user), JSON.stringify(req.body)];
+        logger.info(__filename + ':106', paramJson);
+        request.post({ url: config.API_BASE_URL + req.path, form: { userJson: userJson, paramJson: paramJson } }, (err, resp, body) => {
+            if (!err && resp.statusCode == 200) {
+                let respJson = JSON.parse(body);
+                if (respJson.code == config.HTTP_SUCCESS) {
+                    res.send(respJson.data);
+                } else {
+                    res.send(config.HTTP_ERROR);
+                }
+            } else {
+                logger.error(__filename + ':116', resp.statusCode);
+                res.send(resp.HTTP_ERROR);
+            }
+        });
     });
-});
 
 module.exports = app;

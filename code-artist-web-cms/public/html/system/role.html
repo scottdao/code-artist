@@ -21,10 +21,10 @@
                 if (roleJson != null) {
                     $.messager.confirm('系统提示', '你确定要删除角色' + roleJson.name + '吗？', flag => {
                         if (flag) {
-                            $.post("/user/deleteRole/" + roleJson.id, data => {
+                            $.post("/role/" + roleJson.id, data => {
                                 if (data != '') {
                                     $.messager.alert('系统提示', data);
-                                    easyuiConfig.loadData("roleDatagrid", "/user/showRoleList");
+                                    easyuiConfig.loadData("roleDatagrid", "/role");
                                 } else {
                                     $.messager.alert('系统提示', '删除失败！');
                                 }
@@ -46,7 +46,7 @@
                             return;
                         }
                         menus.map(menu => menuIds.push(menu.id));
-                        $.post("/user/roleMenu", {
+                        $.post("/menu/allot", {
                             roleId: roleJson.id,
                             menuIds: menuIds
                         }, data => {
@@ -66,13 +66,13 @@
         }
         $(() => {
             $('#roleDatagrid').edatagrid({
-                saveUrl: '/user/addRole',
-                updateUrl: '/user/editRole',
+                saveUrl: '/role/add',
+                updateUrl: '/role/edit',
                 onAfterEdit: (index, row) => {
                     $.messager.alert('系统提示', '保存成功！', () => easyuiConfig.loadData("roleDatagrid", "/user/showRoleList"));
                 }
             });
-            easyuiConfig.loadData("roleDatagrid", "/user/showRoleList");
+            easyuiConfig.loadData("roleDatagrid", "/role");
             easyuiConfig.setToolbar("roleDatagrid", {
                 add: roleMan.addRole,
                 edit: roleMan.editRole,

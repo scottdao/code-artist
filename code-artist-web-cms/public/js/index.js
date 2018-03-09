@@ -9,7 +9,7 @@ $(() => {
             $("#message").html("密码不能为空");
             return;
         }
-        $.post("/toLogin", $("#loginForm").serialize(), data => {
+        $.post("/login", $("#loginForm").serialize(), data => {
             if (data == 0) {
                 location = "/main.html";
             } else {

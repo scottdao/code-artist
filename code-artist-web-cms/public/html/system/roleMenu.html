@@ -5,7 +5,7 @@
     <table id="roleMenuTreegrid"></table>
     <script>
         $('#roleMenuTreegrid').treegrid({
-            url: '/user/showMenuList',
+            url: '/menu',
             idField: 'id',
             treeField: 'name',
             checkbox: true,
@@ -32,7 +32,7 @@
             ],
             onLoadSuccess: () => {
                 var roleJson = $("#roleDatagrid").datagrid('getSelected');
-                $.post("/user/chooseMenu/" + roleJson.id, menuIds => {
+                $.get("/menu/" + roleJson.id, menuIds => {
                     menuIds.map(value => $('#roleMenuTreegrid').treegrid('checkNode', value));
                 });
             }

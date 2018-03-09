@@ -59,7 +59,7 @@ const easyuiConfig = {
     },
     loadData: (id, url, param = {}) => {
         let load = (id, url, pn, ps) => {
-            $.post(url + "/" + pn + "/" + ps, param, data => {
+            $.get(url + "/" + pn + "/" + ps, param, data => {
                 let json = JSON.parse(data);
                 if (json.list) {
                     $('#' + id).datagrid('loadData', json.list);
@@ -118,6 +118,7 @@ if ($.fn.datagrid) {
     $.fn.datagrid.defaults.rownumbers = true;
     $.fn.datagrid.defaults.pagination = true;
     $.fn.datagrid.defaults.singleSelect = true;
+    $.fn.datagrid.defaults.method = 'GET';
     $.fn.datagrid.defaults.height = '100%';
     $.fn.datagrid.defaults.loadMsg = '数据加载中...';
 }
@@ -126,12 +127,14 @@ if ($.fn.edatagrid) {
     $.fn.edatagrid.defaults.pagination = $.fn.datagrid.defaults.pagination;
     $.fn.edatagrid.defaults.height = $.fn.datagrid.defaults.height;
     $.fn.edatagrid.defaults.loadMsg = $.fn.datagrid.defaults.loadMsg;
+    $.fn.edatagrid.defaults.method = $.fn.datagrid.defaults.method;
 }
 if ($.fn.treegrid && $.fn.datagrid) {
     $.fn.treegrid.defaults.rownumbers = true;
     $.fn.treegrid.defaults.animate = true;
     $.fn.treegrid.defaults.loadMsg = $.fn.datagrid.defaults.loadMsg;
     $.fn.treegrid.defaults.height = $.fn.datagrid.defaults.height;
+    $.fn.treegrid.defaults.method = $.fn.datagrid.defaults.method;
 }
 if ($.messager) {
     $.messager.defaults.ok = '确定';
@@ -195,30 +198,4 @@ if ($.fn.datetimespinner) {
         [14, 16],
         [17, 19]
     ]
-}
-
-$.put = (url, data, callback) => {
-    $.ajax({
-        url: url,
-        type: 'put',
-        contentType: 'application/json',
-        dataType: 'json',
-        data: data,
-        success: function(data) {
-            callback(data);
-        }
-    })
-}
-
-$.delete = (url, data, callback) => {
-    $.ajax({
-        url: url,
-        type: 'delete',
-        contentType: 'application/json',
-        dataType: 'json',
-        data: data,
-        success: function(data) {
-            callback(data);
-        }
-    })
 }
