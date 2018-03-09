@@ -34,7 +34,7 @@ $(() => {
                             } else if (data != '') {
                                 $.messager.alert('系统提示', '管理员' + data + '保存成功！');
                                 $("#editDialog").dialog('close');
-                                $("#adminDatagrid").datagrid('reload');
+                                easyuiConfig.loadData("adminDatagrid", "/user");
                             } else {
                                 $.messager.alert('系统提示', '管理员保存失败！');
                                 $("#editDialog").dialog('close');

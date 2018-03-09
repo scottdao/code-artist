@@ -6,7 +6,6 @@ import code.artist.core.facade.system.IMenuService;
 import code.artist.core.model.system.Menu;
 import code.artist.core.model.system.User;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -136,14 +134,9 @@ public class MenuController {
      */
     @RequestMapping(value = "allot", method = RequestMethod.POST)
     public RestResponse allotMenu(String paramJson) {
-        logger.info("paramJson: {}", paramJson);
-        List<Integer> menuIdList = new ArrayList();
         JSONObject jsonObject = JSON.parseObject(paramJson);
         Integer roleId = Integer.valueOf((String) jsonObject.get("roleId"));
-        JSONArray jsonArray = jsonObject.getJSONArray("menuIds[]");
-        for (int i = 0, n = jsonArray.size(); i < n; i++) {
-            menuIdList.add(Integer.valueOf((String) jsonArray.get(i)));
-        }
+        List<Integer> menuIdList = jsonObject.getJSONArray("menuIds[]").toJavaList(Integer.class);
         logger.info("Array: {}", JSON.toJSONString(menuIdList));
         int flag = menuService.insertRoleMenu(roleId, menuIdList);
         if (flag > 0) {
@@ -152,4 +145,5 @@ public class MenuController {
             return new RestResponse(Constants.HTTP_CODE.ERROR);
         }
     }
+
 }

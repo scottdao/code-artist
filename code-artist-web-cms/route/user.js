@@ -41,7 +41,7 @@ app.post('/toEdit', (req, res) => {
     if (user.password != '' && user.opassword != loginUser.password) {
         res.send("100");
     } else {
-        request.post({ url: config.API_BASE_URL + '/user/editUser', form: { userJson: userJson, paramJson: paramJson } }, (err, resp, body) => {
+        request.post({ url: config.API_BASE_URL + '/user/edit', form: { userJson: userJson, paramJson: paramJson } }, (err, resp, body) => {
             if (!err && resp.statusCode == 200) {
                 let respJson = JSON.parse(body);
                 if (respJson.code == config.HTTP_SUCCESS) {

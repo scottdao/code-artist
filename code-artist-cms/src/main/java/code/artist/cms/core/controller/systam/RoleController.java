@@ -49,11 +49,7 @@ public class RoleController {
         String userId = jsonObject.getString("userId");
         try {
             JSONArray jsonArray = jsonObject.getJSONArray("roleIds[]");
-            for (int i = 0, n = jsonArray.size(); i < n; i++) {
-                roleIdList.add(Integer.valueOf((String) jsonArray.get(i)));
-            }
-        } catch (NullPointerException ignored) {
-
+            roleIdList = jsonArray.toJavaList(Integer.class);
         } catch (ClassCastException e) {
             roleIdList.add(jsonObject.getInteger("roleIds[]"));
         }
