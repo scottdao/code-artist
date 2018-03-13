@@ -72,10 +72,9 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "loginout", method = RequestMethod.GET)
-    public RestResponse loginout(HttpSession session) {
+    public RestResponse loginout() {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
-        session.invalidate();
         logger.info("======注销成功=======");
         return new RestResponse(HTTP_CODE.SUCCESS);
     }
