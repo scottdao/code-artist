@@ -151,10 +151,14 @@ public class UserController {
     public RestResponse editUser(HttpSession session, String paramJson) {
         User operator = (User) session.getAttribute(WebSession.CURRENT_LOGIN_USER_SESSION);
         User admin = JSON.parseObject(paramJson, User.class);
-        if (admin == null || StringUtils.isEmpty(admin.getId())) {
-            return new RestResponse(HTTP_CODE.ERROR);
-        }
         admin.setUpdateUser(operator.getRealname());
+        if (!StringUtils.isEmpty(admin.getPassword())){
+            try {
+                admin.setPassword(DesUtil.encrypt(admin.getPassword(), DesUtil.getKey()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         int flag = userService.updateEntityById(admin);
         if (flag == 1) {
             return new RestResponse(admin.getRealname());
