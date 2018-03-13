@@ -6,6 +6,7 @@ import code.artist.common.result.RestResponse;
 import code.artist.core.facade.system.IUserService;
 import code.artist.core.model.system.Menu;
 import code.artist.core.model.system.User;
+import code.artist.utils.common.DesUtil;
 import code.artist.utils.common.IDUtil;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
@@ -100,6 +101,11 @@ public class UserController {
         user.setId(IDUtil.getUUID());
         user.setCreateUser(loginUser.getRealname());
         user.setUpdateUser(loginUser.getRealname());
+        try {
+            user.setPassword(DesUtil.encrypt(user.getPassword(), DesUtil.getKey()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         int flag = userService.insertEntity(user);
         if (flag == 1) {
             return new RestResponse(user.getRealname());
