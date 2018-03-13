@@ -1,5 +1,6 @@
 package code.artist.cms.core.controller.systam;
 
+import code.artist.cms.core.constants.Constants.WebSession;
 import code.artist.common.constants.Constants.HTTP_CODE;
 import code.artist.common.result.RestResponse;
 import code.artist.core.facade.system.IRoleService;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,13 +99,12 @@ public class RoleController {
     /**
      * 新增角色
      *
-     * @param userJson  当前登录管理员
      * @param paramJson 新增角色信息
      * @return 返回结果
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public RestResponse addRole(String userJson, String paramJson) {
-        User loginUser = JSON.parseObject(userJson, User.class);
+    public RestResponse addRole(HttpSession session, String paramJson) {
+        User loginUser = (User) session.getAttribute(WebSession.CURRENT_LOGIN_USER_SESSION);
         Role role = JSON.parseObject(paramJson, Role.class);
         logger.info("role: {}", paramJson);
         role.setCreateUser(loginUser.getRealname());
@@ -119,13 +120,12 @@ public class RoleController {
     /**
      * 修改角色信息
      *
-     * @param userJson  当前登录管理员
      * @param paramJson 修改登录管理员
      * @return 返回结果
      */
     @RequestMapping(value = "edit", method = RequestMethod.POST)
-    public RestResponse editRole(String userJson, String paramJson) {
-        User loginUser = JSON.parseObject(userJson, User.class);
+    public RestResponse editRole(HttpSession session, String paramJson) {
+        User loginUser = (User) session.getAttribute(WebSession.CURRENT_LOGIN_USER_SESSION);
         Role role = JSON.parseObject(paramJson, Role.class);
         logger.info("role: {}", paramJson);
         logger.info("roleCloss: {}", JSON.toJSONString(role));
@@ -141,12 +141,11 @@ public class RoleController {
     /**
      * 删除角色
      *
-     * @param userJson 当前登录管理员
      * @return 返回结果
      */
     @RequestMapping(value = "{id}", method = RequestMethod.POST)
-    public RestResponse deleteRole(String userJson, @PathVariable("id") Integer id) {
-        User loginUser = JSON.parseObject(userJson, User.class);
+    public RestResponse deleteRole(HttpSession session, @PathVariable("id") Integer id) {
+        User loginUser = (User) session.getAttribute(WebSession.CURRENT_LOGIN_USER_SESSION);
         Role role = new Role();
         role.setId(id);
         role.setStatus(0);

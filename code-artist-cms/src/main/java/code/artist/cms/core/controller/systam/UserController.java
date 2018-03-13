@@ -1,5 +1,6 @@
 package code.artist.cms.core.controller.systam;
 
+import code.artist.cms.core.constants.Constants.WebSession;
 import code.artist.common.constants.Constants.HTTP_CODE;
 import code.artist.common.result.RestResponse;
 import code.artist.core.facade.system.IUserService;
@@ -61,7 +62,7 @@ public class UserController {
         }
         logger.info("======登陆成功=======");
         logger.info("loginUser: {}", JSON.toJSONString(subject.getPrincipal()));
-        session.setAttribute("curLoginUser", subject.getPrincipal());
+        session.setAttribute(WebSession.CURRENT_LOGIN_USER_SESSION, subject.getPrincipal());
         return new RestResponse(subject.getPrincipal());
     }
 
@@ -82,13 +83,13 @@ public class UserController {
     /**
      * 显示菜单
      *
-     * @param userId 当前登陆管理员ID
+     * @param session 当前登陆管理员
      * @return 返回结果
      */
-    @RequestMapping(value = "menu/{userId}", method = RequestMethod.GET)
-    public RestResponse showMenu(@PathVariable("userId") String userId) {
-        logger.info("userId: {}", userId);
-        List<Menu> menuList = userService.showMenu(userId);
+    @RequestMapping(value = "menu", method = RequestMethod.GET)
+    public RestResponse showMenu(HttpSession session) {
+        User loginUser = (User) session.getAttribute(WebSession.CURRENT_LOGIN_USER_SESSION);
+        List<Menu> menuList = userService.showMenu(loginUser.getId());
         if (!CollectionUtils.isEmpty(menuList)) {
             return new RestResponse(menuList);
         } else {
@@ -116,13 +117,12 @@ public class UserController {
     /**
      * 新增管理员
      *
-     * @param userJson  当前登录管理员
      * @param paramJson 注册管理员信息
      * @return 返回结果
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public RestResponse addUser(String userJson, String paramJson) {
-        User loginUser = JSON.parseObject(userJson, User.class);
+    public RestResponse addUser(String paramJson, HttpSession session) {
+        User loginUser = (User) session.getAttribute(WebSession.CURRENT_LOGIN_USER_SESSION);
         logger.info("paramJson: {}", paramJson);
         User user = JSON.parseObject(paramJson, User.class);
         user.setId(IDUtil.getUUID());
@@ -144,13 +144,12 @@ public class UserController {
     /**
      * 修改管理员信息
      *
-     * @param userJson  当前登录管理员
      * @param paramJson 修改参数
      * @return 返回结果
      */
     @RequestMapping(value = "edit", method = RequestMethod.POST)
-    public RestResponse editUser(String userJson, String paramJson) {
-        User operator = JSON.parseObject(userJson, User.class);
+    public RestResponse editUser(HttpSession session, String paramJson) {
+        User operator = (User) session.getAttribute(WebSession.CURRENT_LOGIN_USER_SESSION);
         User admin = JSON.parseObject(paramJson, User.class);
         if (admin == null || StringUtils.isEmpty(admin.getId())) {
             return new RestResponse(HTTP_CODE.ERROR);
@@ -167,13 +166,12 @@ public class UserController {
     /**
      * 删除管理员
      *
-     * @param userJson 当前登录管理员
-     * @param id       删除管理员ID
+     * @param id 删除管理员ID
      * @return 返回结果
      */
     @RequestMapping(value = "{id}", method = RequestMethod.POST)
-    public RestResponse deleteUser(String userJson, @PathVariable("id") String id) {
-        User loginUser = JSON.parseObject(userJson, User.class);
+    public RestResponse deleteUser(HttpSession session, @PathVariable("id") String id) {
+        User loginUser = (User) session.getAttribute(WebSession.CURRENT_LOGIN_USER_SESSION);
         User user = new User();
         user.setId(id);
         user.setStatus(0);

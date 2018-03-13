@@ -1,5 +1,6 @@
 package code.artist.cms.core.controller.systam;
 
+import code.artist.cms.core.constants.Constants.WebSession;
 import code.artist.common.constants.Constants.HTTP_CODE;
 import code.artist.common.result.RestResponse;
 import code.artist.core.facade.system.IMenuService;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -50,13 +52,12 @@ public class MenuController {
     /**
      * 新增菜单
      *
-     * @param userJson  当前登录管理员
      * @param paramJson 新增菜单信息
      * @return 返回结果
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public RestResponse addMenu(String userJson, String paramJson) {
-        User loginUser = JSON.parseObject(userJson, User.class);
+    public RestResponse addMenu(HttpSession session, String paramJson) {
+        User loginUser = (User) session.getAttribute(WebSession.CURRENT_LOGIN_USER_SESSION);
         Menu menu = JSON.parseObject(paramJson, Menu.class);
         logger.info("role: {}", paramJson);
         menu.setCreateUser(loginUser.getRealname());
@@ -72,13 +73,12 @@ public class MenuController {
     /**
      * 修改菜单信息
      *
-     * @param userJson  当前登录管理员
      * @param paramJson 修改菜单信息
      * @return 返回结果
      */
     @RequestMapping(value = "edit", method = RequestMethod.POST)
-    public RestResponse editMenu(String userJson, String paramJson) {
-        User loginUser = JSON.parseObject(userJson, User.class);
+    public RestResponse editMenu(HttpSession session, String paramJson) {
+        User loginUser = (User) session.getAttribute(WebSession.CURRENT_LOGIN_USER_SESSION);
         Menu menu = JSON.parseObject(paramJson, Menu.class);
         logger.info("menu: {}", paramJson);
         logger.info("menuCloss: {}", JSON.toJSONString(menu));
@@ -94,13 +94,12 @@ public class MenuController {
     /**
      * 删除菜单
      *
-     * @param userJson 当前登录管理员
-     * @param id       删除菜单ID
+     * @param id 删除菜单ID
      * @return 返回结果
      */
     @RequestMapping(value = "{id}", method = RequestMethod.POST)
-    public RestResponse deleteMenu(String userJson, @PathVariable("id") Integer id) {
-        User loginUser = JSON.parseObject(userJson, User.class);
+    public RestResponse deleteMenu(HttpSession session, @PathVariable("id") Integer id) {
+        User loginUser = (User) session.getAttribute(WebSession.CURRENT_LOGIN_USER_SESSION);
         Menu menu = new Menu();
         menu.setId(id);
         menu.setStatus(0);

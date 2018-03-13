@@ -27,7 +27,7 @@ app.post('/login', (req, res) => {
                 res.send("用户名或密码错误！");
             }
         } else {
-            logger.error(__filename + ':29', resp.statusCode);
+            logger.error(__filename + ':30', resp.statusCode);
             res.send(config.HTTP_ERROR);
         }
     });
@@ -38,11 +38,11 @@ app.post('/login', (req, res) => {
  */
 app.post('/toEdit', (req, res) => {
     let [user, loginUser] = [req.body, req.session.user];
-    let [userJson, paramJson] = [JSON.stringify(loginUser), JSON.stringify(user)];
+    let paramJson = JSON.stringify(user);
     if (user.password != '' && user.opassword != loginUser.password) {
         res.send("100");
     } else {
-        request.post({ url: config.API_BASE_URL + '/user/edit', form: { userJson: userJson, paramJson: paramJson } }, (err, resp, body) => {
+        request.post({ url: config.API_BASE_URL + '/user/edit', form: { paramJson: paramJson } }, (err, resp, body) => {
             if (!err && resp.statusCode == 200) {
                 let respJson = JSON.parse(body);
                 if (respJson.code == config.HTTP_SUCCESS) {
@@ -56,7 +56,7 @@ app.post('/toEdit', (req, res) => {
                     res.send(config.HTTP_ERROR);
                 }
             } else {
-                logger.error(__filename + ':58', resp.statusCode);
+                logger.error(__filename + ':59', resp.statusCode);
                 res.send(config.HTTP_ERROR);
             }
         });
@@ -77,9 +77,9 @@ app.get('/exit', (req, res) => {
     request.get({ url: config.API_BASE_URL + '/user/loginout' }, (err, resp, body) => {
         if (!err && resp.statusCode == 200) {
             let respJson = JSON.parse(body);
-            logger.info(__filename + ':79', respJson);
+            logger.info(__filename + ':80', respJson);
         } else {
-            logger.error(__filename + ':81', resp.statusCode);
+            logger.error(__filename + ':82', resp.statusCode);
             res.send(resp.HTTP_ERROR);
         }
     });
@@ -93,7 +93,7 @@ app.get('/exit', (req, res) => {
  */
 app.route('/*')
     .all((req, res, next) => {
-        logger.info(__filename + ':86', req.path);
+        logger.info(__filename + ':96', req.path);
         next();
     })
     .get((req, res) => {
@@ -106,15 +106,15 @@ app.route('/*')
                     res.send(config.HTTP_ERROR);
                 }
             } else {
-                logger.error(__filename + ':99', resp.statusCode);
+                logger.error(__filename + ':109', resp.statusCode);
                 res.send(resp.HTTP_ERROR);
             }
         });
     })
     .post((req, res) => {
-        let [userJson, paramJson] = [JSON.stringify(req.session.user), JSON.stringify(req.body)];
-        logger.info(__filename + ':106', paramJson);
-        request.post({ url: config.API_BASE_URL + req.path, form: { userJson: userJson, paramJson: paramJson } }, (err, resp, body) => {
+        let paramJson = JSON.stringify(req.body);
+        logger.info(__filename + ':116', paramJson);
+        request.post({ url: config.API_BASE_URL + req.path, form: { paramJson: paramJson } }, (err, resp, body) => {
             if (!err && resp.statusCode == 200) {
                 let respJson = JSON.parse(body);
                 if (respJson.code == config.HTTP_SUCCESS) {

@@ -1,7 +1,7 @@
 $(() => {
     $.post("/showLogin", user => {
         $("#admin").html(user.realname);
-        $.get("/user/menu/" + user.id, menu => {
+        $.get("/user/menu", menu => {
             if (menu != 1) {
                 let result = '<div class="easyui-accordion" style="height:100%;">';
                 for (var i = 0, n = menu.length; i < n; i++) {
