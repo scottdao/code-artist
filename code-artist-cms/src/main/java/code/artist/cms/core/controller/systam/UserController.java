@@ -72,10 +72,9 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "loginout", method = RequestMethod.GET)
-    public RestResponse loginout(HttpSession session) {
+    public RestResponse loginout() {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
-        session.invalidate();
         logger.info("======注销成功=======");
         return new RestResponse(HTTP_CODE.SUCCESS);
     }
@@ -152,7 +151,7 @@ public class UserController {
         User operator = (User) session.getAttribute(WebSession.CURRENT_LOGIN_USER_SESSION);
         User admin = JSON.parseObject(paramJson, User.class);
         admin.setUpdateUser(operator.getRealname());
-        if (!StringUtils.isEmpty(admin.getPassword())){
+        if (!StringUtils.isEmpty(admin.getPassword())) {
             try {
                 admin.setPassword(DesUtil.encrypt(admin.getPassword(), DesUtil.getKey()));
             } catch (Exception e) {
