@@ -1,8 +1,9 @@
 const express = require('express');
 const session = require('express-session');
-const request = require('request');
 const log4js = require('log4js');
 const app = express();
+var request = require('request');
+request = request.defaults({ jar: true });
 
 const config = require('../config/global');
 const log4j = require('../config/log4j');
@@ -73,6 +74,15 @@ app.post('/showLogin', (req, res) => {
  * 退出
  */
 app.get('/exit', (req, res) => {
+    request.get({ url: config.API_BASE_URL + '/user/loginout' }, (err, resp, body) => {
+        if (!err && resp.statusCode == 200) {
+            let respJson = JSON.parse(body);
+            logger.info(__filename + ':79', respJson);
+        } else {
+            logger.error(__filename + ':81', resp.statusCode);
+            res.send(resp.HTTP_ERROR);
+        }
+    });
     req.session.destroy();
     res.redirect("/");
 });

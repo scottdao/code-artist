@@ -20,14 +20,6 @@ public class User extends BaseModel implements Serializable {
     private Integer isAdmin;// 是否为超级管理员
     private Integer status;// 状态：0：删除；1：有效
 
-    public User() {
-    }
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
     public String getId() {
         return id;
     }

@@ -1,6 +1,5 @@
 package code.artist.cms.core.controller.systam;
 
-import code.artist.common.constants.Constants;
 import code.artist.common.constants.Constants.HTTP_CODE;
 import code.artist.common.result.RestResponse;
 import code.artist.core.facade.system.IUserService;
@@ -9,6 +8,10 @@ import code.artist.core.model.system.User;
 import code.artist.utils.common.DesUtil;
 import code.artist.utils.common.IDUtil;
 import com.alibaba.fastjson.JSON;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -42,14 +46,37 @@ public class UserController {
      * @return 返回结果
      */
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public RestResponse login(User user) {
+    public RestResponse login(User user, HttpSession session) {
         logger.info("loginInfo: {}", JSON.toJSONString(user));
-        User loginUser = userService.login(user.getUsername(), user.getPassword());
-        if (loginUser != null) {
-            return new RestResponse(loginUser);
-        } else {
+        Subject subject = SecurityUtils.getSubject();
+        try {
+            String password = DesUtil.encrypt(user.getPassword(), DesUtil.getKey());
+            subject.login(new UsernamePasswordToken(user.getUsername(), password));
+        } catch (AuthenticationException e) {
+            logger.error("======登陆异常=======");
+            return new RestResponse(HTTP_CODE.ERROR);
+        } catch (Exception e) {
+            e.printStackTrace();
             return new RestResponse(HTTP_CODE.ERROR);
         }
+        logger.info("======登陆成功=======");
+        logger.info("loginUser: {}", JSON.toJSONString(subject.getPrincipal()));
+        session.setAttribute("curLoginUser", subject.getPrincipal());
+        return new RestResponse(subject.getPrincipal());
+    }
+
+    /**
+     * 管理员注销登录
+     *
+     * @return
+     */
+    @RequestMapping(value = "loginout", method = RequestMethod.GET)
+    public RestResponse loginout(HttpSession session) {
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
+        session.invalidate();
+        logger.info("======注销成功=======");
+        return new RestResponse(HTTP_CODE.SUCCESS);
     }
 
     /**
@@ -65,7 +92,7 @@ public class UserController {
         if (!CollectionUtils.isEmpty(menuList)) {
             return new RestResponse(menuList);
         } else {
-            return new RestResponse(Constants.HTTP_CODE.ERROR);
+            return new RestResponse(HTTP_CODE.ERROR);
         }
     }
 

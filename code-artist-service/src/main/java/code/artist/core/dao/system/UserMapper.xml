@@ -10,8 +10,8 @@
         INSERT INTO t_user (<include refid="userList"></include>) VALUES (#{id},#{username},#{password},#{realname},#{phone},#{address},#{isAdmin},1,#{createUser},#{createTime},#{updateUser},#{updateTime},#{description})
     </insert>
 
-    <select id="selUserByUser" parameterType="User" resultType="User">
-        SELECT <include refid="userList"></include> FROM t_user WHERE username=#{username} AND password=#{password} AND status=1
+    <select id="selUserByName" parameterType="User" resultType="User">
+        SELECT <include refid="userList"></include> FROM t_user WHERE username=#{username} AND status=1
     </select>
 
     <select id="selEntityList" resultType="User">
