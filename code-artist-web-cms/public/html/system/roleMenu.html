@@ -33,7 +33,12 @@
             onLoadSuccess: () => {
                 var roleJson = $("#roleDatagrid").datagrid('getSelected');
                 $.get("/menu/" + roleJson.id, menuIds => {
-                    menuIds.map(value => $('#roleMenuTreegrid').treegrid('checkNode', value));
+                    let t = $('#roleMenuTreegrid');
+                    menuIds.map(id => {
+                        if (t.treegrid('getParent', id)) {
+                            t.treegrid('checkNode', id)
+                        }
+                    });
                 });
             }
         });

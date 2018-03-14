@@ -41,11 +41,13 @@
                     easyuiConfig.newDialog("roleDialog", '分配菜单', 550, 500, "/system/roleMenu.html", () => {
                         let menuIds = [];
                         let menus = $("#roleMenuTreegrid").treegrid('getCheckedNodes');
-                        if (menus.length < 2) {
-                            $.messager.alert('系统提示', '要选中一个以上菜单');
+                        let pmenus = $('#roleMenuTreegrid').treegrid('getCheckedNodes', 'indeterminate');
+                        menus.map(menu => menuIds.push(menu.id));
+                        pmenus.map(menu => menuIds.push(menu.id));
+                        if (menuIds.length < 2) {
+                            $.messager.alert('系统提示', '请选择要分配的菜单');
                             return;
                         }
-                        menus.map(menu => menuIds.push(menu.id));
                         $.post("/menu/allot", {
                             roleId: roleJson.id,
                             menuIds: menuIds
