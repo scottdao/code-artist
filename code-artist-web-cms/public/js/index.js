@@ -1,5 +1,5 @@
 $(() => {
-    $("#submitForm").click(() => {
+    const login = () => {
         var username = $("[name='username']").val();
         var password = $("[name='password']").val();
         if (username == '') {
@@ -16,5 +16,11 @@ $(() => {
                 $("#message").html(data);
             }
         });
+    }
+    $("#submitForm").click(login);
+    $("body").keydown(() => {
+        if (event.keyCode == "13") {
+            login();
+        }
     });
 });
