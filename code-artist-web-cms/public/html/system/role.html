@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <body>
     <script>
         const roleMan = {
@@ -22,7 +19,7 @@
                     $.messager.confirm('系统提示', '你确定要删除角色' + roleJson.name + '吗？', flag => {
                         if (flag) {
                             $.post("/role/" + roleJson.id, data => {
-                                if (data != '') {
+                                if (data != DICT_CONSTANTS.ERROR) {
                                     $.messager.alert('系统提示', '删除成功！');
                                     easyuiConfig.loadData("roleDatagrid", "/role");
                                 } else {
@@ -42,17 +39,17 @@
                         let menuIds = [];
                         let menus = $("#roleMenuTreegrid").treegrid('getCheckedNodes');
                         let pmenus = $('#roleMenuTreegrid').treegrid('getCheckedNodes', 'indeterminate');
-                        menus.map(menu => menuIds.push(menu.id));
                         pmenus.map(menu => menuIds.push(menu.id));
+                        menus.map(menu => menuIds.push(menu.id));
                         if (menuIds.length < 2) {
                             $.messager.alert('系统提示', '请选择要分配的菜单');
                             return;
                         }
                         $.post("/menu/allot", {
                             roleId: roleJson.id,
-                            menuIds: menuIds
+                            menuIds: JSON.stringify(menuIds)
                         }, data => {
-                            if (data != '') {
+                            if (data != DICT_CONSTANTS.ERROR) {
                                 $.messager.alert('系统提示', '分配菜单成功！');
                                 $("#roleDialog").dialog('close');
                             } else {
@@ -71,7 +68,7 @@
                 saveUrl: '/role/add',
                 updateUrl: '/role/edit',
                 onAfterEdit: (index, row) => {
-                    $.messager.alert('系统提示', '保存成功！', () => easyuiConfig.loadData("roleDatagrid", "/user/showRoleList"));
+                    easyuiConfig.loadData("roleDatagrid", "/role")
                 }
             });
             easyuiConfig.loadData("roleDatagrid", "/role");
@@ -109,5 +106,3 @@
         </thead>
     </table>
 </body>
-
-</html>

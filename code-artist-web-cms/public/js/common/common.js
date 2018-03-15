@@ -2,7 +2,8 @@
  * 常量数据字典
  */
 const DICT_CONSTANTS = {
-    yesOrNo: ["否", "是"]
+    yesOrNo: ["否", "是"],
+    ERROR: "1"
 }
 
 /**

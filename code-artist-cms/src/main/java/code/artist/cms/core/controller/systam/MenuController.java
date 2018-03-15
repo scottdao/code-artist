@@ -7,7 +7,6 @@ import code.artist.core.facade.system.IMenuService;
 import code.artist.core.model.system.Menu;
 import code.artist.core.model.system.User;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,14 +51,13 @@ public class MenuController {
     /**
      * 新增菜单
      *
-     * @param paramJson 新增菜单信息
+     * @param menu 新增菜单信息
      * @return 返回结果
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public RestResponse addMenu(HttpSession session, String paramJson) {
+    public RestResponse addMenu(Menu menu, HttpSession session) {
         User loginUser = (User) session.getAttribute(WebSession.CURRENT_LOGIN_USER_SESSION);
-        Menu menu = JSON.parseObject(paramJson, Menu.class);
-        logger.info("role: {}", paramJson);
+        logger.info("addMenu: {}", JSON.toJSONString(menu));
         menu.setCreateUser(loginUser.getRealname());
         menu.setUpdateUser(loginUser.getRealname());
         int flag = menuService.insertEntity(menu);
@@ -73,15 +71,13 @@ public class MenuController {
     /**
      * 修改菜单信息
      *
-     * @param paramJson 修改菜单信息
+     * @param menu 修改菜单信息
      * @return 返回结果
      */
     @RequestMapping(value = "edit", method = RequestMethod.POST)
-    public RestResponse editMenu(HttpSession session, String paramJson) {
+    public RestResponse editMenu(Menu menu, HttpSession session) {
         User loginUser = (User) session.getAttribute(WebSession.CURRENT_LOGIN_USER_SESSION);
-        Menu menu = JSON.parseObject(paramJson, Menu.class);
-        logger.info("menu: {}", paramJson);
-        logger.info("menuCloss: {}", JSON.toJSONString(menu));
+        logger.info("editMenu: {}", JSON.toJSONString(menu));
         menu.setUpdateUser(loginUser.getRealname());
         int flag = menuService.updateEntityById(menu);
         if (flag == 1) {
@@ -128,15 +124,14 @@ public class MenuController {
     /**
      * 角色分配菜单
      *
-     * @param paramJson 传入参数
+     * @param roleId  角色ID
+     * @param menuIds 菜单ID
      * @return 返回结果
      */
     @RequestMapping(value = "allot", method = RequestMethod.POST)
-    public RestResponse allotMenu(String paramJson) {
-        JSONObject jsonObject = JSON.parseObject(paramJson);
-        Integer roleId = Integer.valueOf((String) jsonObject.get("roleId"));
-        List<Integer> menuIdList = jsonObject.getJSONArray("menuIds[]").toJavaList(Integer.class);
-        logger.info("Array: {}", JSON.toJSONString(menuIdList));
+    public RestResponse allotMenu(Integer roleId, String menuIds) {
+        List menuIdList = JSON.parseObject(menuIds, List.class);
+        logger.info("allotMenu: {}", JSON.toJSONString(menuIdList));
         int flag = menuService.insertRoleMenu(roleId, menuIdList);
         if (flag > 0) {
             return new RestResponse(HTTP_CODE.SUCCESS.getMessage());

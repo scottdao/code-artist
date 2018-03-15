@@ -7,20 +7,17 @@ import code.artist.core.facade.system.IRoleService;
 import code.artist.core.model.system.Role;
 import code.artist.core.model.system.User;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
+import java.beans.PropertyEditorSupport;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -40,22 +37,16 @@ public class RoleController {
     /**
      * 管理员分配角色
      *
-     * @param paramJson 传入参数
+     * @param userId  管理员ID
+     * @param roleIds 角色ID
      * @return 返回结果
      */
     @RequestMapping(value = "allot", method = RequestMethod.POST)
-    public RestResponse allotRole(String paramJson) {
-        logger.info("allotRole: {}", paramJson);
-        List<Integer> roleIdList = new ArrayList();
-        JSONObject jsonObject = JSON.parseObject(paramJson);
-        String userId = jsonObject.getString("userId");
-        try {
-            JSONArray jsonArray = jsonObject.getJSONArray("roleIds[]");
-            roleIdList = jsonArray.toJavaList(Integer.class);
-        } catch (ClassCastException e) {
-            roleIdList.add(jsonObject.getInteger("roleIds[]"));
-        }
-        logger.info("Array: {}", JSON.toJSONString(roleIdList));
+    public RestResponse allotRole(String userId, String roleIds) {
+        logger.info("userId: {}", userId);
+        logger.info("roleIds: {}", roleIds);
+        List roleIdList = JSON.parseObject(roleIds, List.class);
+        logger.info("roleIdList: {}", JSON.toJSONString(roleIdList));
         int flag = roleService.insertUserRole(userId, roleIdList);
         if (flag > 0) {
             return new RestResponse(HTTP_CODE.SUCCESS.getMessage());
@@ -72,7 +63,8 @@ public class RoleController {
      * @return 返回结果
      */
     @RequestMapping(value = "{pageNum}/{pageSize}", method = RequestMethod.GET)
-    public RestResponse showRole(@PathVariable("pageNum") Integer pageNum, @PathVariable("pageSize") Integer pageSize) {
+    public RestResponse showRole(@PathVariable("pageNum") Integer pageNum, @PathVariable("pageSize") Integer
+            pageSize) {
         String rolePage = roleService.selectEntityPage(pageNum, pageSize);
         if (!StringUtils.isEmpty(rolePage)) {
             return new RestResponse(rolePage);
@@ -99,14 +91,13 @@ public class RoleController {
     /**
      * 新增角色
      *
-     * @param paramJson 新增角色信息
+     * @param role 新增角色信息
      * @return 返回结果
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public RestResponse addRole(HttpSession session, String paramJson) {
+    public RestResponse addRole(Role role, HttpSession session) {
         User loginUser = (User) session.getAttribute(WebSession.CURRENT_LOGIN_USER_SESSION);
-        Role role = JSON.parseObject(paramJson, Role.class);
-        logger.info("role: {}", paramJson);
+        logger.info("addRole: {}", JSON.toJSONString(role));
         role.setCreateUser(loginUser.getRealname());
         role.setUpdateUser(loginUser.getRealname());
         int flag = roleService.insertEntity(role);
@@ -120,15 +111,13 @@ public class RoleController {
     /**
      * 修改角色信息
      *
-     * @param paramJson 修改登录管理员
+     * @param role 修改角色信息
      * @return 返回结果
      */
     @RequestMapping(value = "edit", method = RequestMethod.POST)
-    public RestResponse editRole(HttpSession session, String paramJson) {
+    public RestResponse editRole(Role role, HttpSession session) {
         User loginUser = (User) session.getAttribute(WebSession.CURRENT_LOGIN_USER_SESSION);
-        Role role = JSON.parseObject(paramJson, Role.class);
-        logger.info("role: {}", paramJson);
-        logger.info("roleCloss: {}", JSON.toJSONString(role));
+        logger.info("editRole: {}", JSON.toJSONString(role));
         role.setUpdateUser(loginUser.getRealname());
         int flag = roleService.updateEntityById(role);
         if (flag == 1) {
@@ -136,6 +125,26 @@ public class RoleController {
         } else {
             return new RestResponse(HTTP_CODE.ERROR);
         }
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
+
+            @Override
+            public String getAsText() {
+                return super.getAsText();
+            }
+
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                Date date = new Date();
+                long l = Long.parseLong(text);
+                logger.info("----------------: {}", l);
+                date.setTime(l);
+                setValue(date);
+            }
+        });
     }
 
     /**

@@ -42,7 +42,7 @@ app.post('/toEdit', (req, res) => {
     if (user.password != '' && user.opassword != loginUser.password) {
         res.send("100");
     } else {
-        request.post({ url: config.API_BASE_URL + '/user/edit', form: { paramJson: paramJson } }, (err, resp, body) => {
+        request.post({ url: config.API_BASE_URL + '/user/edit', form: user }, (err, resp, body) => {
             if (!err && resp.statusCode == 200) {
                 let respJson = JSON.parse(body);
                 if (respJson.code == config.HTTP_SUCCESS) {
@@ -80,7 +80,7 @@ app.get('/exit', (req, res) => {
             logger.info(__filename + ':80', respJson);
         } else {
             logger.error(__filename + ':82', resp.statusCode);
-            res.send(resp.HTTP_ERROR);
+            res.send(config.HTTP_ERROR);
         }
     });
     req.session.destroy();
@@ -107,14 +107,14 @@ app.route('/*')
                 }
             } else {
                 logger.error(__filename + ':109', resp.statusCode);
-                res.send(resp.HTTP_ERROR);
+                res.send(config.HTTP_ERROR);
             }
         });
     })
     .post((req, res) => {
         let paramJson = JSON.stringify(req.body);
         logger.info(__filename + ':116', paramJson);
-        request.post({ url: config.API_BASE_URL + req.path, form: { paramJson: paramJson } }, (err, resp, body) => {
+        request.post({ url: config.API_BASE_URL + req.path, form: req.body }, (err, resp, body) => {
             if (!err && resp.statusCode == 200) {
                 let respJson = JSON.parse(body);
                 if (respJson.code == config.HTTP_SUCCESS) {
@@ -123,8 +123,8 @@ app.route('/*')
                     res.send(config.HTTP_ERROR);
                 }
             } else {
-                logger.error(__filename + ':116', resp.statusCode);
-                res.send(resp.HTTP_ERROR);
+                logger.error(__filename + ':126', resp.statusCode);
+                res.send(config.HTTP_ERROR);
             }
         });
     });

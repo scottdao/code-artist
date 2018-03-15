@@ -116,14 +116,13 @@ public class UserController {
     /**
      * 新增管理员
      *
-     * @param paramJson 注册管理员信息
+     * @param user 注册管理员信息
      * @return 返回结果
      */
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public RestResponse addUser(String paramJson, HttpSession session) {
+    public RestResponse addUser(User user, HttpSession session) {
         User loginUser = (User) session.getAttribute(WebSession.CURRENT_LOGIN_USER_SESSION);
-        logger.info("paramJson: {}", paramJson);
-        User user = JSON.parseObject(paramJson, User.class);
+        logger.info("addUser: {}", JSON.toJSONString(user));
         user.setId(IDUtil.getUUID());
         user.setCreateUser(loginUser.getRealname());
         user.setUpdateUser(loginUser.getRealname());
@@ -143,24 +142,24 @@ public class UserController {
     /**
      * 修改管理员信息
      *
-     * @param paramJson 修改参数
+     * @param user 修改参数
      * @return 返回结果
      */
     @RequestMapping(value = "edit", method = RequestMethod.POST)
-    public RestResponse editUser(HttpSession session, String paramJson) {
-        User operator = (User) session.getAttribute(WebSession.CURRENT_LOGIN_USER_SESSION);
-        User admin = JSON.parseObject(paramJson, User.class);
-        admin.setUpdateUser(operator.getRealname());
-        if (!StringUtils.isEmpty(admin.getPassword())) {
+    public RestResponse editUser(User user, HttpSession session) {
+        User loginUser = (User) session.getAttribute(WebSession.CURRENT_LOGIN_USER_SESSION);
+        logger.info("editUser: {}", JSON.toJSONString(user));
+        user.setUpdateUser(loginUser.getRealname());
+        if (!StringUtils.isEmpty(user.getPassword())) {
             try {
-                admin.setPassword(DesUtil.encrypt(admin.getPassword(), DesUtil.getKey()));
+                user.setPassword(DesUtil.encrypt(user.getPassword(), DesUtil.getKey()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        int flag = userService.updateEntityById(admin);
+        int flag = userService.updateEntityById(user);
         if (flag == 1) {
-            return new RestResponse(admin.getRealname());
+            return new RestResponse(user.getRealname());
         } else {
             return new RestResponse(HTTP_CODE.ERROR);
         }
