@@ -13,7 +13,7 @@
     <!-- 注解扫描包 -->
     <context:component-scan base-package="code.artist.cms.core.controller"/>
 
-    <mvc:annotation-driven>
+    <mvc:annotation-driven conversion-service="conversionService">
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
                 <property name="supportedMediaTypes">
@@ -24,5 +24,14 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <ref bean="dateConvert"/>
+            </set>
+        </property>
+    </bean>
+    <bean id="dateConvert" class="code.artist.cms.core.constants.DateConvert"/>
 
 </beans>

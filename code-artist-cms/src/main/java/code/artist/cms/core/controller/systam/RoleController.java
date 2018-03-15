@@ -12,12 +12,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
-import java.beans.PropertyEditorSupport;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -125,26 +125,6 @@ public class RoleController {
         } else {
             return new RestResponse(HTTP_CODE.ERROR);
         }
-    }
-
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
-
-            @Override
-            public String getAsText() {
-                return super.getAsText();
-            }
-
-            @Override
-            public void setAsText(String text) throws IllegalArgumentException {
-                Date date = new Date();
-                long l = Long.parseLong(text);
-                logger.info("----------------: {}", l);
-                date.setTime(l);
-                setValue(date);
-            }
-        });
     }
 
     /**
