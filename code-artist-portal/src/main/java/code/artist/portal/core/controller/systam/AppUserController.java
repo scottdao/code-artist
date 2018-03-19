@@ -1,4 +1,4 @@
-package code.artist.cms.core.controller.systam;
+package code.artist.portal.core.controller.systam;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

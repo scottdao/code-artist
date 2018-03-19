@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <body>
     <table id="userRoleDatagrid"></table>
     <script>
         $('#userRoleDatagrid').datagrid({
-            url: '/user/showRole',
+            url: '/role',
             singleSelect: false,
             pagination: false,
             columns: [
@@ -21,7 +18,7 @@
             ],
             onLoadSuccess: () => {
                 let userJson = $("#adminDatagrid").datagrid('getSelected');
-                $.post("/user/chooseRole/" + userJson.id, roleIds => {
+                $.get("/role/" + userJson.id, roleIds => {
                     roleIds.map(value => {
                         let rows = $('#userRoleDatagrid').datagrid('getRows');
                         rows.map((row, index) => {
@@ -35,5 +32,3 @@
         });
     </script>
 </body>
-
-</html>

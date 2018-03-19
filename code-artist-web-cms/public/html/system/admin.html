@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <body>
     <table id="adminDatagrid"></table>
     <div id="newAdminDialog" hidden></div>
+    <div id="editAdminDialog" hidden></div>
     <script>
         $('#adminDatagrid').datagrid({
             columns: [
@@ -39,16 +37,16 @@
                 }]
             ]
         });
-        easyuiConfig.loadData("adminDatagrid", "/user/showUserList");
+        easyuiConfig.loadData("adminDatagrid", "/user");
         var userMan = {
             addAdmin: () => {
                 easyuiConfig.newDialog("newAdminDialog", '新建管理员', 350, 300, "/system/newAdmin.html", () => {
                     if ($("#newAdminForm").form('validate')) {
-                        $.post("/user/addUser", $("#newAdminForm").serialize(), data => {
-                            if (data != '') {
+                        $.post("/user/add", $("#newAdminForm").serialize(), data => {
+                            if (data != DICT_CONSTANTS.ERROR) {
                                 $.messager.alert('系统提示', '管理员' + data + '保存成功！');
                                 $("#newAdminDialog").dialog('close');
-                                easyuiConfig.loadData("adminDatagrid", "/user/showUserList");
+                                easyuiConfig.loadData("adminDatagrid", "/user");
                             } else {
                                 $.messager.alert('系统提示', '管理员保存失败！');
                                 $("#newAdminDialog").dialog('close');
@@ -60,16 +58,16 @@
             editAdmin: () => {
                 let userJson = $("#adminDatagrid").datagrid('getSelected');
                 if (userJson != null) {
-                    easyuiConfig.newDialog("newAdminDialog", '修改管理员', 350, 250, "/system/editAdmin.html", () => {
+                    easyuiConfig.newDialog("editAdminDialog", '修改管理员', 350, 250, "/system/editAdmin.html", () => {
                         if ($("#editAdminForm").form('validate')) {
-                            $.post("/user/editUser", $("#editAdminForm").serialize(), data => {
-                                if (data != '') {
+                            $.post("/user/edit", $("#editAdminForm").serialize(), data => {
+                                if (data != DICT_CONSTANTS.ERROR) {
                                     $.messager.alert('系统提示', '管理员' + data + '保存成功！');
-                                    $("#newAdminDialog").dialog('close');
-                                    easyuiConfig.loadData("adminDatagrid", "/user/showUserList");
+                                    $("#editAdminDialog").dialog('close');
+                                    easyuiConfig.loadData("adminDatagrid", "/user");
                                 } else {
                                     $.messager.alert('系统提示', '管理员保存失败！');
-                                    $("#newAdminDialog").dialog('close');
+                                    $("#editAdminDialog").dialog('close');
                                 }
                             });
                         }
@@ -83,10 +81,10 @@
                 if (userJson != null) {
                     $.messager.confirm('系统提示', '你确定要删除管理员' + userJson.realname + '吗？', flag => {
                         if (flag) {
-                            $.post("/user/deleteUser/" + userJson.id, data => {
-                                if (data != '') {
-                                    $.messager.alert('系统提示', data);
-                                    easyuiConfig.loadData("adminDatagrid", "/user/showUserList");
+                            $.post("/user/" + userJson.id, data => {
+                                if (data != DICT_CONSTANTS.ERROR) {
+                                    $.messager.alert('系统提示', '删除成功！');
+                                    easyuiConfig.loadData("adminDatagrid", "/user");
                                 } else {
                                     $.messager.alert('系统提示', '删除失败！');
                                 }
@@ -103,13 +101,17 @@
                     easyuiConfig.newDialog("newAdminDialog", '分配角色', 550, 500, "/system/userRole.html", () => {
                         let roleIds = [];
                         let roles = $("#userRoleDatagrid").datagrid('getChecked');
+                        if (roles.length < 1) {
+                            $.messager.alert('系统提示', '至少要选中一个角色');
+                            return;
+                        }
                         roles.map(role => roleIds.push(role.id));
-                        $.post("/user/userRole", {
+                        $.post("/role/allot", {
                             userId: userJson.id,
-                            roleIds: roleIds
+                            roleIds: JSON.stringify(roleIds)
                         }, data => {
-                            if (data != '') {
-                                $.messager.alert('系统提示', data);
+                            if (data != DICT_CONSTANTS.ERROR) {
+                                $.messager.alert('系统提示', '分配角色成功！');
                                 $("#newAdminDialog").dialog('close');
                             } else {
                                 $.messager.alert('系统提示', '分配失败！');
@@ -133,5 +135,3 @@
         }]);
     </script>
 </body>
-
-</html>

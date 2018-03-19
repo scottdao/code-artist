@@ -13,9 +13,9 @@ public interface UserMapper extends BaseMapper<User> {
     /**
      * 通过用户查询用户（返回字段缺省）
      *
-     * @param user 查询的条件
+     * @param username 管理员用户名
      * @return 查询的结果，不存在返回空
      */
-    User selUserByUser(User user);
+    User selUserByName(String username);
 
 }

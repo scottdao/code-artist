@@ -1,24 +1,23 @@
 $(() => {
     $.post("/showLogin", user => {
         $("#admin").html(user.realname);
-    });
-
-    $.post("/user/showMenu", menu => {
-        if (menu != 1) {
-            let result = '<div class="easyui-accordion" style="height:100%;">';
-            for (var i = 0, n = menu.length; i < n; i++) {
-                result += '<div title="' + menu[i].name + '">';
-                result += '<ul class="s-menu">';
-                for (var j = 0, m = menu[i].children.length; j < m; j++) {
-                    result += "<li onclick='addTab(\"" + menu[i].children[j].name + "\",\"" + menu[i].children[j].url + "\")'>" + menu[i].children[j].name + "</li>";
+        $.get("/user/menu", menu => {
+            if (menu != 1) {
+                let result = '<div class="easyui-accordion" style="height:100%;">';
+                for (var i = 0, n = menu.length; i < n; i++) {
+                    result += '<div title="' + menu[i].name + '">';
+                    result += '<ul class="s-menu">';
+                    for (var j = 0, m = menu[i].children.length; j < m; j++) {
+                        result += "<li onclick='addTab(\"" + menu[i].children[j].name + "\",\"" + menu[i].children[j].url + "\")'>" + menu[i].children[j].name + "</li>";
+                    }
+                    result += '</ul>';
+                    result += '</div>';
                 }
-                result += '</ul>';
                 result += '</div>';
+                $("#menu").html(result);
             }
-            result += '</div>';
-            $("#menu").html(result);
-        }
-        $.parser.parse($('#menu'));
+            $.parser.parse($('#menu'));
+        });
     });
 
     $("#editMe").click(() => {
@@ -35,7 +34,7 @@ $(() => {
                             } else if (data != '') {
                                 $.messager.alert('系统提示', '管理员' + data + '保存成功！');
                                 $("#editDialog").dialog('close');
-                                $("#adminDatagrid").datagrid('reload');
+                                easyuiConfig.loadData("adminDatagrid", "/user");
                             } else {
                                 $.messager.alert('系统提示', '管理员保存失败！');
                                 $("#editDialog").dialog('close');

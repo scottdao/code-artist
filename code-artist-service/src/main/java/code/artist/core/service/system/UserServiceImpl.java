@@ -20,8 +20,8 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements IUserServi
     private MenuMapper menuMapper;
 
     @Override
-    public User login(String username, String password) {
-        return userMapper.selUserByUser(new User(username, password));
+    public User login(String username) {
+        return userMapper.selUserByName(username);
     }
 
     @Override

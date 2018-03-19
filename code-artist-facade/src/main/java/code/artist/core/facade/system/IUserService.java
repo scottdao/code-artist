@@ -17,10 +17,9 @@ public interface IUserService extends IBaseService<User> {
      * 用户登录
      *
      * @param username 用户名
-     * @param password 密码
      * @return 登录的用户
      */
-    User login(String username, String password);
+    User login(String username);
 
     /**
      * 通过用户ID查询菜单列表

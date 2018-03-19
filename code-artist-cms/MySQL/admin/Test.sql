@@ -1,4 +1,4 @@
-INSERT INTO t_user (id, username, password, realname, phone, address, is_admin,status) VALUES ('1', 'ajn', '123', '艾江南', '13716050046', '湖南省', 1, 1);
+INSERT INTO t_user (id, username, password, realname, phone, address, is_admin,status) VALUES ('1', 'ajn', 'oEOWH3ZwNys=', '艾江南', '13716050046', '湖南省', 1, 1);
 INSERT INTO t_role (code, name, status) VALUES ('ADMIN', '超级管理员', 1);
 INSERT INTO t_user_role (user_id, role_id) VALUES ('1', 1);
 INSERT INTO t_menu (id, name, url, sort, is_leaf, parent_id, status) VALUES (1, '系统管理', '', 1, 0, 0, 1);

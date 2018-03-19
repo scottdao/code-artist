@@ -12,7 +12,7 @@
     </resultMap>
 
     <select id="selMenuByUserId" resultMap="menuListMap">
-        SELECT m.`id`,m.`name`,m.`url`,m.`sort`,m.`is_leaf` AS isLeaf,m.`parent_id` AS parentId,m.`status`,u.id AS userId
+        SELECT m.`id`,m.`name`,m.`url`,m.`sort`,m.`is_leaf` ,m.`parent_id` ,m.`status`,u.id AS userId
         FROM t_menu m
         LEFT JOIN t_role_menu rm ON rm.menu_id = m.id
         LEFT JOIN t_role r ON r.id = rm.role_id
@@ -22,7 +22,7 @@
         ORDER BY m.sort
     </select>
     <select id="selChildMenuByParentId" resultType="Menu">
-        SELECT m.`id`,m.`name`,m.`url`,m.`sort`,m.`is_leaf` AS isLeaf,m.`parent_id` AS parentId,m.`status`
+        SELECT m.`id`,m.`name`,m.`url`,m.`sort`,m.`is_leaf` ,m.`parent_id` ,m.`status`
         FROM t_menu m
         LEFT JOIN t_role_menu rm ON rm.menu_id = m.id
         LEFT JOIN t_role r ON r.id = rm.role_id

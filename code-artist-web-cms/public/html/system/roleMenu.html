@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <body>
     <table id="roleMenuTreegrid"></table>
     <script>
         $('#roleMenuTreegrid').treegrid({
-            url: '/user/showMenuList',
+            url: '/menu',
             idField: 'id',
             treeField: 'name',
             checkbox: true,
@@ -32,12 +29,15 @@
             ],
             onLoadSuccess: () => {
                 var roleJson = $("#roleDatagrid").datagrid('getSelected');
-                $.post("/user/chooseMenu/" + roleJson.id, menuIds => {
-                    menuIds.map(value => $('#roleMenuTreegrid').treegrid('checkNode', value));
+                $.get("/menu/" + roleJson.id, menuIds => {
+                    let t = $('#roleMenuTreegrid');
+                    menuIds.map(id => {
+                        if (t.treegrid('getParent', id)) {
+                            t.treegrid('checkNode', id)
+                        }
+                    });
                 });
             }
         });
     </script>
 </body>
-
-</html>
