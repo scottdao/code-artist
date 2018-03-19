@@ -15,7 +15,6 @@ const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
 //happypack多进程加速打包；
 const HappyPack = require('happypack');
 const happyThreadPool = HappyPack.ThreadPool({ size: 5 });
-
 const webpackServer = {
 	protocol:'http://',
 	host:'localhost',
@@ -27,7 +26,8 @@ function createHappyThread(id,loaders){
 	return new HappyPack({
       id: id,
       threadPool: happyThreadPool,
-      loaders: loaders
+      loaders: loaders,
+      //cache:true
     })
 }
 module.exports={
@@ -46,6 +46,7 @@ module.exports={
 		extensions:['.js','.jsx','.json']
 	},
 	module:{
+		
 		rules:[
 			{
 				test:/\.(css|scss)$/,
@@ -67,19 +68,12 @@ module.exports={
 				
 			},
 			{
-				test:/\.less$/,
-				use: ExtractTextPlugin.extract({
-					fallback: 'style-loader',
-					use:'happypack/loader?id=styles'
-                    
-				})	
-			},
-			{
 				test:/\.(png|jpg|gif|jpeg|svg)$/i,
-				use:'happypack/loader?id=file'
+				use:'file-loader?limit=2048&name=img/[hash:8].[name].[ext]'
 			}
 		]
 	},
+	cache:true,
 	devServer: {
 		host: webpackServer.host,
 		port: webpackServer.port,
@@ -87,8 +81,7 @@ module.exports={
 	    inline: true,
 	    hot: true,
 	    contentBase:'./build'
-	},
-    devtool: "source-map",
+},
 	plugins:[
 		createHappyThread('jsx',[{
 					loader:"babel-loader",
@@ -96,10 +89,10 @@ module.exports={
                     	cacheDirectory: true
                		 }
 				}]),
-		createHappyThread('sass',['css-loader','autoprefixer-loader','fast-sass-loader']),
+		createHappyThread('sass',[{loader:'css-loader',options: {
+                    minimize: true
+                }},'autoprefixer-loader','fast-sass-loader']),
 		createHappyThread('json',['json-loader']),
-		createHappyThread('less',['css-loader','autoprefixer-loader','less-loader']),
-		createHappyThread('file',['file-loader?limit=2048&name=img/[hash:8].[name].[ext]']),
 		new CleanWebpackPlugin(['build']//匹配删除的文件
 			,{
 			   root:__dirname,//根目录
@@ -109,7 +102,7 @@ module.exports={
 		//启用ParallelUglifyPlugin插件并行进行加速压缩js代码；
 	    new ParallelUglifyPlugin({
 	    	   cacheDir: '.cache/',
-	    	   sourceMap:true,
+	    	   sourceMap:false,
 	           uglifyJS:{
 	             output: {
 	               comments: false
@@ -119,7 +112,9 @@ module.exports={
 	             }
 	           }
 	      }),
-	  
+	  new webpack.optimize.ModuleConcatenationPlugin({
+
+        }),
     	//生产环境和开发环境对代码压缩的区别；
 	    new webpack.DefinePlugin({
 	            'process.env': {
@@ -137,7 +132,7 @@ module.exports={
 		}),
 		//html模板插件；
 		new htmlWebpackPlugin({
-			template:__dirname+'/app/index.html',
+			template:__dirname+'/app/index.tmpl.html',
 			favicon:'./favicon.ico'
 		}),
 		//自动开启浏览器；

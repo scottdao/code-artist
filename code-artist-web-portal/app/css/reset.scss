@@ -8,7 +8,8 @@ body,html{
 	height:100%;
 	width:100%;
 	font-size:14px;
-	font-family:'微软雅黑';
+	//font-family:'微软雅黑';
+	letter-spacing:2px;
 }
 table { 
 	border-collapse:collapse; 
@@ -55,5 +56,9 @@ a{
 	}
 .clearFix{
 	zoom:1;/*IE低版本浏览器不支持after伪类所以要加这一句*/
+}
+.communityIndex{
+	height:100%;
+	min-width:1200px;
 }
 

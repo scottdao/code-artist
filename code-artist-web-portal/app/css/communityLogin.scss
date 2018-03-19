@@ -1,0 +1,69 @@
+//@import './reset.scss';
+@import './reset.scss';
+$fontFamily:方正兰亭超细黑简体 Bold, 方正兰亭超细黑简体;
+$F:font;
+.fontAcess{
+	#{$F}-family: $fontFamily;
+    #{$F}-weight: bold;
+    #{$F}-style: normal;
+    #{$F}-size: 18px;
+    color: #333333;
+    text-align: center;
+    line-height: normal;
+}
+/*登录界面的样式开始*/
+@mixin d-border($color) {//混合指令
+  border: {
+    color: $color;
+    width: 1px;
+    style: solid;
+  }
+}
+.login-index{
+    min-width: 1200px;
+    background: url(../image/background.png) no-repeat;
+    background-size: 100% 100%;
+    //background-attachment:fixed;
+    position:relative;
+    border-top:1px solid transparent;
+    .login-index-sh{
+	    width: 350px;
+	    height: 510px;
+	    padding:35px;
+	    background-color:#fff;
+	    @include d-border(#8e8e8e);//混合指令调用；
+	    position:absolute;
+	    bottom: 0;
+	    top:0;
+	    left:820px;
+	    margin:auto 0;
+	    @extend .fontAcess;
+    }
+    .login-index-lw{
+      color:#fff;
+      width:310px;
+      min-height:120px;
+      @extend .fontAcess;
+       padding-top: 380px;
+       margin-left: 405px;
+      .lw-first{
+        margin-bottom:5px;
+        text-align:left;
+      }
+      big{
+        display:block;
+        text-align:right;
+      }
+      small{
+        display:block;
+        text-align:left;
+      }
+      .lw-second{
+        margin-top:5px;
+        text-align:left;
+        font-size: 16px;
+      }
+
+    }
+
+}

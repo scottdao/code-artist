@@ -5,9 +5,12 @@ class PageIndex extends Component{
     constructor(){
         super()
     }
+    componentDidMount(){
+    	document.title='社区首页'
+    }
     render(){
         return(
-            <div>社区首页</div>
+            <div className='community-index'>社区首页</div>
         )
     }
 }

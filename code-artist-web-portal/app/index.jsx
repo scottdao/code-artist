@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import {Router,Route,hashHistory} from 'react-router';
 import RouterIndex from './router/router'
 
-//加载全局样式
-import './css/reset.scss'
 //加载antd样式；
 import 'antd/dist/antd.css'
 
@@ -14,9 +12,10 @@ class Index extends Component{
     }
     render(){
         return(
-            <div>
-                <RouterIndex/>
-            </div>
+             <div className='communityIndex'>
+                <RouterIndex />
+              </div>
+            
         )
     }
 }
