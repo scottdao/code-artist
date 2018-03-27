@@ -33,7 +33,7 @@ function createHappyThread(id,loaders){
 module.exports={
 	//入口文件；
 	entry:{
-		app:['./app/index.jsx']
+		app:['babel-polyfill','./app/index.jsx']
 	},
 	//出口文件；__dirname+'/build/project/'
 	output:{
@@ -80,6 +80,17 @@ module.exports={
 		historyApiFallback: true, //不跳转
 	    inline: true,
 	    hot: true,
+	    compress: true,
+		quiet:false,
+		noInfo:false,
+		overlay: {
+			warnings: true,
+			errors: true
+		},
+		watchOptions: {
+			aggregateTimeout: 300,
+			poll: 1000
+		},
 	    contentBase:'./build'
 },
 	plugins:[
@@ -91,7 +102,11 @@ module.exports={
 				}]),
 		createHappyThread('sass',[{loader:'css-loader',options: {
                     minimize: true
-                }},'autoprefixer-loader','fast-sass-loader']),
+                }},{loader:'postcss-loader',options: {
+					sourceMap: true,
+					config: {
+						path: 'postcss.config.js'  // 这个得在项目根目录创建此文件
+					}} },{loader:'fast-sass-loader',options: { sourceMap: true }}]),
 		createHappyThread('json',['json-loader']),
 		new CleanWebpackPlugin(['build']//匹配删除的文件
 			,{
@@ -100,21 +115,25 @@ module.exports={
 				dry:false//启用删除文件
 			}),
 		//启用ParallelUglifyPlugin插件并行进行加速压缩js代码；
-	    new ParallelUglifyPlugin({
-	    	   cacheDir: '.cache/',
-	    	   sourceMap:false,
-	           uglifyJS:{
-	             output: {
-	               comments: false
-	             },
-	             compress: {
-	               warnings: false
-	             }
-	           }
-	      }),
+	    // new ParallelUglifyPlugin({
+	    // 	   cacheDir: '.cache/',
+	    // 	   sourceMap:false,
+	    //        uglifyJS:{
+	    //          output: {
+	    //            comments: false
+	    //          },
+	    //          compress: {
+	    //            warnings: false
+	    //          }
+	    //        }
+	    //   }),
 	  new webpack.optimize.ModuleConcatenationPlugin({
 
         }),
+	   new webpack.optimize.CommonsChunkPlugin({
+			name: 'base',
+			filename: 'js/[name].[hash:8].js'
+		  }),
     	//生产环境和开发环境对代码压缩的区别；
 	    new webpack.DefinePlugin({
 	            'process.env': {
@@ -139,6 +158,7 @@ module.exports={
 		new openBrowser({
 			url:webpackServer.protocol+webpackServer.host+':'+webpackServer.port
 		}),
+		new webpack.HotModuleReplacementPlugin(),
 		//文件信息；
 		new webpack.BannerPlugin('@Copyright by scott time:2018')
 	]
