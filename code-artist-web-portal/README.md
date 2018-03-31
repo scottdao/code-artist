@@ -43,17 +43,19 @@
                         @import url(./communityLogin);
         可以同时导入多（两个或两个以上）个文件：@import 'tab','job';
 ##（4）#的用法；
-        调用变量，简化写法；实例：见app/css/communityLogin.scss第4行；
-        $F:font;
-        .fontAcess{
-            #{$F}-family: $fontFamily;
-            #{$F}-weight: bold;
-            #{$F}-style: normal;
-            #{$F}-size: 18px;
-            color: #333333;
-            text-align: center;
-            line-height: normal;
-        }
+
+
+                调用变量，简化写法；实例：见app/css/communityLogin.scss第4行；
+                $F:font;
+                .fontAcess{
+                    #{$F}-family: $fontFamily;
+                    #{$F}-weight: bold;
+                    #{$F}-style: normal;
+                    #{$F}-size: 18px;
+                    color: #333333;
+                    text-align: center;
+                    line-height: normal;
+                }
 ##（5）@mixin和@include的用法
 
     针对复合样式属性进行采用border,background，font进行采用；以便代码更加方便复用；
