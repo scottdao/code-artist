@@ -54,6 +54,7 @@
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-router": "^3.0.5",
+    "reactjs-swiper": "^0.1.0",
     "redux": "^3.7.2"
   }
 }
