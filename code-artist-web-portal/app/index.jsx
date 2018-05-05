@@ -4,7 +4,7 @@ import {Router,Route,hashHistory} from 'react-router';
 import RouterIndex from './router/router'
 
 //加载antd样式；
-import 'antd/dist/antd.css'
+//import 'antd/dist/antd.css'
 
 class Index extends Component{
     constructor(){

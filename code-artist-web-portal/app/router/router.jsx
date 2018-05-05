@@ -6,23 +6,18 @@ import Login from '../js/login/login';
 //社区首页
 import CommunityIndex from '../js/community/pageIndex';
 
-//console.log(ReactCSSTransitionGroup)
-import {TransitionGroup, CSSTransition} from 'react-transition-group';
-
 class RouterIndex extends Component{
     constructor(){
         super()
     }
     render(){
         return(
-        
           <Router history={hashHistory} >
           	<Route path='/' component={Login} >
           	</Route>
             <Route path='/community/pageIndex' component={CommunityIndex}>
             </Route>
           </Router>
-
         )
     }
 }

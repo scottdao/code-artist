@@ -1,6 +1,6 @@
 //@import './reset.scss';
 @import './reset.scss';
-$fontFamily:方正兰亭超细黑简体 Bold, 方正兰亭超细黑简体;
+$fontFamily:'Monospaced Number,Chinese Quote,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif';
 $F:font;
 .fontAcess{
 	#{$F}-family: $fontFamily;
@@ -19,6 +19,61 @@ $F:font;
     style: solid;
   }
 }
+@mixin bg($url){
+  background:$url no-repeat;
+  background-size:100% 100%;
+
+}
+.chanceGo{
+  &>h3{
+    font-size:18px;
+    fontFamily:$fontFamily;
+    color:#fea84d;
+    display:inline-block;
+    vertical-align: middle;
+    margin:10px 0;
+    &:after{
+      content:"";
+      display:inline-block;
+      width:30px;
+      height:1px;
+      background-color:#fea84d;
+      margin-left:5px;
+    }
+    &:before{
+      content:"";
+      display:inline-block;
+      width:30px;
+      height:1px;
+      background-color:#fea84d;
+      margin-right:10px;
+    }
+  }
+}
+.thirdParty{
+  display:flex;
+  display:-webkit-flex;
+  justify-content: space-between;
+  margin-top: 12%;
+    .qq-party{
+      height:40px;
+      width:40px;
+      @include bg(url('../image/login/u34.png'));
+      cursor:pointer;
+    }
+    .wb-party{
+      height:40px;
+      width:40px;
+      @include bg(url('../image/login/u36.png'));
+      cursor:pointer;
+    }
+    .wx-party{
+      height:40px;
+      width:40px;
+      @include bg(url('../image/login/u38.png'));
+      cursor:pointer;
+    }
+}
 .login-index{
     min-width: 1200px;
     background: url(../image/background.png) no-repeat;
@@ -35,17 +90,44 @@ $F:font;
 	    position:absolute;
 	    bottom: 0;
 	    top:0;
-	    left:820px;
+	    //left:820px;
+      right:14%;
 	    margin:auto 0;
 	    @extend .fontAcess;
+      img{
+        height:30px;
+        width:30px;
+      }
+      .ant-input-group-wrapper{
+        margin-top:10%;
+      }
+      input{
+        height:45px;
+      }
+      .ant-btn-lg{
+        width: 278px;
+        margin-top: 10%;
+      }
+      .forgetpswd{
+            font-size: 14px;
+            font-family: $fontFamily;
+            color:#1890ff;
+            cursor: pointer;
+      }
+      .ant-checkbox-wrapper{
+        margin-right: 19%;
+      }
     }
     .login-index-lw{
       color:#fff;
       width:310px;
       min-height:120px;
+      position: absolute;
+      top: 60%;
+      right: 47%;
       @extend .fontAcess;
-       padding-top: 380px;
-       margin-left: 405px;
+       // padding-top: 380px;
+       // margin-left: 405px;
       .lw-first{
         margin-bottom:5px;
         text-align:left;
