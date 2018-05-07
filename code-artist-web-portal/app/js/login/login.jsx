@@ -65,6 +65,16 @@ class Login extends Component{
                    </div>
                    <div className='chanceGo'>
                         <h3>亲，还没有账号？</h3>
+                        <div className='go-btn'>
+                            <a href='javascript:;'>
+                                <span className='left-arrow'>&lt;</span>
+                                <span>去注册</span>
+                            </a>
+                            <a href='javascript:;' className='last-go'>
+                                <span>先看看</span>
+                                <span className='right-arrow'>&gt;</span>
+                            </a>
+                        </div>
                    </div>
                 </div>
 

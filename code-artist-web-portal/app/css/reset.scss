@@ -19,6 +19,10 @@ img {
 	border:0 none; /*有些浏览器默认这些标签有边框，所以要清除默认边框*/
 	display:block;
 } 
+a{
+	text-decoration:none;
+	color:#333;
+}
 address,caption,cite,code,dfn,em,i,u,b,strong,th,var { 
 	font-style:normal; 
 	font-weight:normal; 
