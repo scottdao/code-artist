@@ -1,12 +1,12 @@
 import React,{Component} from 'react';
 import {hashHistory,Link} from 'react-router';
-import '../../css/communityLogin.scss';
+import 'PcCss/communityLogin.scss';
 import $$ from 'jquery';
 //console.log($$);
-import Http from '../../component/http'
+import Http from 'PcComponent/http'
 import { Modal, Input,Button,Checkbox} from 'antd';
-import userIcon from '../../image/login/u20.png';
-import pswdIcon from '../../image/login/u22.png';
+import userIcon from 'pcImage/login/u20.png';
+import pswdIcon from 'pcImage/login/u22.png';
 class Login extends Component{
     constructor(){
         super()

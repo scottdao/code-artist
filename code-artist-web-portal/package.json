@@ -4,10 +4,8 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "build.prod": "cross-env NODE_ENV=production webpack --config build/webpack.config.js",
-    "build": "cross-env NODE_ENV=dev webpack",
-    "prod": "cross-env NODE_ENV=dev webpack-dev-server --content-base build --hot    --inline",
-    "dev": "cross-env NODE_ENV=dev webpack-dev-server --content-base build --hot    --inline",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.prod.js",
+    "dev": "cross-env NODE_ENV=dev webpack-dev-server  --content-base --config webpack.dev.js",
     "start": "npm run dev"
   },
   "author": "scott",
@@ -42,6 +40,7 @@
     "url-loader": "^0.6.2",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.5",
+    "webpack-merge": "^4.1.2",
     "webpack-parallel-uglify-plugin": "^1.0.2"
   },
   "dependencies": {

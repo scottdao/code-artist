@@ -2,9 +2,9 @@ import React,{Component} from 'react';
 import {Router,Route,IndexRedirect,hashHistory} from 'react-router';
 
 //登录界面
-import Login from '../js/login/login';
+import Login from 'PcJs/login/login';
 //社区首页
-import CommunityIndex from '../js/community/pageIndex';
+import CommunityIndex from 'PcJs/community/pageIndex';
 
 class RouterIndex extends Component{
     constructor(){
