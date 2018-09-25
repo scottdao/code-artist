@@ -6,7 +6,7 @@ module.exports = merge(common, {
 	devtool:'source-map',
 	plugins: [
 		
-        new webpack.optimize.CommonsChunkPlugin({
+    new webpack.optimize.CommonsChunkPlugin({
 			name: 'base',
 			filename: 'js/[name].[hash:8].js'
 		  }),
