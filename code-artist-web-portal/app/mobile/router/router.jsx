@@ -1,7 +1,11 @@
 import React,{Component} from 'react';
 import {Router,Route,IndexRedirect,hashHistory} from 'react-router';
 
-class RouterIndex extends Component{
+import {Provider,connect} from 'react-redux';
+import configureStore  from 'Components/redux/store';
+import PropTypes from 'prop-types';
+const store = configureStore();
+class mobileRouterIndex extends Component{
     constructor(){
         super()
     }
@@ -11,4 +15,7 @@ class RouterIndex extends Component{
         )
     }
 }
-export default RouterIndex
+mobileRouterIndex.contextTypes = {
+    store:PropTypes.object
+}
+export default mobileRouterIndex

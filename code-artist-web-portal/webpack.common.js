@@ -43,6 +43,7 @@ module.exports={
 		  MobileJs:path.resolve(__dirname,'app/mobile/js'),
 		  MobileRouter:path.resolve(__dirname,'app/mobile/router'),
 		  PcComponent:path.resolve(__dirname, 'app/pc/component'),
+		  Components:path.resolve(__dirname,'app/components'),
 		  PcCss:path.resolve(__dirname, 'app/pc/css'),
 		  pcImage:path.resolve(__dirname,'app/pc/image'),
 		  PcJs:path.resolve(__dirname,'app/pc/js'),

@@ -2,14 +2,14 @@ import React,{Component} from 'react';
 import {hashHistory,Link} from 'react-router';
 import 'PcCss/communityLogin.scss';
 import $$ from 'jquery';
-//console.log($$);
-import Http from 'PcComponent/http'
+
 import { Modal, Input,Button,Checkbox} from 'antd';
 import userIcon from 'pcImage/login/u20.png';
 import pswdIcon from 'pcImage/login/u22.png';
 class Login extends Component{
-    constructor(){
-        super()
+    constructor(props,context){
+        super(props,context)
+        console.log(context);
         this.state={
         }
     }
@@ -27,12 +27,12 @@ class Login extends Component{
             title: '这是一条通知信息',
             content: '一些附加信息一些附加信息一些附加信息',
             onOk() {
-                Http.log('成功',false);
+                //Http.log('成功',false);
             },
         });
     }
     onChange(e){
-        Http.log(e,false);
+        //Http.log(e,false);
     }
  
     render(){
@@ -67,12 +67,12 @@ class Login extends Component{
                         <h3>亲，还没有账号？</h3>
                         <div className='go-btn'>
                             <a href='javascript:;'>
-                                <span className='left-arrow'>&lt;</span>
+                                <span className='left-arrow'></span>
                                 <span>去注册</span>
                             </a>
                             <a href='javascript:;' className='last-go'>
                                 <span>先看看</span>
-                                <span className='right-arrow'>&gt;</span>
+                                <span className='right-arrow'></span>
                             </a>
                         </div>
                    </div>
@@ -81,5 +81,9 @@ class Login extends Component{
             </div>
         )
     }
+}
+import PropTypes from 'prop-types';
+Login.contextTypes = {
+    store:PropTypes.object
 }
 export default Login

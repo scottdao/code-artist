@@ -14,4 +14,8 @@ class PageIndex extends Component{
         )
     }
 }
+import PropTypes from 'prop-types';
+PageIndex.contextTypes = {
+    store:PropTypes.object
+}
 export default PageIndex

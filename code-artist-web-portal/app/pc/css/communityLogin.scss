@@ -33,10 +33,12 @@ $F:font;
       width:98px;
       background:#fea84d;
       color:#fff;
-      font-size:16px;
+      //font-size:16px;
       font-family:$fontFamily;
       text-align:center;
       line-height:40px;
+      border-radius: 4px;
+      font-size: 14px;
     }
     .last-go{
       margin-left:5px;
