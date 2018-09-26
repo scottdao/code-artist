@@ -1,16 +1,27 @@
 import React,{Component} from 'react';
 import {hashHistory,Link} from 'react-router';
-
+import HeaderNav from 'PcComponent/headerNav';
+import Bottom from 'PcComponent/bottom';
 class PageIndex extends Component{
-    constructor(){
-        super()
+    constructor(props,context){
+        super(props,context)
     }
     componentDidMount(){
-    	document.title='社区首页'
+    	document.title='朋友圈'
+    }
+     componentWillUnmount(){
+        document.title = ''
     }
     render(){
+
         return(
-            <div className='community-index'>社区首页</div>
+            <React.Fragment>
+                <div style={{height:'60px',width:'100%'}}>
+                 <HeaderNav></HeaderNav>
+                </div>
+                {this.props.children}
+                <Bottom></Bottom>
+            </React.Fragment>
         )
     }
 }

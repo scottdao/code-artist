@@ -1,13 +1,57 @@
 import http from './http'
 function Tool(){
 	http.constructor.call(this,http.request,http.URL);
-		this.sortBase  = function(arr,j,temp){
+	this.sortBase  = function(arr,j,temp){
 			//console.log(arguments)
 			temp = arr[j];
 			arr[j] = arr[j+1];
 			arr[j+1] = temp;
 			return temp;
+	}
+	/*
+	*存储数据：
+	*type==0,长存，localStorage
+	*type==1,暂存，sessionStorage
+	*/
+	this.setLocalData = function(obj,type){
+		switch (type) {
+			case 0:
+				return localStorage.setItem(obj.keyName,obj.keyVal)
+				break;
+			case 1:
+				return sessionStorage.setItem(obj.keyName,obj.keyVal)
+			break;
+			default:
+			break;
 		}
+	}
+
+    this.getLocalData = function(obj,type){
+    		switch (type) {
+			case 0:
+				return localStorage.getItem(obj.keyVal)
+				break;
+			case 1:
+				return sessionStorage.getItem(obj.keyVal)
+			break;
+			default:
+			break;
+		}
+    }
+    this.rmLocalData = function(obj,type){
+    	if(arguments.length==0){localStorage.clear();sessionStorage.clear();return;}
+    	switch (type) {
+    		case 0:
+    			localStorage.remove(obj.keyVal)
+    			break;
+    		case 1:
+    		     sessionStorage.remove(obj.keyVal);
+    		     break;
+    		default:
+    		  break;
+    	}
+
+    }
 	return this;
 }
 Tool.prototype.post = function(url,data,callBack,failer){
@@ -59,6 +103,7 @@ Tool.prototype.timeDate = function(time,y){//y==0 年；y==1 秒；y==2,年和�
 			break;
 		}
 }
+
 /*
 *冒泡排序
 *n==0,从大到小排；
@@ -90,6 +135,8 @@ Tool.prototype.bubbleSort = function(arr,n){
 *
 *
 */
+
+
 var tool = new Tool();
 /*var j = tool.bubbleSort([1,5,42.1,23,57],1)
 console.log(j)*/

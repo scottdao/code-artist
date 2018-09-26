@@ -19,6 +19,9 @@ class Login extends Component{
         
       
     }
+    componentWillUnmount(){
+        document.title = ''
+    }
     pageIndex(){//登录跳转接口
         // $$('.login-index').fadeOut(300,function(){
         //     hashHistory.push('/community/pageIndex');
@@ -28,13 +31,14 @@ class Login extends Component{
             content: '一些附加信息一些附加信息一些附加信息',
             onOk() {
                 //Http.log('成功',false);
+                 hashHistory.push('/index');
             },
         });
     }
     onChange(e){
         //Http.log(e,false);
     }
- 
+    
     render(){
         const  imgUser = (<img src={userIcon}/>);
         const imgPswd = (<img src={pswdIcon}/>)
@@ -52,7 +56,7 @@ class Login extends Component{
                     <Input  addonBefore={imgUser} placeholder="请输入帐号/手机/邮箱" />
                     <Input  addonBefore={imgPswd} placeholder="请输入密码" />
                     <Button type='primary' size="large" onClick={this.pageIndex.bind(this)}>
-                    登录
+                     登录
                    </Button>
                    <p style={{marginTop:'4px'}}>
                    <Checkbox onChange={this.onChange.bind(this)}>用户自动登录</Checkbox>

@@ -39,17 +39,30 @@ $F:font;
       line-height:40px;
       border-radius: 4px;
       font-size: 14px;
+      text-decoration: none;
+      &:hover{
+        opacity: .8;
+      }
     }
     .last-go{
       margin-left:5px;
     }
+    .left-arrow{
+      display: inline-block;
+      vertical-align: middle;
+      height: 30px;
+      width: 30px;
+      @include bg(url('../image/login/leftRow.png'));
+    }
     .right-arrow{
-      margin-left:10px;
+      //margin-left:10px;
+        @extend .left-arrow;
+        transform: rotateY(180deg);
     }
   }
   &>h3{
     font-size:18px;
-    fontFamily:$fontFamily;
+    font-family:$fontFamily;
     color:#fea84d;
     display:inline-block;
     vertical-align: middle;
@@ -59,6 +72,7 @@ $F:font;
       display:inline-block;
       width:30px;
       height:1px;
+      vertical-align: middle;
       background-color:#fea84d;
       margin-left:5px;
     }
@@ -67,6 +81,7 @@ $F:font;
       display:inline-block;
       width:30px;
       height:1px;
+      vertical-align: middle;
       background-color:#fea84d;
       margin-right:10px;
     }
@@ -80,20 +95,29 @@ $F:font;
     .qq-party{
       height:40px;
       width:40px;
-      @include bg(url('../image/login/u34.png'));
+      @include bg(url('../image/login/qq-nor.png'));
       cursor:pointer;
+      &:hover{
+        @include bg(url('../image/login/qq-light.png'))
+      }
     }
     .wb-party{
       height:40px;
       width:40px;
-      @include bg(url('../image/login/u36.png'));
+      @include bg(url('../image/login/weibo-nor.png'));
       cursor:pointer;
+      &:hover{
+        @include bg(url('../image/login/weibo-light.png'))
+      }
     }
     .wx-party{
       height:40px;
       width:40px;
-      @include bg(url('../image/login/u38.png'));
+      @include bg(url('../image/login/weixin-nor.png'));
       cursor:pointer;
+      &:hover{
+        @include bg(url('../image/login/weixin-light.png'))
+      }
     }
 }
 .login-index{

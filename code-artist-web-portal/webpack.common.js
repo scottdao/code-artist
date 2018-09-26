@@ -112,7 +112,7 @@ module.exports={
 		//html模板插件；
 		new htmlWebpackPlugin({
 			template:__dirname+'/app/index.tmpl.html',
-			//favicon:'./favicon.ico'
+			favicon:'./logo.ico'
 		}),
 		 new webpack.DllReferencePlugin({
             context: __dirname,

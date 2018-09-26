@@ -10,7 +10,7 @@ class Index extends Component{
         super()
     }
      componentDidMount(){
-        document.title = '登录';
+      //  document.title = '登录';
 
     }
     render(){
