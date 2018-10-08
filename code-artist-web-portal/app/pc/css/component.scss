@@ -1,0 +1,26 @@
+/**
+*部分组件样式；
+*/
+
+/*
+*input 组件样式；
+*
+*
+*
+*/
+
+.input{
+	height: 36px;
+	.input-label{
+		    font-size: 18px;
+		    color: #333;
+		    line-height: 36px;
+		    float: left;
+		    display: inline;
+		    //margin-left: -210px;
+		    width: 200px;
+		    //height: 36px;
+		    text-align: right;
+		    overflow: hidden;
+	}
+}

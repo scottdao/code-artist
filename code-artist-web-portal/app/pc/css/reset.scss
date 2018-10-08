@@ -8,7 +8,6 @@ body,html{
 	height:100%;
 	width:100%;
 	font-size:14px;
-	//font-family:'微软雅黑';
 	letter-spacing:2px;
 }
 table { 
@@ -38,6 +37,8 @@ input,textarea{
 } 
 ol,ul { 
 	list-style:none; /*清除列表默认样式*/
+	margin: 0;
+	padding: 0;
 } 
 caption,th { 
 	text-align:left; /*清除标签默认文本居中对齐*/

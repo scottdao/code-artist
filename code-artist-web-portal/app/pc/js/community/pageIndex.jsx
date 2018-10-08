@@ -3,6 +3,7 @@ import {hashHistory,Link} from 'react-router';
 import HeaderNav from 'PcComponent/headerNav';
 import Bottom from 'PcComponent/bottom';
 import 'PcCss/index.scss';
+import 'PcCss/mainBody.scss';
 class PageIndex extends Component{
     constructor(props,context){
         super(props,context)

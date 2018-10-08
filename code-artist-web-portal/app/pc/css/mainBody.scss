@@ -1,0 +1,41 @@
+/*
+*
+* 主体样式；朋友圈，注册，忘记密码，问答，微吧,资讯广场etc.
+*
+*/
+/*
+*1.注册样式
+*/
+
+.resgist-main{
+	width: 1000px;
+	margin: 0 auto;
+	font-size: 14px;
+	//background-color: #fff;
+	//padding: 30px 40px;
+	.main-head{
+		width: 100%;
+		
+		ul{
+			
+			li{
+				float: left;
+				background-color: #fff;
+				height: 48px;
+				line-height: 48px;
+				padding: 0 50px;
+				color: #0096e6;
+				border: #e5e6e7 1px solid;
+				border-bottom: none;
+			}
+		}
+	}
+	.form-content{
+		width: 100%;
+		background-color: #fff;
+		border: 1px solid #e5e6e7;
+		padding: 30px 40px;
+		border-top: none;
+	}
+
+}
