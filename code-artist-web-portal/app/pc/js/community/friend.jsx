@@ -5,10 +5,11 @@ class Friend extends Component{
         super()
     }
     componentDidMount(){
+        document.title='朋友圈'
     	
     }
      componentWillUnmount(){
-        
+          document.title=''
     }
     render(){
         return(

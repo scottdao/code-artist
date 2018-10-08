@@ -70,10 +70,10 @@ class Login extends Component{
                    <div className='chanceGo'>
                         <h3>亲，还没有账号？</h3>
                         <div className='go-btn'>
-                            <a href='javascript:;'>
+                            <Link to='/register' >
                                 <span className='left-arrow'></span>
                                 <span>去注册</span>
-                            </a>
+                            </Link>
                             <a href='javascript:;' className='last-go'>
                                 <span>先看看</span>
                                 <span className='right-arrow'></span>

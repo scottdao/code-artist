@@ -2,28 +2,28 @@ import React,{Component} from 'react';
 import {hashHistory,Link} from 'react-router';
 import HeaderNav from 'PcComponent/headerNav';
 import Bottom from 'PcComponent/bottom';
-import 'PcCss/index.scss';
 class PageIndex extends Component{
     constructor(props,context){
         super(props,context)
     }
     componentDidMount(){
-    	//document.title=''
+    	document.title='注册'
     }
      componentWillUnmount(){
-        //document.title = ''
+        document.title = ''
     }
     render(){
 
         return(
             <React.Fragment>
-                <div style={{height:'60px',width:'100%'}}>
-                 <HeaderNav></HeaderNav>
-                </div>
-                <div className='index-body'>
-                {this.props.children}
-                </div>
-                <Bottom></Bottom>
+                 <div className='resgist-main'>
+                    <div className='main-head'>
+                        <ul>
+                            <li>手机注册</li>
+                        </ul>
+                    </div>
+                 </div>
+                
             </React.Fragment>
         )
     }

@@ -13,7 +13,7 @@ class Bttom extends Component{
     render(){
         return(
             <div className='footer'>
-               
+               我是脚部
             </div>
         )
     }
