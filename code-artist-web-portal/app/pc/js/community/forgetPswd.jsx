@@ -23,8 +23,8 @@ class ForgetPawd extends Component{
           let {noteVer,fontSize} = this.state;
          const $this = this
         return(
-           
-                 <div className='resgist-main'>
+                 <React.Fragment>
+                  <div className='resgist-main' style = {{display:'none'}}>
                     <div className='main-head'>
                         <ul className='clearFix'>
                             <li>手机密码</li>
@@ -75,8 +75,13 @@ class ForgetPawd extends Component{
 
                               }}>下一步</Button>
                     </div>
+                  </div>
+
+                 {/*设置密码*/}
+                 <div className='set-pswd'>
+                    设置密码
                  </div>
-         
+                 </React.Fragment>
         )
     }
 }
