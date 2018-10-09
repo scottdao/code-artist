@@ -1,40 +1,37 @@
 import React,{Component} from 'react';
 import {hashHistory,Link} from 'react-router';
-import HeaderNav from 'PcComponent/headerNav';
+
 import Bottom from 'PcComponent/bottom';
 import Input from 'PcComponent/Input';
 import Button from 'PcComponent/Button';
 import 'PcCss/component.scss';
-
-class Register extends Component{
-    constructor(props,context){
-        super(props,context)
+class ForgetPawd extends Component{
+    constructor(){
+        super()
         this.state={
-            registData:{},
             noteVer:'获取短信验证码',
             fontSize:'10px'
         }
     }
     componentDidMount(){
-    	document.title='注册'
+    	
     }
      componentWillUnmount(){
-        document.title = '';
-        this.timer && clearInterval(this.timer)
+         this.timer && clearInterval(this.timer)
     }
     render(){
-        let {noteVer,fontSize} = this.state;
+          let {noteVer,fontSize} = this.state;
          const $this = this
         return(
-            <React.Fragment>
+           
                  <div className='resgist-main'>
                     <div className='main-head'>
                         <ul className='clearFix'>
-                            <li>手机注册</li>
+                            <li>手机密码</li>
                         </ul>
                     </div>
                     <div className='form-content'>
-                     
+                      
                             <div style={{padding:'10px 0'}}>
                                 <Input type='phone' id='phone' inputChange={(e)=>{
                                     console.log(e)
@@ -71,31 +68,20 @@ class Register extends Component{
                                     },1000);
                                   }}>{noteVer}</Button>
                             </div>
-                            <div  style={{padding:'10px 0'}}>
-                                <Input type='text' id='userName' labelName='用户名' defaultTip='用户名仅限中文、英文，下划线'/>
-                            </div> 
-                            <div style={{padding:'10px 0'}}>
-                                <Input type='password' id='pswd' labelName='设置密码' defaultTip='字母和数字，最短6位字符，区分大小写'/>
-                            </div>
-                            <div style={{padding:'10px 0'}}>
-                                <Input type='password' id='repswd' labelName='确认密码' defaultTip='密码两次输入必须一致'/>
-                            </div>
-                              <Button width='160px' style={{
+                         <Button width='160px' style={{
                                 marginTop:"20px",
                                 marginLeft:'0px'
                               }}  disabled={false} clickEvent = {(e)=>{
 
                               }}>下一步</Button>
-                      
                     </div>
                  </div>
-                
-            </React.Fragment>
+         
         )
     }
 }
 import PropTypes from 'prop-types';
-Register.contextTypes = {
+ForgetPawd.contextTypes = {
     store:PropTypes.object
 }
-export default Register
+export default ForgetPawd

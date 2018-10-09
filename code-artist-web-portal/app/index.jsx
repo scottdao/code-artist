@@ -14,7 +14,8 @@ class Index extends Component{
 
     }
     render(){
-         let clientFlag = sessionStorage.getItem('clientFlag')
+         let clientFlag = sessionStorage.getItem('clientFlag');
+        // clientFlag = 2;
         const clientDom =  clientFlag==1?<MobileRouter />:(clientFlag==2?<RouterIndex />:'客户端出错');
         return(
             <React.Fragment>

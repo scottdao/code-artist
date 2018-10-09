@@ -60,7 +60,7 @@ class Login extends Component{
                    </Button>
                    <p style={{marginTop:'4px'}}>
                    <Checkbox onChange={this.onChange.bind(this)}>用户自动登录</Checkbox>
-                   <span className='forgetpswd'>忘记密码?</span>
+                   <span className='forgetpswd' onClick={()=>{hashHistory.push('/forgetPswd')}}>忘记密码?</span>
                    </p>
                    <div className='thirdParty'>
                         <div className='qq-party'></div>
@@ -74,10 +74,10 @@ class Login extends Component{
                                 <span className='left-arrow'></span>
                                 <span>去注册</span>
                             </Link>
-                            <a href='javascript:;' className='last-go'>
+                            <Link to='/square' className='last-go'>
                                 <span>先看看</span>
                                 <span className='right-arrow'></span>
-                            </a>
+                            </Link>
                         </div>
                    </div>
                 </div>

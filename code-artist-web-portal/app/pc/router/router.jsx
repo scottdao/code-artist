@@ -12,7 +12,7 @@ import Information from 'PcJs/community/information'
 import Square from 'PcJs/community/square'
 
 import Register from 'PcJs/community/register'
-
+import ForgetPswd from 'PcJs/community/ForgetPswd'
 import {Provider,connect} from 'react-redux';
 import configureStore  from 'Components/redux/store';
 import PropTypes from 'prop-types';
@@ -34,6 +34,7 @@ class RouterIndex extends Component{
                 <Route path='/information' component={Information} />
                 <Route path='/square' component={Square} />
                 <Route path='/register' component={Register} />
+                <Route path='/forgetPswd' component={ForgetPswd} />
             </Route>
           </Router>
           </Provider >
