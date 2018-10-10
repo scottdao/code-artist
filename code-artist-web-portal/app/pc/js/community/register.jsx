@@ -75,7 +75,7 @@ class Register extends Component{
                                 <Input type='text' id='userName' labelName='用户名' defaultTip='用户名仅限中文、英文，下划线'/>
                             </div> 
                             <div style={{padding:'10px 0'}}>
-                                <Input type='password' id='pswd' labelName='设置密码' defaultTip='字母和数字，最短6位字符，区分大小写'/>
+                                <Input type='password' id='pswd' labelName='设置密码' defaultTip='字母、数字和符号，最短6位字符，区分大小写'/>
                             </div>
                             <div style={{padding:'10px 0'}}>
                                 <Input type='password' id='repswd' labelName='确认密码' defaultTip='密码两次输入必须一致'/>

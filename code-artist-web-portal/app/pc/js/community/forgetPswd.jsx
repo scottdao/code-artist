@@ -38,7 +38,7 @@ class ForgetPawd extends Component{
                                 }} labelName='手机号' defaultValue='123456' deleteBtn='delete' defaultTip='一个手机号只能拥有一个账号'/>
                             </div>
                              <div style={{padding:'10px 0',position:"relative"}}>
-                                <Input type='text' id='noteCode' width='120px' labelName='图形验证码' />
+                                <Input type='text' id='imgCode' width='120px' labelName='图形验证码' />
                                 <Button width='120px' color='#333' backgroundColor='#fff'  style={{fontSize:'10px',position :'absolute',top:'16%',left:'24.5%',border:'1px solid #999'}} 
                                  clickEvent = {(e)=>{ 
                                    
@@ -79,7 +79,23 @@ class ForgetPawd extends Component{
 
                  {/*设置密码*/}
                  <div className='set-pswd'>
-                    设置密码
+                    <div className='pswd-main'>
+                        <div className='main-content'>
+                            <h3>重置密码</h3>
+                             <div style={{padding:'10px 0'}}>
+                                <Input type='password' id='newpswd' labelName='新密码' defaultTip='字母、数字和符号，最短6位字符，区分大小写'/>
+                            </div>
+                             <div style={{padding:'10px 0'}}>
+                                <Input type='password' id='repswd' labelName='确认密码' defaultTip='密码两次输入必须一致'/>
+                            </div>
+                              <Button width='100px' style={{
+                                marginTop:"20px",
+                                marginLeft:'0px'
+                              }}  disabled={false} clickEvent = {(e)=>{
+
+                              }}>确认</Button>
+                        </div>
+                    </div>
                  </div>
                  </React.Fragment>
         )
