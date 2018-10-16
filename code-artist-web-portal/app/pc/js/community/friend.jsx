@@ -5,7 +5,7 @@ class Friend extends Component{
         super()
     }
     componentDidMount(){
-        document.title='朋友圈'
+        document.title='朋友圈-codeArtist'
     	
     }
      componentWillUnmount(){

@@ -5,10 +5,10 @@ class Questions extends Component{
         super()
     }
     componentDidMount(){
-    	
+    	 document.title = '问答-codeArtist';
     }
      componentWillUnmount(){
-        
+         document.title = '';
     }
     render(){
         return(

@@ -52,6 +52,20 @@ function Tool(){
     	}
 
     }
+
+    this._regularCheck = function(){
+    	return{
+    		userNameVer:function(val){//用户名 6以上
+    			if(/^[_a-zA-Z0-9]{6,}$/.test(val))return true;
+    			else return false;
+    		},
+    		pswdVer:function(val){//密码 8-20
+    			if(/^[_a-z0-9]{8,20}$/.test(val))return true;
+    			else return false;
+    		}
+    	}
+
+    }
 	return this;
 }
 Tool.prototype.post = function(url,data,callBack,failer){
@@ -135,7 +149,21 @@ Tool.prototype.bubbleSort = function(arr,n){
 *
 *
 */
-
+Tool.prototype.chekRegular = function(obj){
+	//根据传的值进行判空校验
+	if(obj.value){
+		var flag = this._regularCheck()[obj.name](obj.value);
+		if(flag){
+			return true;
+		}else{
+			obj.regularFunc && obj.regularFunc(obj.tipWord);
+			return false;
+		}
+	}else{
+		 obj.emptyFunc && obj.emptyFunc(obj.tipName+'不能为空');
+		 return false;
+	}
+};
 
 var tool = new Tool();
 /*var j = tool.bubbleSort([1,5,42.1,23,57],1)

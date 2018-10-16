@@ -5,10 +5,10 @@ class Information extends Component{
         super()
     }
     componentDidMount(){
-    	
+    	 document.title='资讯-codeArtist'
     }
      componentWillUnmount(){
-        
+         document.title=''
     }
     render(){
         return(

@@ -34,8 +34,13 @@ class HeaderNav extends Component{
             lName:'广场',
             label:'0',
             url:'/square'
+        },{
+            lName:'区块链',
+            label:'1',
+            url:'/block'
         }]
         let activeIndex = this.state.activeIndex;
+        let his = window.location.hash;
         return(
             <div className='header-nav'>
             {/* 未登录状态*/}
@@ -48,8 +53,10 @@ class HeaderNav extends Component{
                     <ul className='nav-list' >
                         {
                             navList && navList.map(function(res,index){
+                                var reg = new RegExp(res.url);
                                 return(
-                                        <li key={index} className={index==activeIndex?'navActive':''}
+                                      <React.Fragment key={index}>
+                                            {res.label=='1'?(<li className={reg.test(his)?"navActive":''}><a href={`#${res.url}`} target='_blank'>{res.lName}</a></li>):(<li  className={reg.test(his)?'navActive':''}
                                             onClick={()=>{
                                                 this.setState({
                                                     activeIndex:index
@@ -58,9 +65,9 @@ class HeaderNav extends Component{
                                                 //console.log(index)
                                                 tool.setLocalData({keyName:'index',keyVal:index+''},0)
                                             }}
-                                        >
-                                            {res.label=='1'?(<a href={`#${res.url}`} target='_blank'>{res.lName}</a>):(<Link to={`${res.url}`}>{res.lName}</Link>)}
-                                        </li>
+                                        ><Link to={`${res.url}`}>{res.lName}</Link> </li>)}
+                                        
+                                      </React.Fragment>
                                     )
                             }.bind(this))
                         }                

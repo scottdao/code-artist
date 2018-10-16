@@ -16,7 +16,7 @@ class Register extends Component{
         }
     }
     componentDidMount(){
-    	document.title='注册'
+    	document.title='注册-codeArtist'
     }
      componentWillUnmount(){
         document.title = '';

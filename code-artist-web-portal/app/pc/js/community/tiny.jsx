@@ -5,10 +5,10 @@ class Tiny extends Component{
         super()
     }
     componentDidMount(){
-    	
+    	 document.title = '微吧-codeArtist';
     }
      componentWillUnmount(){
-        
+         document.title = '';
     }
     render(){
         return(

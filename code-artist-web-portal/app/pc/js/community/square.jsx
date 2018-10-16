@@ -5,10 +5,10 @@ class Square extends Component{
         super()
     }
     componentDidMount(){
-    	
+    	 document.title = '广场-codeArtist';
     }
      componentWillUnmount(){
-        
+         document.title = '';
     }
     render(){
         return(

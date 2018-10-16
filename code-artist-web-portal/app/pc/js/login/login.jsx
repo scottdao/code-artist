@@ -3,18 +3,23 @@ import {hashHistory,Link} from 'react-router';
 import 'PcCss/communityLogin.scss';
 import $$ from 'jquery';
 
-import { Modal, Input,Button,Checkbox} from 'antd';
+import { Modal,Icon,message, Input,Button,Checkbox} from 'antd';
+//console.log(Modal)
 import userIcon from 'pcImage/login/u20.png';
 import pswdIcon from 'pcImage/login/u22.png';
+import modal from 'PcComponent/modal.jsx'
+import tool from 'Components/tool'
 class Login extends Component{
     constructor(props,context){
         super(props,context)
-        console.log(context);
+        //console.log(context);
         this.state={
+            pswdVal:'',
+            userName:''
         }
     }
     componentDidMount(){
-        document.title = '登录';
+        document.title = '登录-codeArtist';
         //console.log(document.body.clientHeight)
         
       
@@ -23,25 +28,55 @@ class Login extends Component{
         document.title = ''
     }
     pageIndex(){//登录跳转接口
-        // $$('.login-index').fadeOut(300,function(){
-        //     hashHistory.push('/community/pageIndex');
-        // });
-    	 Modal.success({
+       
+    	 /*Modal.success({
             title: '这是一条通知信息',
             content: '一些附加信息一些附加信息一些附加信息',
             onOk() {
                 //Http.log('成功',false);
                  hashHistory.push('/index');
             },
-        });
+        });*/
+     var userNameV =  tool.chekRegular({
+            name:'userNameVer',
+            tipName:'用户名',
+            tipWord:'用户名必须下划线，英文字母，数字，长度不少于6',
+            value:this.state.userName,
+            emptyFunc:function(data){
+                 message.warning(data);
+            },
+            regularFunc:function(data){
+                 message.warning(data);
+            }
+        })
+    var pswd =  userNameV && tool.chekRegular({
+            name:'pswdVer',
+            tipName:'密码',
+            tipWord:'密码必须下划线，英文字母，数字，长度8-20位',
+            value:this.state.pswdVal,
+            emptyFunc:function(data){
+                 message.warning(data);
+            },
+            regularFunc:function(data){
+                 message.warning(data);
+            }
+        })
+   
+        pswd && hashHistory.push('/index');
     }
     onChange(e){
         //Http.log(e,false);
     }
-    
+    emitEmpty(){
+        this.userNameInput.focus();
+        this.setState({
+            userName:''
+        })
+    }
     render(){
         const  imgUser = (<img src={userIcon}/>);
-        const imgPswd = (<img src={pswdIcon}/>)
+        const imgPswd = (<img src={pswdIcon}/>);
+        let {pswdVal,userName} = this.state;
         return(
             <div className='login-index' style={{height:document.body.clientHeight+'px'}}>
             	 
@@ -53,8 +88,24 @@ class Login extends Component{
                 </div>
                 <div className="login-index-sh">
                     <h2>欢迎来到码匠社区</h2>
-                    <Input  addonBefore={imgUser} placeholder="请输入帐号/手机/邮箱" />
-                    <Input  addonBefore={imgPswd} placeholder="请输入密码" />
+                    <Input  addonBefore={imgUser } onChange={(e)=>{
+                        this.setState({
+                            userName:e.target.value
+                        })
+
+                    }}   value={userName} placeholder="请输入帐号/手机/邮箱" suffix={userName?<Icon type="close-circle" onClick={this.emitEmpty.bind(this)} />:''}  
+                    ref={node => this.userNameInput = node}
+                    />
+                    <Input  addonBefore={imgPswd} onChange={(e)=>{
+                        this.pswdInput.focus();
+                        this.setState({
+                            pswdVal:e.target.value
+                        })
+                    }} value={pswdVal}  type='password' placeholder="请输入密码" suffix={pswdVal?<Icon type="close-circle" onClick={()=>{
+                        this.setState({
+                            pswdVal:''
+                        })
+                    }} />:''} ref={node => this.pswdInput = node}/>
                     <Button type='primary' size="large" onClick={this.pageIndex.bind(this)}>
                      登录
                    </Button>

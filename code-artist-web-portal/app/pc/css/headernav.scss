@@ -50,3 +50,35 @@ $fontFamily:'Monospaced Number,Chinese Quote,-apple-system,BlinkMacSystemFont,Se
 	}
 
 }
+
+/***脚部组件***/
+.footer{
+	padding: 30px 20px;
+	//margin-top: 30px;
+	.foot-artist{
+		width: 1000px;
+		height: auto;
+		margin: 0 auto;
+	}
+	.footer-word{
+		float: left;
+		width: 590px;
+	}
+	.footer-link{
+		float: left;
+		margin-left:40px;
+		//line-height: 30px;
+		margin-right: 40px;
+		text-align: center;
+		li{
+			    margin-top: 5px;
+		}
+	}
+	.footer-about{
+		float: left;
+		margin-left: 15px;
+		width:100px;
+		text-align: center;
+	}
+}
+
