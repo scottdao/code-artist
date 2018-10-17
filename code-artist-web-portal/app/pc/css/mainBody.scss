@@ -6,7 +6,12 @@
 /*
 *1.注册样式
 */
+$fontFamily:'Monospaced Number,Chinese Quote,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif';
+@mixin bg($url){
+  background:$url no-repeat;
+  background-size:100% 100%;
 
+}
 .resgist-main{
 	width: 1000px;
 	margin: 0 auto;
@@ -58,4 +63,118 @@
 			
 		}
 	}
+}
+/*
+*
+*朋友圈样式
+*
+*/
+.firend-total{
+	width: 1000px;
+	height: auto;
+	margin: 0 auto;
+	font-family: $fontFamily;
+	.friend-noLogin{
+		padding: 20px;
+		background-color: #fffbe1;
+		.isLogin-word{
+			font-size: 16px;
+			float: left;
+			line-height: 32px;
+		}
+		.isLogin-regist{
+			font-size: 14px;
+		    float: right;
+		    height: 32px;
+		    line-height: 32px;
+		    background-color: #0096e6;
+		    padding: 0 25px;
+		    color: #fff;
+		    text-align: center;
+		    border-radius: 2px;
+		    margin-right: 40px;
+		    cursor: pointer;
+		}
+		.isLogin-fastLogin{
+			font-size: 14px;
+			float: right;
+			margin-top: 4px;
+		}
+	}
+	.noLogin-bg{
+		height: 72px;
+		width: 1000px;
+		@include  bg(url('../image/art-1.png'));
+		margin-top: 20px;
+		margin-bottom: 40px;
+	}
+	.main-content{
+		width: 100%;
+		height: auto;
+		.left-main{
+			width: 700px;
+			margin-right: 20px;
+			float: left;
+			.main-share{
+				.diy-share-cont{
+					border-right: 1px solid #d1d2e0;
+					border-top: 1px solid #d1d2e0;
+					border-bottom:1px solid #d1d2e0;
+					background-color: #fff;
+					li{
+						float: left;
+						height: 158px;
+						width: 232px;
+						border: 1px solid #d1d2e0;
+						border-right: none;
+						border-top: none;
+					     border-bottom:none;
+						box-sizing:border-box;
+						padding: 10px 5px;
+						text-align: center;
+						&:hover{
+							    background: #f1f2f3;
+   								cursor: pointer;
+						}
+						i{
+							// @include bg(url('../image/index-ico.png'));
+							background-image: url('../image/index-ico.png');
+							background-repeat: no-repeat;
+						
+							width: 72px;
+							height: 72px;
+							display: inline-block;
+							vertical-align: middle;
+							margin-top: 15px;
+
+							&.i-sharing{
+								background-position: -173px 0px;
+							}
+							&.i-circle{
+								background-position: -173px -78px;
+							}
+							&.i-article{
+								background-position: -173px -165px;
+							}
+						}
+						span{
+							margin-left: 15px;
+    						font-size: 20px;
+						}
+						p{
+							    margin-top: 15px;
+						}
+					}
+				}
+			}
+			.main-car{
+				margin-top: 20px;
+			}
+		}
+		.right-main{
+			width: 280px;
+			float: left;
+		}
+	}
+
 }

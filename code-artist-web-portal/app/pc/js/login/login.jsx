@@ -62,7 +62,7 @@ class Login extends Component{
             }
         })
    
-        pswd && hashHistory.push('/index');
+        pswd && hashHistory.replace('/index');
     }
     onChange(e){
         //Http.log(e,false);
