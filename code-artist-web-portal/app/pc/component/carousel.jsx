@@ -1,43 +1,44 @@
 
 import React,{Component} from 'react';
 import {hashHistory,Link} from 'react-router';
-class Carousel extends Component{
+import { Carousel } from 'antd';
+class CarouselCom extends Component{
     constructor(props,context){
         super(props,context)
         this.state={
-         
+            Index:1
         }
     }
     componentDidMount(){
-    	
     }
      componentWillUnmount(){
        
     }
     render(){
-       let {carImg} = this.props;
+       let {imglist} = this.props;
        
+       let {Index} = this.state;
+       function onChange(a, b, c) {
+          //console.log(a);
+        }
         return(
             <React.Fragment>
-                <ul style = {{position:'relative'}}>
-	                <li style={{position :'absolute'}}>
-	                    <a href='javascript:;'>
-	                        <img style={{width:'700px'}} src={carImg} />
-	                    </a>
-	                </li>
-	                 <li style={{position :'absolute'}}>
-	                    <a href='javascript:;'>
-	                        <img style={{width:'700px'}} src={carImg} />
-	                    </a>
-	                </li>
-	                
-              </ul>   
+                <Carousel autoplay afterChange={onChange}>
+                {imglist && imglist.map(function(res,index){
+                    return(
+                            <div key={index}>
+                                <img src={res} />
+                            </div>
+                        )
+                })
+            }
+                </Carousel>
             </React.Fragment>
         )
     }
 }
 import PropTypes from 'prop-types';
-Carousel.contextTypes = {
+CarouselCom.contextTypes = {
     store:PropTypes.object
 }
-export default Carousel
+export default CarouselCom

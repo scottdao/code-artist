@@ -40,3 +40,32 @@
 		letter-spacing: 2px;
 	}
 }
+
+/*
+*carousel组件
+*/
+.ant-carousel .slick-slide {
+  text-align: center;
+  height: 160px;
+  line-height: 160px;
+  background: #364d79;
+  color: #fff;
+  overflow: hidden;
+}
+
+/*
+*
+*tabNav样式
+*
+*/
+.tab-nav{
+	background-color: #fff;
+	width: 100%;
+	padding: 10px 20px;
+	font-size: 15px;
+	li{
+		float: left;
+		margin: 0 5px;
+		cursor: pointer;
+	}
+}

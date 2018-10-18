@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {hashHistory,Link} from 'react-router';
 import carImg  from 'pcImage/art-2.png';
 import Carousel from 'PcComponent/carousel'
+import TabNav from 'PcComponent/tabNav'
 class Friend extends Component{
     constructor(){
         super()
@@ -14,6 +15,7 @@ class Friend extends Component{
           document.title=''
     }
     render(){
+        let imglist = [carImg,carImg,carImg]
         return(
             <div className='firend-total'>
                <div className='friend-noLogin clearFix'>
@@ -51,10 +53,15 @@ class Friend extends Component{
                             </ul>
                         </div>
                         <div className='main-car'>
-                            <Carousel carImg = {carImg} />
+                            <Carousel imglist = {imglist} />
                         </div>
-                        <div className='main-nav'></div>
-                        <div className='main-list'></div>
+                        <TabNav >
+                            
+                        </TabNav>
+                        {/*<div className='main-nav'>
+
+                        </div>
+                        <div className='main-list'></div>*/}
                     </div>
                     <div className='right-main'>我是</div>
                 </div>
