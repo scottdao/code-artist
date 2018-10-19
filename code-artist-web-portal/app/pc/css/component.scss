@@ -67,5 +67,51 @@
 		float: left;
 		margin: 0 5px;
 		cursor: pointer;
+		//overflow: hidden;
+		&.active,&:hover{
+			color: #0096e6;
+			position: relative;
+			transition:all 0.5s;
+			&:after{
+				    height: 1px;
+				    position: absolute;
+				    content: "";
+				    width: 100%;
+				    background-color: #0096e6;
+				    bottom: -35%;
+				    left: 0;
+				    //transition:all 0.5s;
+				    animation:activeAn 0.3s linear;
+				    margin: 0 auto;
+			}
+		}
+
+	}
+
+}
+.tabList{
+		min-height:100px;
+		width: 100%;
+		background-color: #fff; 
+		//margin-bottom: 20px;
+		margin-top: 10px;
+   		border-top: 1px solid transparent;
+	}
+
+@keyframes activeAn{
+	0%{
+		width: 0;
+	}
+	25%{
+		width:25%;
+	}
+	50%{
+		width: 50%;
+	}
+	75%{
+		width: 75%;
+	}
+	100%{
+		width:100%;
 	}
 }

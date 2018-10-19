@@ -178,3 +178,105 @@ $fontFamily:'Monospaced Number,Chinese Quote,-apple-system,BlinkMacSystemFont,Se
 	}
 
 }
+
+	.tab-nav-list{
+		min-height: 100px;
+		width: 94%;
+		padding: 0 3%;
+		border-bottom: 1px solid #f3f3f3;
+		margin: 0 auto;
+		position: relative;
+		&:last-child{
+			border-bottom: none;
+		}
+		dl{
+			dd,dt{
+				float: left;
+			}
+			.dd-con{
+				margin-left: 10px;
+				width: 78%;
+			}
+			.dd-con-detail{
+				margin-top: 5px;
+				//width: 78%;
+
+			}
+			.dd-img-list{
+				padding-top: 10px;
+
+				li{
+					float: left;
+					padding: 5px 3px 0;
+					img{
+						height: 100px;
+						width: 100px;
+					}
+				}
+			}
+			.dd-detail-end{
+				margin:15px 0;
+
+				a,em{
+					font-size: 12px;
+					color: #999;
+				}
+				.dd-end-left{
+					em{
+						margin-left: 15px;
+					}
+				}
+				.dd-detail-right{
+					position: absolute;
+					right: 0;
+					em,a{
+						padding:0 5px;
+					}
+				}
+			}
+		}
+	}
+	.right-sign{
+		width: 280px;
+		height: 70px;
+		cursor: pointer;
+		@include bg(url('../image/sign-in.png'));
+		.sign-total{
+			width: 100%;
+			padding-left: 26%;
+			font-size: 14px;
+			li{
+				float: left;
+			}
+			.sign-date{
+				margin-top: 10px;
+				p:last-child{
+					margin-top: 5px;
+				}
+			}
+			.sign-play{
+				width: 80px;
+				height: 35px;
+				color: #5d84dc;
+				font-size: 20px;
+				text-align: center;
+				line-height: 35px;
+				margin-top: 15px;
+				margin-left: 15px;
+			}
+			.sign-day{
+				margin-top: 8px;
+				 margin-left: 15px;
+   				 text-align: center;
+				p{
+					&:first-child{
+						font-size: 14px;
+					}
+					&:last-child{
+						font-size: 20px;
+						color: #5d84dc;
+					}
+				}
+			}
+		}
+	}
