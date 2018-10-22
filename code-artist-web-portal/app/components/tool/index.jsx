@@ -62,6 +62,10 @@ function Tool(){
     		pswdVer:function(val){//密码 8-20
     			if(/^[_a-z0-9]{8,20}$/.test(val))return true;
     			else return false;
+    		},
+    		phoneVer:function(val){//手机号 11位
+    			if(/^1[345678]\d{9}$/.test(val.replace(/\s+/g,''))) return true;
+    			else return false;
     		}
     	}
 
@@ -154,6 +158,7 @@ Tool.prototype.chekRegular = function(obj){
 	if(obj.value){
 		var flag = this._regularCheck()[obj.name](obj.value);
 		if(flag){
+			obj.regSuccess && obj.regSuccess(obj.tipName)
 			return true;
 		}else{
 			obj.regularFunc && obj.regularFunc(obj.tipWord);
@@ -168,9 +173,7 @@ Tool.prototype.chekRegular = function(obj){
 var tool = new Tool();
 /*var j = tool.bubbleSort([1,5,42.1,23,57],1)
 console.log(j)*/
-/*tool.get('tonglan-updates',{ckuid:'ab1f1bec84a53a38655843cc0358f661',terminalId:'11'},function(res){
-	console.log(res)
-});*/
+
 //console.log(tool)
 /*tool.post('good/goods-list',function(req){
 	console.log(req);

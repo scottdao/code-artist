@@ -41,9 +41,10 @@ class Input extends Component{
    
     }
     render(){
-        let {labelName,defaultTip,type,width,id,inputChange,deleteBtn,className} = this.props 
+        let {labelName,defaultTip,type,width,id,inputChange,deleteBtn,className,inputBlur,inputFocus,colorValTip} = this.props 
         const {isPlay} = this.state;
         id = id || ''
+
         return(
             <React.Fragment>
                 <div className='input'>
@@ -58,11 +59,13 @@ class Input extends Component{
                                     borderRadius:'4px',
                                     padding:'0 2px',
                                     fontSize:'10px'
-                                    }}  
-                            onBlur={()=>{
+                                    }}
+                           
+                            onBlur={(e)=>{
                                     this.setState({
                                        borderColor:'#dedede'
                                     })
+                                    inputBlur && inputBlur(e.target.value)
                             }}
                             onChange={(e)=>{
                                 e = e || event;
@@ -71,11 +74,12 @@ class Input extends Component{
 
                                 !inputChange && console.error('warning:'+id+`'s "inputChange" event is not defined!`);
                             }}
-                            onFocus={()=>{
+                            onFocus={(e)=>{
                                 this.setState({
                                     borderColor:'rgba(102, 176, 234, 0.824)',
                                     isPlay:'block'
                                 })
+                                inputFocus && inputFocus(e.target.value)
                             }}
                             id={id}
 
@@ -94,7 +98,7 @@ class Input extends Component{
                         onClick={()=>{
                             let $this = this;
                             this.refs[id].value = '';
-                            inputChange('')
+                            inputChange && inputChange('')
                             this.timer = setTimeout(()=>{
                                 $this.setState({
                                         isPlay:'none'
@@ -107,7 +111,7 @@ class Input extends Component{
                         </i>):""} 
                        
                     </div>
-                     <span style={{fontSize:'12px',color:'#999',marginLeft:'10px',display: 'inline-block',height: '36px',lineHeight:'36px',verticalAlign:'middle'}}>{defaultTip}</span>
+                     <span style={{fontSize:'12px',color:colorValTip?colorValTip:'#999',marginLeft:'10px',display: 'inline-block',height: '36px',lineHeight:'36px',verticalAlign:'middle'}}>{defaultTip}</span>
                 </div>
             </React.Fragment>
         )

@@ -6,7 +6,8 @@ var data = {
 
 var api = {
 			  //prod:'http://screen.kinlink.cn/api/',
-			  prod:'https://pcw-api.iqiyi.com/subscribe/subscription/',
+			 // prod:'https://pcw-api.iqiyi.com/subscribe/subscription/',
+			 prod:'http://127.0.0.1:8080',
 			  test:'',
 			  dev:'',
 			  douban:''

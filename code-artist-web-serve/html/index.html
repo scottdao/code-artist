@@ -10,13 +10,17 @@
 	<form action="/regist/checkVer" method="post" accept-charset="utf-8">
 		<span>注册账号（手机号）:</span>
 		<input type="text" name="userName"  />
-		<input type="password" name="pswd" />
+		<input type="text" name="pswd" />
 		<input type="submit" value="提交" />
 	</form>	
 	<form action="/login/checkVer" method="post" accept-charset="utf-8" style='margin-top: 20px;'>
 		<span>登录:</span>
 		<input type="text" name="userName"  />
-		<input type="password" name="pswd" />
+		<input type="text" name="pswd" />
+		<input type="submit" value="提交" />
+	</form>	
+	<form action="/graph/verifyCode" method="get" accept-charset="utf-8" style='margin-top: 20px;'>
+		<span>登录:</span>
 		<input type="submit" value="提交" />
 	</form>	
 </body>

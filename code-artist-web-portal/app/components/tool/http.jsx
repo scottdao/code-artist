@@ -67,8 +67,8 @@ Http.prototype.post = function(url,data,callBack,failer){
 	fetch(combine.url,{
         			 method:'post',
         			 body:qs.stringify(combine.data),
-                     mode:'cors',
-                     cache: "force-cache",
+                     // mode:'cors',
+                     // cache: "force-cache",
         			 headers:{
                         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
         			 }
@@ -90,12 +90,15 @@ Http.prototype.get = function(url,data,callBack,failer){
 	data = this.assign(data,this.commonData);
 	var isurl = this.combine(url,{}).url;
 	data = this.getData(data,'getData');
-	fetch(isurl+'?'+data,{
-        			 method:'get',
-                     mode:'cors',
-                     cache: "force-cache"
+	//console.log(data)
+	if(!data)isurl = isurl;
+	else isurl = isurl+'?'+data;
+	//console.log(isurl);
+	fetch(isurl,{
+        			 method:'get'
     }).then((res)=>res.json()).then((req)=>{
-		if(req.code == publicData.testCode){
+    	//console.log(req)
+		if(req.code == publicData.successCode){
 			callBack && callBack(req)
 		}else{
 			failer && failer(req)
