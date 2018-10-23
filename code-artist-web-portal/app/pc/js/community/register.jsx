@@ -24,7 +24,11 @@ class Register extends Component{
             messageTip:"",
             messageTipColor:'',
             userNameTip:'',
-            userNameTipColor:""
+            userNameTipColor:"",
+            repswdTip:'',
+            repswdTipColor:'',
+            pswdTip:'',
+            pswdTipColor:"",
         }
     }
     getGraph(){
@@ -85,13 +89,19 @@ class Register extends Component{
             graphCode:this.state.registData.graphCode
         })
     }
+    countProperty(obj){
+        for(var i in obj){
+            if(!obj[i])return false;
+        }
+        return true;
+    }
     userRegist(registData){
-        !phoneNumberVer(registData.phone,this) && return false;
-        !/^[0-9A-Za-z]{4}$/.test(registData.graphCode) && return false;
-        !/^\d{6}$/.test(registData.messageCode) && return false;
-        !/[\u4E00-\u9FA5]|[0-9A-Za-z_]{4,}/.test(registData.userName) && return false;
-        !/^[a-zA-Z0-9_.,@#$%^&*;:]{6,}$/.test(registData) && return false;
-        registData.pswd !== e && return false;
+       var f =  this.countProperty(registData);
+       if(f){
+            tool.post('/checkVer/regist',registData,function(res){
+                hashHistory.push('/')
+            })
+       }
     }
     render(){
         let {
@@ -109,9 +119,13 @@ class Register extends Component{
             userNameTip,
             userNameTipColor,
             pswdTip,
-            pswdTipColor
+            pswdTipColor,
+            repswdTip,
+            repswdTipColor
         } = this.state;
+        //let {hashHistory} = this.props;
          const $this = this
+        
         return(
             <React.Fragment>
                  <div className='resgist-main'>
@@ -164,8 +178,9 @@ class Register extends Component{
                                 <Button width='120px' fontSize={fontSize}  style={{fontSize:'10px',position :'absolute',top:'16%',left:'24.5%'}} 
                                  clickEvent = {(e)=>{ 
                                     //获取验证码；
-                                    if(tool._regularCheck().phoneVer(phone)){
-                                        tool.get('/message/verifyCode',{phone:phone},function(res){
+                                    //console.log(registData.phone)
+                                    if(tool._regularCheck().phoneVer(registData.phone)){
+                                        tool.get('/message/verifyCode',{phone:registData.phone},function(res){
                                             // $this.setState({
                                             //     messageCode:res.message.data
                                             // })
@@ -197,8 +212,8 @@ class Register extends Component{
                             <div  style={{padding:'10px 0'}}>
                                 <Input type='text' id='userName' inputChange={(e)=>{
                                     //console.log(e)
-                                    var flag = /[\u4E00-\u9FA5]|[0-9A-Za-z_]{4,}/.test(e)
-                                   registData.userName = e
+                                     var flag = /[\u4E00-\u9FA5]|[0-9A-Za-z_]{4,}/.test(e)
+                                      registData.userName = e
                                        // console.log(12)
                                         this.setState({
                                             userNameTip:flag?'用户名设置成功':'用户名不正确',
@@ -206,6 +221,16 @@ class Register extends Component{
                                             registData:registData
                                         })
                                     
+                                }} inputBlur={(e)=>{
+                                     var flag = /[\u4E00-\u9FA5]|[0-9A-Za-z_]{4,}/.test(e)
+                                      registData.userName = e
+                                       // console.log(12)
+                                        this.setState({
+                                            userNameTip:flag?'用户名设置成功':'用户名不正确',
+                                            userNameTipColor:flag?'green':"red",
+                                            registData:registData
+                                        })
+
                                 }} labelName='用户名' colorValTip={userNameTipColor} defaultTip={userNameTip?userNameTip:'用户名仅限中文、英文，数字，下划线，不得少于6位'}/>
                             </div> 
                             <div style={{padding:'10px 0'}}>
@@ -218,24 +243,41 @@ class Register extends Component{
                                         pswdTipColor:pswdFlag?'green':'red',
                                         registData:registData
                                     })
-                                }} labelName='设置密码' defaultTip='字母、数字和符号，最短6位字符，区分大小写'/>
+                                }} inputBlur={(e)=>{
+                                     registData.pswd = e
+                                    var pswdFlag = /^[a-zA-Z0-9_.,@#$%^&*;:]{6,}$/.test(e);
+                                    this.setState({
+                                        pswdTip:pswdFlag?'密码设置正确':'设置不正确',
+                                        pswdTipColor:pswdFlag?'green':'red',
+                                        registData:registData
+                                    })
+
+                                }} labelName='设置密码' colorValTip={pswdTipColor} defaultTip={pswdTip?pswdTip:'字母、数字和符号，最短6位字符，区分大小写'}/>
                             </div>
                             <div style={{padding:'10px 0'}}>
                                 <Input type='password' id='repswd' inputChange={(e)=>{
                                    registData.repswd = e
                                     this.setState({
-                                        pswdTip:registData.pswd == e?'密码通过':'不一致',
-                                        pswdTipColor:registData.pswd == e?'green':'red',
+                                        repswdTip:registData.pswd&&registData.pswd == e?'密码通过':'不一致',
+                                        repswdTipColor:registData.pswd&&registData.pswd == e?'green':'red',
                                         registData:registData
                                     })
-                                }} labelName='确认密码' defaultTip='密码两次输入必须一致'/>
+                                }}  inputBlur={(e)=>{
+                                    registData.repswd = e
+                                    this.setState({
+                                        repswdTip:registData.pswd&&registData.pswd == e?'密码通过':'不一致',
+                                        repswdTipColor:registData.pswd&&registData.pswd == e?'green':'red',
+                                        registData:registData
+                                    })
+
+                                }} labelName='确认密码' colorValTip={repswdTipColor} defaultTip={repswdTip?repswdTip:'密码两次输入必须一致'}/>
                             </div>
                               <Button width='160px' style={{
                                 marginTop:"20px",
                                 marginLeft:'0px'
                               }}  disabled={false} clickEvent = {(e)=>{
-                                    
-                                    console.log(registData)
+                                    this.userRegist && this.userRegist(registData)
+                                    //console.log(registData)
                               }}>下一步</Button>
                       
                     </div>

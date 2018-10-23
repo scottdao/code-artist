@@ -37,11 +37,12 @@ class Login extends Component{
                  hashHistory.push('/index');
             },
         });*/
+        let {userName,pswdVal} = this.state
      var userNameV =  tool.chekRegular({
             name:'userNameVer',
             tipName:'用户名',
             tipWord:'用户名必须下划线，英文字母，数字，长度不少于6',
-            value:this.state.userName,
+            value:userName,
             emptyFunc:function(data){
                  message.warning(data);
             },
@@ -52,8 +53,8 @@ class Login extends Component{
     var pswd =  userNameV && tool.chekRegular({
             name:'pswdVer',
             tipName:'密码',
-            tipWord:'密码必须下划线，英文字母，数字，长度8-20位',
-            value:this.state.pswdVal,
+            tipWord:'密码必须下划线，英文字母，数字，长度6位以上',
+            value:pswdVal,
             emptyFunc:function(data){
                  message.warning(data);
             },
@@ -62,7 +63,16 @@ class Login extends Component{
             }
         })
    
-        pswd && hashHistory.replace('/index');
+        if(pswd){
+             tool.post('/checkVer/login',{
+                userName:userName,
+                pswd:pswdVal
+             },function(res){
+                //console.log(res);
+                hashHistory.replace('/index');
+             })
+            
+        }
     }
     onChange(e){
         //Http.log(e,false);

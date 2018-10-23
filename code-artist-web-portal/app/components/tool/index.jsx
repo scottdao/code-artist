@@ -60,10 +60,11 @@ function Tool(){
     			else return false;
     		},
     		pswdVer:function(val){//密码 8-20
-    			if(/^[_a-z0-9]{8,20}$/.test(val))return true;
+    			if(/^[a-zA-Z0-9_.,@#$%^&*;:]{6,}$/.test(val))return true;
     			else return false;
     		},
     		phoneVer:function(val){//手机号 11位
+    			val = val || '';
     			if(/^1[345678]\d{9}$/.test(val.replace(/\s+/g,''))) return true;
     			else return false;
     		}

@@ -67,8 +67,6 @@ Http.prototype.post = function(url,data,callBack,failer){
 	fetch(combine.url,{
         			 method:'post',
         			 body:qs.stringify(combine.data),
-                     // mode:'cors',
-                     // cache: "force-cache",
         			 headers:{
                         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
         			 }
