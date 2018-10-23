@@ -12,12 +12,30 @@ var dirname  = ''
 operation.fileSys = function(file){
 	dirname = file;
 }
-function post_data(req,res){
+function post_data(req,res,method){
 	req.on('data',function(chunck){
-						//console.log(chunck.toString());
+						// console.log(chunck.toString());
 						var d = querystring.parse(chunck.toString());
 						console.log(d)
-						domEle(200,res,JSON.stringify(d))
+						var mes = '';
+						switch(method){
+							case 'regist':
+							mes = '注册成功'
+							break;
+							case 'login':
+							mes = '登录成功';
+							break;
+							case 'phoneNumber':
+							mes = '手机号验证成功';
+							break;
+							case 'reVerPswd':
+							mes = '密码设置成功';
+							break;
+							default:
+							break;
+						}
+						
+						domEle(200,res,JSON.stringify({code:200,message:mes,error:null}))
 	})
 }
 function get_data(req,res,urlStr,sdata){
@@ -29,18 +47,25 @@ server.on('request',function(req,res){
 
 	if(req.url !=='/favicon.ico'){
 		var urlStr = url.parse(req.url);
-		//console.log(urlStr);
+		console.log(urlStr);
 		switch (urlStr.pathname) {
 			case '/':
 				var fileH = fs.readFileSync(dirname+'/html/index.html','utf8');
 				domEle(200,res,fileH)
 			break;
-			case '/regist/checkVer'://注册，post请求；
+			case '/checkVer/regist'://注册，post请求；
 			//console.log(urlStr.pathname)
-				post_data(req,res);
+				post_data(req,res,'regist');
 			break;
-			case '/login/checkVer'://登录，post请求；
-				post_data(req,res);
+			case '/checkVer/login'://登录，post请求；
+				post_data(req,res,'login');
+			break;
+			case '/checkVer/phoneNumber'://验证手机号，post请求；
+				post_data(req,res,'phoneNumber');
+
+			break;
+			case'/user/reVerPswd/'://设置密码，post请求
+				post_data(req,res,'reVerPswd');
 			break;
 			case '/graph/verifyCode'://获取图形验证码，get请求；
 				var c = svgCaptcha.create();
@@ -72,7 +97,7 @@ function domEle(code,res,content){
 	res.end(content);
 
 }
-server.listen(8080,'127.0.0.1',function(){
+server.listen(3000,'192.168.1.67',function(){
 	console.log('服务开启啦');
 })
 
