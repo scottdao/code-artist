@@ -69,12 +69,12 @@ class ForgetPawd extends Component{
       })
     }
     setNewPswd(forgetPswdData){
-        tool.post('/user/reVerPswd',{
+        tool.post('/user/pswd',{
           phone:forgetPswdData.phone,
           pswd:forgetPswdData.pswd,
           repswd:forgetPswdData.repswd
         },function(res){
-          console.log(rse)
+          console.log(res)
           hashHistory.push('/')
         })
     }
