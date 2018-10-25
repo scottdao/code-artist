@@ -6,7 +6,34 @@ class Bttom extends Component{
         super()
     }
     componentDidMount(){
-    	
+    	 var map = new AMap.Map('container',{
+                resizeEnable: true,
+                zoom: 10,  //设置地图显示的缩放级别
+                center: [116.318138, 40.064308],//设置地图中心点坐标
+                //layers: [new AMap.TileLayer.Satellite()],  //设置图层,可设置成包含一个或多个图层的数组
+                //mapStyle: 'amap://styles/whitesmoke',  //设置地图的显示样式
+                viewMode: '2D',  //设置地图模式
+                lang:'zh_cn',  //设置地图语言类型
+         });
+         // 创建点标记
+        var m1 = new AMap.Marker({
+          position: [116.318138, 40.064308],
+          icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_r.png"
+        });
+        map.add(m1);
+        // 同时引入工具条插件，比例尺插件和鹰眼插件
+        AMap.plugin([
+            'AMap.ToolBar',
+            'AMap.Scale',
+            'AMap.OverView',
+            'AMap.MapType',
+            'AMap.Geolocation',
+        ], function(){
+            // 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
+            map.addControl(new AMap.ToolBar());
+        });
+    
+         
     }
      componentWillUnmount(){
         
@@ -37,10 +64,17 @@ class Bttom extends Component{
 
                     </div>
                     <div className='footer-about' style={{position:'relative'}}>
-                        
-                        <p style={{marginBottom :'5px',fontSize:'20px'}}>关注我们</p>
-                        <a href='javascript:;' style={{fontSize:'12px',width:'78px',height:'28px',border:'1px solid #d1d2e0',padding:'2px 5px',borderRadius:"3px"}}>加关注</a>
-                         <img src={QR} style = {{width:'90px',height:"90px",position:'absolute',top:'0',right:'-90px',border:"1px solid #333",padding:'5px'}}/>
+                        {
+                        // 
+                        // <a href='javascript:;' style={{fontSize:'12px',width:'78px',height:'28px',border:'1px solid #d1d2e0',padding:'2px 5px',borderRadius:"3px"}}>加关注</a>
+                        //  <img src={QR} style = {{width:'90px',height:"90px",position:'absolute',top:'0',right:'-90px',border:"1px solid #333",padding:'5px'}}/>
+                        }
+
+                        <div id="container">
+
+                        </div> 
+                           
+                        <p style={{fontSize:'10px',textAlign:"left",marginTop:"7%",width:"250px"}}>北京市昌平区回龙观镇蓝天嘉园52051</p>
                     </div>
                </div>
             </div>
