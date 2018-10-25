@@ -32,8 +32,7 @@ class Bttom extends Component{
             // 在图面添加工具条控件，工具条控件集成了缩放、平移、定位等功能按钮在内的组合控件
             map.addControl(new AMap.ToolBar());
         });
-    
-         
+                     
     }
      componentWillUnmount(){
         
