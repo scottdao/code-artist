@@ -10,7 +10,7 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 const webpackServer = {
 	protocol:'http://',
 	//host:'localhost',
-	host:'192.168.1.39',
+	host:'192.168.1.67',
 	port:'8080'
 }
 module.exports = merge(common, {
