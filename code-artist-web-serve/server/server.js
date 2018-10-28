@@ -14,7 +14,7 @@ operation.fileSys = function(file){
 }
 function post_data(req,res,method){
 	req.on('data',function(chunck){
-						// console.log(chunck.toString());
+						//console.log(chunck.toString());
 						var d = querystring.parse(chunck.toString());
 						console.log(d)
 						var mes = '';
@@ -47,7 +47,8 @@ server.on('request',function(req,res){
 
 	if(req.url !=='/favicon.ico'){
 		var urlStr = url.parse(req.url);
-		console.log(urlStr);
+		//console.log(urlStr.pathname );
+		//console.log(urlStr.pathname==='/user/pswd')
 		switch (urlStr.pathname) {
 			case '/':
 				var fileH = fs.readFileSync(dirname+'/html/index.html','utf8');
@@ -64,7 +65,8 @@ server.on('request',function(req,res){
 				post_data(req,res,'phoneNumber');
 
 			break;
-			case'/user/reVerPswd/'://设置密码，post请求
+			case '/user/pswd'://设置密码，post请求
+			//console.log(1111)
 				post_data(req,res,'reVerPswd');
 			break;
 			case '/graph/verifyCode'://获取图形验证码，get请求；
