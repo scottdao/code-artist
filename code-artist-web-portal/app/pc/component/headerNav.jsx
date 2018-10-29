@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {hashHistory,Link} from 'react-router';
-import 'PcCss/headerNav.scss';
+import 'PcCss/headernav.scss';
 import Logo from 'pcImage/logo.png'
 import tool from 'Components/tool'
 class HeaderNav extends Component{

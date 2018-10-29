@@ -12,7 +12,7 @@ import Information from 'PcJs/community/information'
 import Square from 'PcJs/community/square'
 
 import Register from 'PcJs/community/register'
-import ForgetPswd from 'PcJs/community/ForgetPswd'
+import ForgetPswd from 'PcJs/community/forgetPswd'
 import {Provider,connect} from 'react-redux';
 import configureStore  from 'Components/redux/store';
 import PropTypes from 'prop-types';
