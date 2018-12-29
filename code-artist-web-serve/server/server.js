@@ -1,4 +1,6 @@
 var http = require('http');
+var httpProxy = require('http-proxy');
+//console.log(httpProxy);
 var url = require('url');
 var fs = require('fs');
 var querystring = require('querystring');
@@ -7,11 +9,25 @@ var server = http.createServer();
 server.on('error',function(err){
 	console.log(err);
 })
+let proxy = httpProxy.createProxyServer({
+    target: 'http://127.0.0.1:3000',
+    secure: false,
+
+})
+
+console.log(httpProxy)
 var operation = {};
 var dirname  = ''
 operation.fileSys = function(file){
 	dirname = file;
 }
+// proxy.on('error', function (err, request, response) {
+//     res.writeHead(500, {
+//         'Content-Type': 'text/plain'
+//     })
+//     console.log(err)
+//     res.end('Something went wrong.')
+// })
 function post_data(req,res,method){
 	req.on('data',function(chunck){
 						//console.log(chunck.toString());
@@ -49,6 +65,11 @@ server.on('request',function(req,res){
 		var urlStr = url.parse(req.url);
 		//console.log(urlStr.pathname );
 		//console.log(urlStr.pathname==='/user/pswd')
+		//console.log(urlStr);
+		if(/\/api\/.*$/.test(urlStr.pathname)){
+			  proxy.web(req, res);
+        	  return;
+		}
 		switch (urlStr.pathname) {
 			case '/':
 				var fileH = fs.readFileSync(dirname+'/html/index.html','utf8');
@@ -89,8 +110,8 @@ server.on('request',function(req,res){
 
 function domEle(code,res,content){
 	res.writeHead(code,{//plain:纯文本；html:解析
-			'Content-Type':'text/html;charset=utf-8',
-			 'Access-Control-Allow-Origin': '*',
+			  'Content-Type':'text/html;charset=utf-8',
+			  'Access-Control-Allow-Origin': 'http://localhost:8080',
 		      "Access-Control-Allow-Credentials":"true",
 		      'Access-Control-Allow-Headers':'X-Requested-With',
 		      "Access-Control-Allow-Methods":"PUT,POST,GET,DELETE,OPTIONS"
@@ -99,8 +120,8 @@ function domEle(code,res,content){
 	res.end(content);
 
 }
-server.listen(3000,'192.168.1.67',function(){
-	console.log('服务开启啦');
-})
+server.listen(3000,'127.0.0.1',function(){
+	console.log('....')
+});
 
 module.exports=operation
