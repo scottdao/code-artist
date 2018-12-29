@@ -67,17 +67,27 @@ Http.prototype.post = function(url,data,callBack,failer){
 	fetch(combine.url,{
         			 method:'post',
         			 body:qs.stringify(combine.data),
+        			 mode:'cors',
         			 headers:{
                         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
         			 }
-       }).then((res)=>res.json()).then((req)=>{
+       }).then((res) => {
+       	//console.log(res);
+       	if(res.status==200){
+       		return res.json();
+       	}else{
+       		console.log(res);
+       		return {};
+       	}
+       	 
+       }).then((req) => {
         		//console.log(req)
         		if(req.code==publicData.successCode){
         			callBack && callBack(req)
         		}else{
         			failer && failer(req)
         		}
-        	}).catch((err)=>{
+        	}).catch((err) => {
         		console.log(err)
 
         	})
@@ -94,14 +104,14 @@ Http.prototype.get = function(url,data,callBack,failer){
 	//console.log(isurl);
 	fetch(isurl,{
         			 method:'get'
-    }).then((res)=>res.json()).then((req)=>{
+    }).then((res) =>res.json()).then((req) =>{
     	//console.log(req)
 		if(req.code == publicData.successCode){
 			callBack && callBack(req)
 		}else{
 			failer && failer(req)
 		}
-   	}).catch((err)=>{
+   	}).catch((err) =>{
     	console.log(err)
     })
 }	

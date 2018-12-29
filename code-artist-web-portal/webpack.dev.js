@@ -9,8 +9,8 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 
 const webpackServer = {
 	protocol:'http://',
-	//host:'localhost',
-	host:'192.168.0.111',
+	host:'localhost',
+	//host:'192.168.0.111',
 	port:'8080'
 }
 module.exports = merge(common, {
@@ -48,7 +48,10 @@ module.exports = merge(common, {
 },
 plugins:[
 		new openBrowser({
-			url:webpackServer.protocol+webpackServer.host+':'+webpackServer.port
+			url:webpackServer.protocol+webpackServer.host+':'+webpackServer.port,
+			browser: 'Google Chrome',
+		    delay: 0,
+		    ignoreErrors: 'true'
 		}),
 		new webpack.HotModuleReplacementPlugin(),
 		new webpack.NamedModulesPlugin()
