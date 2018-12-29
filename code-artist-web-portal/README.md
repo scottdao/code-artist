@@ -22,22 +22,24 @@
 
         通过@extend调用的类选择器的样式，只要其他这个类有关类的样式，都会被继承；
         实例，相关类：
-        ```
-        .error.intrusion {
-          background-image: url("/image/hacked.png");
-        }
-        .seriousError {
-          @extend .error;
-          border-width: 3px;
-        }
-        编译为：
-        .error.intrusion, .seriousError.intrusion {
-               background-image: url("/image/hacked.png");
-           }
-           .seriousError{
-                border-width: 3px;
-           }
-           ```
+        
+  ```
+.error.intrusion {
+  background-image: url("/image/hacked.png");
+}
+.seriousError {
+  @extend .error;
+  border-width: 3px;
+}
+编译为：
+.error.intrusion, .seriousError.intrusion {
+       background-image: url("/image/hacked.png");
+   }
+   .seriousError{
+        border-width: 3px;
+   }
+```
+
 ## （3）@import 的用法；
 
 
@@ -47,34 +49,33 @@
                         @import url(./communityLogin);
         可以同时导入多（两个或两个以上）个文件：@import 'tab','job';
 ## （4）#的用法；
+调用变量，简化写法；实例：见app/css/communityLogin.scss第4行；
 
-
-                调用变量，简化写法；实例：见app/css/communityLogin.scss第4行；
-                ```
-                $F:font;
-                .fontAcess{
-                    #{$F}-family: $fontFamily;
-                    #{$F}-weight: bold;
-                    #{$F}-style: normal;
-                    #{$F}-size: 18px;
-                    color: #333333;
-                    text-align: center;
-                    line-height: normal;
-                }
-                ```
+```
+$F:font;
+.fontAcess{
+#{$F}-family: $fontFamily;
+#{$F}-weight: bold;
+#{$F}-style: normal;
+#{$F}-size: 18px;
+color: #333333;
+text-align: center;
+line-height: normal;
+}
+```
 ## （5）@mixin和@include的用法
-
     针对复合样式属性进行采用border,background，font进行采用；以便代码更加方便复用；
     实例：见app/css/communityLogin.scss第15和32行；
-    ```
-    @mixin d-border($color) {//混合指令
-      border: {
-        color: $color;
-        width: 1px;
-        style: solid;
-      }
-    }
-    ```
+    
+```
+@mixin d-border($color) {//混合指令
+border: {
+color: $color;
+width: 1px;
+style: solid;
+}
+}
+```
 ----------------------------------------------
 
 #  相关技术：
