@@ -106,8 +106,6 @@ module.exports={
 			$$:"jquery",
 			jquery:"jquery",
 			"window.jquery":"jquery",
-			 //root:__dirname
-			
 		}),
 		//html模板插件；
 		new htmlWebpackPlugin({

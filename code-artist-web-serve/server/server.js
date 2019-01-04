@@ -6,28 +6,13 @@ var fs = require('fs');
 var querystring = require('querystring');
 var svgCaptcha = require('svg-captcha');
 var server = http.createServer();
-// server.on('error',function(err){
-// 	console.log(err);
-// })
-// let proxy = httpProxy.createProxyServer({
-//     target: 'http://127.0.0.1:3000',
-//     secure: false,
 
-// })
-
-// console.log(httpProxy)
+//console.log(cookieParase);
 var operation = {};
 var dirname  = ''
 operation.fileSys = function(file){
 	dirname = file;
 }
-// proxy.on('error', function (err, request, response) {
-//     res.writeHead(500, {
-//         'Content-Type': 'text/plain'
-//     })
-//     console.log(err)
-//     res.end('Something went wrong.')
-// })
 function post_data(req,res,method){
 	req.on('data',function(chunck){
 						//console.log(chunck.toString());
@@ -62,6 +47,7 @@ function get_data(req,res,urlStr,sdata){
 server.on('request',function(req,res){
 
 	if(req.url !=='/favicon.ico'){
+		
 		var urlStr = url.parse(req.url);
 		//console.log(urlStr.pathname );
 		//console.log(urlStr.pathname==='/user/pswd')
@@ -81,6 +67,24 @@ server.on('request',function(req,res){
 			break;
 			case '/checkVer/login'://登录，post请求；
 				post_data(req,res,'login');
+				// var cookie = req.headers.cookie
+				// console.log(cookie);
+				
+				// req.on('data',function(chunck){
+				// 	var d = querystring.parse(chunck.toString());
+				// 		// console.log(d)
+				// 		res.writeHead(200,{
+				// 			'Content-Type':'text/html;charset=utf-8',
+				// 			'Access-Control-Allow-Origin': 'http://localhost:8080',
+				// 		      "Access-Control-Allow-Credentials":"true",
+				// 		      'Access-Control-Allow-Headers':'X-Requested-With',
+				// 		      "Access-Control-Allow-Methods":"PUT,POST,GET,DELETE,OPTIONS",
+				// 			  'Set-Cookie':'access_token=123489'
+				// 		});
+				// 		res.end();
+				// })
+				//res.write('Set-Cookie:user=daoyun')
+				
 			break;
 			case '/checkVer/phoneNumber'://验证手机号，post请求；
 				post_data(req,res,'phoneNumber');
@@ -120,9 +124,9 @@ function domEle(code,res,content){
 			  'Access-Control-Allow-Origin': envURLCOR.dev,
 		      "Access-Control-Allow-Credentials":"true",
 		      'Access-Control-Allow-Headers':'X-Requested-With',
-		      "Access-Control-Allow-Methods":"PUT,POST,GET,DELETE,OPTIONS"
+		      "Access-Control-Allow-Methods":"PUT,POST,GET,DELETE,OPTIONS",
+			
 		})
-
 	res.end(content);
 
 }

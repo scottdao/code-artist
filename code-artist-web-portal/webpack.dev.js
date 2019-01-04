@@ -20,20 +20,6 @@ module.exports = merge(common, {
 		host: webpackServer.host,
 		port: webpackServer.port,
 		historyApiFallback: true, //不跳转
-	    inline: true,
-	    hot: true,
-		lazy: false,
-		compress: true,
-		quiet:false,
-		noInfo:false,
-		overlay: {
-			warnings: true,
-			errors: true
-		},
-		watchOptions: {
-			aggregateTimeout: 300,
-			poll: 1000
-		},
 		proxy: {//通过代理解决本地跨域
         '/api': {
             target: 'http://api.douban.com',

@@ -60,6 +60,7 @@ function Http(req,URL){
 }
 Http.prototype.post = function(url,data,callBack,failer){
 	data = data ||{};
+	//console.log(data);
 	url = url || '';
 	data = this.assign(data,this.commonData);
 	var combine = this.combine(url,data)
@@ -68,25 +69,21 @@ Http.prototype.post = function(url,data,callBack,failer){
         			 method:'post',
         			 body:qs.stringify(combine.data),
         			 mode:'cors',
+       				 credentials: "include",
         			 headers:{
                         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
         			 }
        }).then((res) => {
-       	//console.log(res);
-       	if(res.status==200){
-       		return res.json();
-       	}else{
-       		console.log(res);
-       		return {};
-       	}
-       	 
+       		return res.text();
        }).then((req) => {
-        		//console.log(req)
-        		if(req.code==publicData.successCode){
-        			callBack && callBack(req)
-        		}else{
-        			failer && failer(req)
-        		}
+        		console.log(req)
+        		// if(req.code==publicData.successCode){
+        		// 	callBack && callBack(req)
+        		// }else{
+        		// 	failer && failer(req)
+        		// }
+        		if(/^\{.+\}$/.test(req))req = JSON.parse(req);
+        		console.log(req);
         	}).catch((err) => {
         		console.log(err)
 

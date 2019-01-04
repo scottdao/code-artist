@@ -103,7 +103,7 @@ class ForgetPawd extends Component{
                     <div className='form-content'>
                       
                             <div style={{padding:'10px 0'}}>
-                                <Input type='phone' id='phone' inputChange={(e)=>{
+                                <Input type='phone' id='phone' inputChange={(e) => {
                                     //console.log(e)
                                    var pf =  /^1[345678]\d{9}$/.test(e.replace(/\s+/g,''))
                                     
@@ -115,7 +115,7 @@ class ForgetPawd extends Component{
                                         //isDisabled:pf?false:true
                                       })
                                    
-                                }} inputBlur={(e)=>{
+                                }} inputBlur={(e) => {
                                    var pf =  /^1[345678]\d{9}$/.test(e.replace(/\s+/g,''))
                                     
                                       forgetPswdData.phone = e
@@ -130,7 +130,7 @@ class ForgetPawd extends Component{
                                 />
                             </div>
                              <div style={{padding:'10px 0',position:"relative"}}>
-                                <Input type='text' id='imgCode' width='120px' inputChange={(e)=>{
+                                <Input type='text' id='imgCode' width='120px' inputChange={(e) => {
                                       forgetPswdData.graphVerCode = e
                                       this.setState({
                                         forgetPswdData:forgetPswdData,
@@ -139,7 +139,7 @@ class ForgetPawd extends Component{
                                         //isDisabled:e?false:true
                                       })
                                    
-                                }} inputBlur={(e)=>{
+                                }} inputBlur={(e) =>{
                                     forgetPswdData.graphVerCode = e
                                       this.setState({
                                         forgetPswdData:forgetPswdData,
@@ -149,13 +149,13 @@ class ForgetPawd extends Component{
                                       })
                                 }} labelName='图形验证码' />
                                 <Button width='120px' color='#333' backgroundColor='#fff'  style={{fontSize:'10px',position :'absolute',top:'-10%',left:'23.5%'}} 
-                                 clickEvent = {(e)=>{ 
+                                 clickEvent = {(e) =>{ 
                                    this.getGraph && this.getGraph()
                                   }}><span dangerouslySetInnerHTML={{__html:graphVerCode}} /></Button>
                                    <span style={{color:forgetPswdGraphCodeColor,position:'absolute',top:'36%',left:'40%'}}>{forgetPswdGraphCode}</span>
                             </div>
                             <div style={{padding:'10px 0',position:"relative"}}>
-                                <Input type='text' inputChange={(e)=>{
+                                <Input type='text' inputChange={(e) =>{
                                   forgetPswdData.messageCode = e;
                                   this.setState({
                                     forgetPswdData:forgetPswdData,
@@ -163,7 +163,7 @@ class ForgetPawd extends Component{
                                     forgetPswdMessageCode:e?'':'请输入短信验证码',
                                     isDisabled:e?false:true
                                   })
-                                }} inputBlur={(e)=>{
+                                }} inputBlur={(e) =>{
                                    forgetPswdData.messageCode = e;
                                   this.setState({
                                     forgetPswdData:forgetPswdData,
@@ -173,7 +173,7 @@ class ForgetPawd extends Component{
                                   })
                                 }} id='noteCode' width='120px' labelName='短信验证码' />
                                 <Button width='120px' fontSize={fontSize}  style={{fontSize:'10px',position :'absolute',top:'16%',left:'24.5%'}} 
-                                 clickEvent = {(e)=>{ 
+                                 clickEvent = {(e) =>{ 
                                   if(forgetPswdData.phone){
                                     if(forgetPswdData.graphVerCode){
                                       tool.get('/message/verifyCode',{phone:forgetPswdData.phone},function(res){
@@ -183,7 +183,7 @@ class ForgetPawd extends Component{
                                                   noteVer:60 +'s'
                                               })
                                               var t = 60;
-                                              $this.timer = setInterval(()=>{
+                                              $this.timer = setInterval(() =>{
                                                   t--;
                                                   t = t<10?('0'+t):t;
                                                   let st = t + 's'
